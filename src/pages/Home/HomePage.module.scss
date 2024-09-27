@@ -1,0 +1,304 @@
+
+.wrapper {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  min-height: 1000px;
+}
+
+.homepage-banner{
+  background-image: url('https://lms.skillup.online.usc.edu/Skillup-USC/pexels-fauxels-3183150_3071717089041.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 820px;
+
+  .marquee {
+    position: absolute;
+    top: 40%;
+    right: 45%;
+    left: 12%;
+    font-size: 4.5rem;
+    color: #ffffff;
+    line-height: 5.4rem;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+
+    span {
+      margin: 0 4px;
+      background-color: #b1d15d;
+    }
+  }
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  min-height: 100px;
+
+  .body {
+    text-align: center;
+    min-width: 800px;
+    h1 {
+      font-size: 4rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .body {
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .container-items {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    background-color: var(--white);
+    padding: 20px;
+
+    .items-img {
+      flex: 0 0 33.33%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .items-dsc {
+      flex: 0 0 66.67%;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+
+      .items-content {
+        margin-bottom: 20px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        p {
+          font-weight: bold;
+          margin: 0;
+        }
+
+        span {
+          display: block;
+          color: var(--dark-gray);
+        }
+      }
+
+    }
+  }
+}
+.roadmap-section {
+  text-align: center;
+  margin: 40px 0;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 4rem;
+  }
+
+  .roadmap-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 20px 0;
+
+    .roadmap-item {
+      position: relative;
+      text-align: center;
+      width: calc(100% / 6);
+      padding: 10px 20px;
+
+      .roadmap-icon {
+        font-size: 30px;
+        margin-bottom: 10px;
+        color: #6a82fb;
+      }
+
+      h4 {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .timeline-connector {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        width: 80px;
+        height: 2px;
+        background: #ddd;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.testimonials-section {
+  margin: 40px 0;
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 4rem;
+  }
+
+  .testimonial-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .testimonial-item {
+      background: #f9f9f9;
+      padding: 40px;
+      border-radius: 8px;
+      margin: 10px;
+      flex: 0 1 calc(33.33% - 20px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      p {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+
+      }
+
+      h5 {
+        margin-top: 10px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: -18px;
+        left: -10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #afb1bd, #fc5c7d);
+        z-index: 0;
+      }
+
+      z-index: 1;
+    }
+  }
+}
+
+.popular-courses-section {
+  margin: 40px 0;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 4rem;
+  }
+
+  .course-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .course-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      padding: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .course-image {
+        img {
+          width: 100%;
+          border-radius: 8px 8px 0 0;
+        }
+      }
+
+      .course-body {
+        padding: 10px;
+
+        h3 {
+          color: #333;
+          font-weight: bold;
+        }
+
+        p {
+          color: #555;
+          margin: 10px 0;
+        }
+
+        .course-info {
+          display: flex;
+          flex-direction: column;
+          color: #777;
+          font-size: 14px;
+
+          span {
+            margin: 5px 0;
+          }
+        }
+
+        .instructor-info {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+
+          .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}
