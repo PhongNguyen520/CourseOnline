@@ -6,6 +6,7 @@ import {ModalContext} from "./components/ModalProvider/ModalProvider";
 import Login from "./components/Modals/Login";
 import SignUp from "./components/Modals/SignUp";
 import Footer from "./layouts/Footer/Footer";
+import Register from "./pages/Register/Register";
 
 function App() {
     const {activeLogIn, activeSignUp} = useContext(ModalContext);
@@ -13,7 +14,8 @@ function App() {
         <div className="App">
             <div>
                 <Header></Header>
-                <HomePage></HomePage>
+                {/*<HomePage></HomePage>*/}
+                <Register></Register>
                 <Footer></Footer>
             </div>
             {activeLogIn && <Login></Login>}

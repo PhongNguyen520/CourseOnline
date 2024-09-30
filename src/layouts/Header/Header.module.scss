@@ -5,9 +5,10 @@
   bottom: 0;
   right: 0;
   z-index: 5;
-  height: 300px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
-  transition: background 0.3s ease, height 0.3s ease;
+  height: var(--default-layout-height-header);
+  //background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
+  //transition: background 0.3s ease, height 0.3s ease;
+  background: #363232;
 
   &.scrolled {
     height: var(--default-layout-height-header);

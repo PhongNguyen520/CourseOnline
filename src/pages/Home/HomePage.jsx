@@ -3,6 +3,7 @@ import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
 import {Col, Container, Row} from "react-bootstrap";
+import images from "../../assets/images";
 
 const cx = classNames.bind(styles);
 
@@ -166,7 +167,7 @@ function HomePage() {
 
     return (
         <div>
-            <section className={cx('homepage-banner')}>
+            <section className={cx('homepage-banner')} style={{ backgroundImage: `url(${images.panelhome})` }}>
                 <h1 className={cx('marquee')}>
                     Trust the Leading Network for
                     <span>
