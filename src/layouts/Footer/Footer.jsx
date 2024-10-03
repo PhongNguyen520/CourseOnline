@@ -1,7 +1,7 @@
-import classNames from 'classnames/bind';
-import { Fragment, useMemo } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { Fragment, useMemo } from 'react';
+
+import classNames from 'classnames/bind';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -18,100 +18,52 @@ function Footer() {
             {
                 title: 'ABOUT US',
                 lists: [
-                    {
-                        label: 'Who we are',
-                    },
-                    {
-                        label: 'How it works',
-                    },
-                    {
-                        label: 'Preply reviews',
-                    },
-                    {
-                        label: 'Work at Preply',
-                    },
-                    {
-                        label: 'Status',
-                    },
-                    {
-                        label: 'Preply Live',
-                    },
-                    {
-                        label: 'Preply Research and Studies',
-                    },
-                    {
-                        label: 'We stand with Ukraine',
-                    },
-                    {
-                        label: 'Media kit',
-                    },
+                    { label: 'Who we are' },
+                    { label: 'How it works' },
+                    { label: 'Blog' },
                 ],
             },
             {
                 title: 'FOR STUDENTS',
                 lists: [
-                    {
-                        label: 'Preply Blog',
-                    },
-                    {
-                        label: 'Questions and Answers',
-                    },
-                    {
-                        label: 'Student discount',
-                    },
-                    {
-                        label: 'Referral program',
-                    },
-                    {
-                        label: 'English level test',
-                    },
-                    {
-                        label: 'English Vocabulary test',
-                    },
-                    {
-                        label: 'Free English courses',
-                    },
-                    {
-                        label: 'Preply discounts',
-                    },
+                    { label: 'Browse Courses' },
+                    { label: 'Student Testimonials' },
+                    { label: 'Gift Cards' },
                 ],
             },
             {
-                title: 'FOR TUTORS',
+                title: 'FOR INSTRUCTORS',
                 lists: [
-                    { label: 'Become an online tutor' },
-                    { label: 'Teach English online' },
-                    { label: 'Teach French online' },
-                    { label: 'Teach Spanish online' },
-                    { label: 'Teach German online' },
-                    { label: 'See all online tutoring. jobs' },
+                    { label: 'Instructor Dashboard' },
+                    { label: 'Instructor Support' },
+                    { label: 'Payment Information' },
                 ],
             },
-            {
-                title: `LET'S KEEP IN TOUCH`,
-                lists: [
-                    {
-                        icon: FaceBookIcon,
-                        label: 'Facebook',
-                    },
-                    {
-                        icon: TelegramIcon,
-                        label: 'Telegram',
-                    },
-                    {
-                        icon: LineIcon,
-                        label: 'Line',
-                    },
-                    {
-                        icon: InstagramIcon,
-                        label: 'Instagram',
-                    },
-                ],
-            },
-            { title: 'CONTACTS', lists: [{ label: '1309 Beacon Street, Suite 300, Brookline, MA, 02446' }] },
+            // {
+            //     title: `FOLLOW US`,
+            //     lists: [
+            //         {
+            //             icon: FaceBookIcon,
+            //             label: 'Facebook',
+            //         },
+            //         {
+            //             icon: TelegramIcon,
+            //             label: 'Telegram',
+            //         },
+            //         {
+            //             icon: LineIcon,
+            //             label: 'Line',
+            //         },
+            //         {
+            //             icon: InstagramIcon,
+            //             label: 'Instagram',
+            //         },
+            //     ],
+            // },
+            { title: 'CONTACT US', lists: [{ label: '1234 Learning St, Education City, Country' }] },
             {
                 title: 'SUPPORT',
-                lists: [{ label: 'Need any help?' }],
+                lists: [{ label: 'Need Help? Contact Us' }],
             },
         ],
         [],
@@ -129,14 +81,13 @@ function Footer() {
                                     {itemChildren.lists.map((item, index) => {
                                         return (
                                             <Fragment key={index}>
-                                                {/*<Link to={item.title}>*/}
-                                                    {item.icon && (
-                                                        <item.icon
-                                                            className={cx('container__content-icon')}
-                                                        ></item.icon>
-                                                    )}
-                                                    <div className={cx('container__content-label')}>{item.label}</div>
-                                                {/*</Link>*/}
+                                                {item.icon && (
+
+                                                    <item.icon
+                                                        className={cx('container__content-icon')}
+                                                    ></item.icon>
+                                                )}
+                                                <div className={cx('container__content-label')}>{item.label}</div>
                                             </Fragment>
                                         );
                                     })}

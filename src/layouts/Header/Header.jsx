@@ -5,10 +5,11 @@ import NavDropdown from "../Navdropdown/Navdropdown";
 import {Col, Container, Row} from "react-bootstrap";
 import images from "../../assets/images";
 import {ModalContext} from "../../components/ModalProvider/ModalProvider";
-
+import { Link } from 'react-router-dom';
+import config from "../../config";
 const cx = classNames.bind(styles);
 
-function Header() {
+export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { setActiveLogIn, setActiveSignUp } = useContext(ModalContext);
 
@@ -32,7 +33,9 @@ function Header() {
             <Container className={cx('header-container')}>
                 <Row>
                     <Col lg='1' className={cx('logo')}>
-                        <img src={images.logo} alt="logo"/>
+                        <Link className={cx('container__logo-link')} to={config.routes.home}>
+                            <img src={images.logo} alt="logo"/>
+                        </Link>
                     </Col>
 
                     <Col lg="9">
@@ -54,4 +57,4 @@ function Header() {
     );
 }
 
-export default Header;
+

@@ -1,6 +1,7 @@
 const routes = {
     home: '/',
-    register: '/register',
+    registerInstructor: '/register/instructor',
+    registerStudent: '/register/student',
 }
 
 export default routes;

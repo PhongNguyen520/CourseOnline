@@ -14,13 +14,13 @@ function SignUp() {
             {
                 id: 1,
                 btn: 'Become a instructor',
-                link: 'signup/instructor',
+                link: 'register/instructor',
                 img: images.instructor
             },
             {
                 id: 2,
                 btn: 'Register as a student',
-                link: 'signup/student',
+                link: 'register/student',
                 img: images.student
             },
         ],

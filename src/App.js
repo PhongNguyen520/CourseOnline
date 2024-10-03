@@ -1,25 +1,35 @@
 import './App.css';
-import HomePage from "./pages/Home/HomePage";
 import Header from "./layouts/Header/Header";
-import {useContext} from 'react';
-import {ModalContext} from "./components/ModalProvider/ModalProvider";
+import { useContext } from 'react';
+import { ModalContext } from "./components/ModalProvider/ModalProvider";
 import Login from "./components/Modals/Login";
 import SignUp from "./components/Modals/SignUp";
 import Footer from "./layouts/Footer/Footer";
-import Register from "./pages/Register/Register";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { publicRoutes } from "./routes/routes";
 
 function App() {
-    const {activeLogIn, activeSignUp} = useContext(ModalContext);
+    const { activeLogIn, activeSignUp } = useContext(ModalContext);
     return (
         <div className="App">
-            <div>
-                <Header></Header>
-                {/*<HomePage></HomePage>*/}
-                <Register></Register>
-                <Footer></Footer>
-            </div>
-            {activeLogIn && <Login></Login>}
-            {activeSignUp && <SignUp></SignUp>}
+            <Router>
+                <Header />
+                <Routes>
+                    {publicRoutes.map((route, index) => {
+                        const Page = route.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={<Page />}
+                            />
+                        );
+                    })}
+                </Routes>
+                <Footer />
+            </Router>
+            {activeLogIn && <Login />}
+            {activeSignUp && <SignUp />}
         </div>
     );
 }

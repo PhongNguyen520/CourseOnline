@@ -1,48 +1,69 @@
 .wrapper {
-  width: 300px; /* Độ rộng cố định cho sidebar */
-  background-color: #f7f7f7;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho sidebar */
+  padding: 20px 1em;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
+  max-width: 250px;
 }
 
 .side_navigation {
   display: flex;
   flex-direction: column;
-}
+  margin-bottom: 20px;
 
-.sidebar-link {
-  margin: 10px 0; /* Khoảng cách giữa các liên kết */
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 4px; /* Bo góc */
-  background-color: #e0e0e0; /* Màu nền cho các liên kết */
-  transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
-}
+  /* Cập nhật cho Link */
+  .sidebar-button {
+    font-size: 1.4rem;
+    border: 1px solid #c4c1c1;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: white;
+    text-align: center; /* Căn giữa văn bản */
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer; /* Hiển thị con trỏ như tay khi hover */
 
-.sidebar-link.active {
-  background-color: #007bff; /* Màu nền cho liên kết đang hoạt động */
-  color: white;
-}
-
-.sidebar-link:hover {
-  background-color: #d1d1d1; /* Màu khi hover */
+    &:hover {
+      background-color: orange;
+      color: white;
+    }
+  }
 }
 
 .label {
-  margin-top: 20px;
-  font-weight: bold;
+  font-weight: 800;
+  font-size: 1.8rem;
+  padding-bottom: 1em;
 }
 
-.side_role {
+.side_role > li {
+  position: relative;
+  padding-bottom: 2em;
+  padding-left: 2.5em;
   list-style-type: none;
-  padding: 0; /* Bỏ padding mặc định */
+
+  span {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: var(--light-gray);
+    margin-top: 10px;
+  }
 }
 
-.side_role li {
-  margin-bottom: 15px; /* Khoảng cách giữa các mục */
+.side_role > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font: normal normal normal 1em / 1.8 wyzicons;
+  color: #60ad56;
 }

@@ -18,21 +18,23 @@ function Menu({ children, items, className, ...passProps }) {
     return (
         <Tippy
             {...passProps}
-            interactive
+            interactive={true}
             appendTo={() => document.body}
-            // visible={true}
             delay={[0, 0]}
             placement="bottom"
             content={(
                 <div className="box" tabIndex="-1">
                     <Popper>
-                        <div className={cx('container')}>{handleRender()}</div>
+                        <div className={cx('container')}>
+                            {handleRender()}
+                        </div>
                     </Popper>
                 </div>
             )}
         >
             {children}
         </Tippy>
+
     );
 }
 
