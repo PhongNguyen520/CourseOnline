@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import images from "../../assets/images";
 
 const cx = classNames.bind(styles);
@@ -225,7 +225,7 @@ function HomePage() {
                                     </div>
                                     <div className={cx('instructor-info')}>
                                         <img
-                                            src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xKK72H38mBcQ7kNvgGMsCmA&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Au6tCbSgZ1fU_GFWQuaO8wI&oh=00_AYAPzN9u_V7cHmobz-63xIvXVfO6XKGWgKLQPvTNniqFQw&oe=66FBA470'
+                                            src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=IQm2RukBjzcQ7kNvgHpob4S&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AFWilurBFZKVaT5cQYGP0Y-&oh=00_AYAeWhAfJqhaY2otANnmht78GDXElKIev1lhTNdpMcV2iQ&oe=67038D70'
                                             alt={course.instructor.name}
                                             className={cx('instructor-avatar')}/>
                                         <span>{course.instructor.name}</span>

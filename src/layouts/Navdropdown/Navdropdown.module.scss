@@ -13,12 +13,11 @@
   height: var(--default-layout-height-header);
   padding: 0 16px;
   font-size: 1.6rem;
-  font-weight: 800;
+  font-weight: 550;
   display: flex;
   align-items: center;
 
   span {
-    margin-left: -8px;
     color: var(--white);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .5), 0 0 10px rgba(0, 0, 0, .5);
   }

@@ -11,13 +11,13 @@ function Sidebar() {
         () => [
             {
                 id: 1,
-                btn: 'Apply to become a tutor',
-                link: 'tutor/step1',
+                btn: 'Become a instructor',
+                link: '/register/instructor',
             },
             {
                 id: 2,
                 btn: 'Register as a student',
-                link: 'student/step1',
+                link: '/register/student',
             },
         ],
         [],
@@ -28,15 +28,15 @@ function Sidebar() {
             <div className={cx('container')}>
                 <div className={cx('side_navigation')}>
                     {roles.map((role) => (
-                        <button
+                        <Link
                             key={role.id}
-                            // onClick={() => handleNavigation(role.link)}
+                            to={role.link}
                             className={cx('sidebar-button')}
                         >
                             {role.btn}
-                        </button>
+                        </Link>
                     ))}
-                    <button>Back to Home</button>
+                    <Link to="/" className={cx('sidebar-button')}>Back to Home</Link>
                 </div>
                 <p className={cx('label')}>Your username</p>
                 <ul className={cx('side_role')}>

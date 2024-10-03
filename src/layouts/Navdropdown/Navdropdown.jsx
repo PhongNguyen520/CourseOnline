@@ -9,39 +9,45 @@ function NavDropdown() {
     const navItems = useMemo(
         () => [
             {
-                title: 'Find a Tutor',
+                title: 'Find Courses',
                 items: [
-                    { label: 'Search for Tutors', link: '/findTutor' },
-                    { label: 'Request a Tutor', link: '/requestTutor' },
-                    { label: 'Online Tutoring', link: '/onlineTutoring' },
+                    { label: 'Search Courses', link: '/topCourses' },
+                    { label: 'Excellent Instructors', link: '/courses' },
                 ],
             },
-
+            {
+                title: 'The Quiz',
+                items: [
+                    { label: 'Practice Quizzes', link: '/quizzes/practice' },
+                    { label: 'Quiz Results', link: '/quizzes/results' },
+                ],
+            },
             {
                 title: 'How It Works',
-                items: [{ label: 'For Student', link: '/forStudent' }],
-            },
-
-            {
-                title: 'Resources',
-                items: [{ label: 'News', link: '/advertisement' }],
-            },
-
-            {
-                title: 'Become a Tutor',
                 items: [
-                    { label: 'Apply Now', link: '/registration/tutor/step1' },
-                    { label: 'How It Works For Tutors', link: '/howItWork' },
+                    { label: 'For Students', link: '/howItWorks/students' },
+                    { label: 'For Instructors', link: '/howItWorks/instructors' },
                 ],
             },
-
             {
-                title: 'About Us ',
-                items: [{ label: 'About Us', link: '/aboutUs' }],
+                title: 'Resources',
+                items: [
+                    { label: 'Blog', link: '/blog' },
+                    { label: 'FAQs', link: '/faqs' },
+                ],
+            },
+            {
+                title: 'About Us',
+                items: [
+                    { label: 'Our Story', link: '/aboutUs' },
+                    { label: 'Contact Us', link: '/contact' },
+                ],
             },
         ],
         [],
     );
+
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
