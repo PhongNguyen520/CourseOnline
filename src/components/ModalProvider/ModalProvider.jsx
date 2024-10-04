@@ -5,7 +5,7 @@ export const ModalContext = createContext(undefined);
 export function ModalProvider({ children }) {
     const [activeLogIn, setActiveLogIn] = useState(false);
     const [activeSignUp, setActiveSignUp] = useState(false);
-
+    const [auth, setAuth] = useState({});
 
     const handleActive = () => {
         setActiveLogIn(true);
@@ -24,8 +24,10 @@ export function ModalProvider({ children }) {
     const value = {
         activeLogIn,
         activeSignUp,
+        auth,
         setActiveLogIn,
         setActiveSignUp,
+        setAuth,
         handleActive,
         handleHiddenActive,
         handleActiveSignUp,
