@@ -1,31 +1,21 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from "react";
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
-import {Col, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import images from "../../assets/images";
+import {SearchIcon} from '../../assets/icons/Icons';
+import GreatInstructor from "./GreatInstructor/GreatInstructor";
 
 const cx = classNames.bind(styles);
 
 function HomePage() {
-    const reasons = useMemo(() => ({
-        title: 'Discovering Premium Courses Made Simple',
-        image: "https://www.mooc.org/hubfs/are-free-online-courses-worth-it.jpg",
-        steps: [
-            {
-                label: '1. Explore a Diverse Range of Subjects',
-                content: 'Browse through hundreds of accredited online courses in various fields including Technology, Business, Arts, and more. Our platform offers something for everyone, no matter your interest or career goals.',
-            },
-            {
-                label: '2. Enroll with Just a Few Clicks',
-                content: 'Once you find a course that fits your needs, enrolling is quick and easy. Simply click on the enroll button, and you will gain instant access to all course materials and resources.',
-            },
-            {
-                label: '3. Enjoy Continuous Learning with Expert Guidance',
-                content: 'Our courses provide you with ongoing support from experienced instructors, ensuring you stay on track. Participate in interactive discussions and receive valuable feedback as you progress through your course.',
-            },
-        ],
-    }), []);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        console.log('Searching for:', searchQuery);
+    };
 
     const roadmapSteps = useMemo(() => [
         {
@@ -164,10 +154,83 @@ function HomePage() {
         },
     ], []);
 
+    const top10 = useMemo(() => [
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Anna Johnson',
+            headline: 'Expert in Data Science and Machine Learning',
+            subjectTutors: 'Data Science, Machine Learning',
+            totalHour: 1200,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'James Williams',
+            headline: 'Specialist in Web Development',
+            subjectTutors: 'HTML, CSS, JavaScript',
+            totalHour: 1500,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Emily Davis',
+            headline: 'Marketing Strategist and SEO Expert',
+            subjectTutors: 'Digital Marketing, SEO',
+            totalHour: 900,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Michael Brown',
+            headline: 'Python Programming and Automation',
+            subjectTutors: 'Python, Automation',
+            totalHour: 1300,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Sarah Miller',
+            headline: 'Graphic Design Expert',
+            subjectTutors: 'Graphic Design, Adobe Photoshop',
+            totalHour: 1100,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'David Wilson',
+            headline: 'JavaScript Full Stack Developer',
+            subjectTutors: 'React, Node.js, MongoDB',
+            totalHour: 1400,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Jessica Moore',
+            headline: 'Experienced in UI/UX Design',
+            subjectTutors: 'UI/UX, Figma',
+            totalHour: 800,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Daniel Taylor',
+            headline: 'Specialist in Cloud Computing',
+            subjectTutors: 'AWS, Google Cloud',
+            totalHour: 1000,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Sophia Anderson',
+            headline: 'Project Management and Agile Coaching',
+            subjectTutors: 'Project Management, Agile',
+            totalHour: 950,
+        },
+        {
+            avatar: 'https://via.placeholder.com/50',
+            fullName: 'Matthew Thompson',
+            headline: 'Blockchain and Cryptocurrency Specialist',
+            subjectTutors: 'Blockchain, Cryptocurrency',
+            totalHour: 1250,
+        },
+    ], []);
+
 
     return (
         <div>
-            <section className={cx('homepage-banner')} style={{ backgroundImage: `url(${images.panelhome})` }}>
+            <section className={cx('homepage-banner')} style={{backgroundImage: `url(${images.panelhome})`}}>
                 <h1 className={cx('marquee')}>
                     Trust the Leading Network for
                     <span>
@@ -181,90 +244,171 @@ function HomePage() {
                     </span>
                     Courses Nationwide.
                 </h1>
+                <div className={cx('search-bar')}>
+                    <form onSubmit={handleSearch}>
+                        <input
+                            type="text"
+                            placeholder="Search courses..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <SearchIcon/>
+                    </form>
+                </div>
             </section>
-            <div className={cx('wrapper')}>
-                <div className={cx('container')}>
-                    <div className={cx('body')}>
-                        <h1>{reasons.title}</h1>
-                        <Row className={cx('container-items')}>
-                            <Col lg='4' className={cx('items-img')}>
-                                <img src={reasons.image} alt="tutor"/>
-                            </Col>
-                            <Col lg='8' className={cx('items-dsc')}>
-                                {reasons.steps.map((items, index) => {
-                                    return (
-                                        <div key={index} className={cx('items-content')}>
-                                            <p>{items.label}</p>
-                                            <span>{items.content}</span>
+            <Container>
+                <div className={cx('wrapper')}>
+                    <div className={cx('container')}>
+                        <div className={cx('body')}>
+                            {/*<h1>{reasons.title}</h1>*/}
+                            {/*    <Row className={cx('container-items')}>*/}
+                            {/*        <Col lg='4' className={cx('items-img')}>*/}
+                            {/*            <img src={reasons.image} alt="tutor"/>*/}
+                            {/*        </Col>*/}
+                            {/*    <Col lg='8' className={cx('items-dsc')}>*/}
+                            {/*        {reasons.steps.map((items, index) => {*/}
+                            {/*            return (*/}
+                            {/*                <div key={index} className={cx('items-content')}>*/}
+                            {/*                    <p>{items.label}</p>*/}
+                            {/*                    <span>{items.content}</span>*/}
+                            {/*                </div>*/}
+                            {/*            );*/}
+                            {/*        })}*/}
+                            {/*    </Col>*/}
+                            {/*</Row>*/}
+
+                            <Row className={cx('container__levels')}>
+                                <Col lg="6" className={cx('container__tutors')}>
+                                    <div className={cx('slide-track')}>
+                                        {top10.map((subject, index) => {
+                                            return (
+                                                <GreatInstructor
+                                                    key={index}
+                                                    avatar={subject.avatar}
+                                                    fullName={subject.fullName}
+                                                    headline={subject.headline}
+                                                    subject={subject.subjectTutors}
+                                                    hour={subject.totalHour}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </Col>
+                                <Col lg="6" className={cx('container__introduction-1')}>
+                                    <img src={images.one} alt="one"></img>
+                                    <span>Explore a Diverse Range of Subjects</span>
+                                    <div className={cx('container__introduction-dsc')}>
+                                        <p>
+                                            Browse through hundreds of accredited online courses in various fields
+                                            including Technology, Business, Arts, and more. Our platform offers
+                                            something for everyone, no matter your interest or career goals.
+                                        </p>
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className={cx('container__levels')}>
+                                <Col lg="6">
+                                    <div className={cx('container__introduction-2')}>
+                                        <img src={images.two} alt="two"></img>
+                                        <span>Enroll with Just a Few Clicks</span>
+                                        <div className={cx('container__introduction-dsc')}>
+                                            <p>
+                                                Once you find a course that fits your needs, enrolling is quick and
+                                                easy. Simply click on the enroll button, and you will gain instant
+                                                access to all course materials and resources.
+                                            </p>
                                         </div>
-                                    );
-                                })}
-                            </Col>
+                                    </div>
+                                </Col>
+                                <Col lg="6" className={cx('container__message')}>
+                                    <img src={images.clickenrol} alt="message"></img>
+                                </Col>
+                            </Row>
+
+                            <Row className={cx('container__levels')}>
+                                <Col lg={{span: 6, offset: 3}}>
+                                    <div className={cx('container__introduction-3')}>
+                                        <img src={images.three} alt="three"></img>
+                                        <span>Enjoy Continuous Learning with Expert Guidance</span>
+                                        <div className={cx('container__introduction-dsc')}>
+                                            <p>
+                                                Our courses provide you with ongoing support from experienced
+                                                instructors, ensuring you stay on track. Participate in interactive
+                                                discussions and receive valuable feedback as you progress through your
+                                                course.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </div>
+
+
+                    <div className={cx('popular-courses-section')}>
+                        <h1>Popular Courses</h1>
+                        <Row className={cx('course-items')}>
+                            {popularCourses.map((course, index) => (
+                                <Col lg='3' key={index} className={cx('course-item')}>
+                                    <div className={cx('course-image')}>
+                                        <img src={course.img}
+                                             alt={course.title}/>
+                                    </div>
+                                    <div className={cx('course-body')}>
+                                        <h3>{course.title}</h3>
+                                        <p>{course.description}</p>
+                                        <div className={cx('course-info')}>
+                                            <span>Rating: {course.rating} ⭐</span>
+                                            <span>Total Lessons: {course.totalLessons}</span>
+                                            <span>Total Assessments: {course.totalAssessments}</span>
+                                            <span>Difficulty: {course.difficulty}</span>
+                                        </div>
+                                        <div className={cx('instructor-info')}>
+                                            <img
+                                                src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=IQm2RukBjzcQ7kNvgHpob4S&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AFWilurBFZKVaT5cQYGP0Y-&oh=00_AYAeWhAfJqhaY2otANnmht78GDXElKIev1lhTNdpMcV2iQ&oe=67038D70'
+                                                alt={course.instructor.name}
+                                                className={cx('instructor-avatar')}/>
+                                            <span>{course.instructor.name}</span>
+                                        </div>
+                                    </div>
+                                </Col>
+                            ))}
                         </Row>
                     </div>
+
+
+                    <div className={cx('testimonials-section')}>
+                        <h1>What Our Learners Say</h1>
+                        <Row className={cx('testimonial-items')}>
+                            {testimonials.map((testimonial, index) => (
+                                <Col lg='4' key={index} className={cx('testimonial-item')}>
+                                    <p>"{testimonial.content}"</p>
+                                    <h5>- {testimonial.name}</h5>
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+
+                    <div className={cx('roadmap-section')}>
+                        <h1>How to Purchase Your Course</h1>
+                        <Row className={cx('roadmap-items')}>
+                            {roadmapSteps.map((roadmapItem, index) => (
+                                <Col lg='2' key={index} className={cx('roadmap-item')}>
+                                    <div className={cx('roadmap-icon')}>{roadmapItem.icon}</div>
+                                    <h4>{roadmapItem.step}</h4>
+                                    <p>{roadmapItem.description}</p>
+                                    {/* Hiển thị đường nối trừ bước cuối cùng */}
+                                    {index !== roadmapSteps.length - 1 &&
+                                        <div className={cx('timeline-connector')}></div>}
+                                </Col>
+                            ))}
+                        </Row>
+                    </div>
+
                 </div>
+            </Container>
 
-
-                <div className={cx('popular-courses-section')}>
-                    <h1>Popular Courses</h1>
-                    <Row className={cx('course-items')}>
-                        {popularCourses.map((course, index) => (
-                            <Col lg='3' key={index} className={cx('course-item')}>
-                                <div className={cx('course-image')}>
-                                    <img src={course.img}
-                                         alt={course.title}/>
-                                </div>
-                                <div className={cx('course-body')}>
-                                    <h3>{course.title}</h3>
-                                    <p>{course.description}</p>
-                                    <div className={cx('course-info')}>
-                                        <span>Rating: {course.rating} ⭐</span>
-                                        <span>Total Lessons: {course.totalLessons}</span>
-                                        <span>Total Assessments: {course.totalAssessments}</span>
-                                        <span>Difficulty: {course.difficulty}</span>
-                                    </div>
-                                    <div className={cx('instructor-info')}>
-                                        <img
-                                            src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=IQm2RukBjzcQ7kNvgHpob4S&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AFWilurBFZKVaT5cQYGP0Y-&oh=00_AYAeWhAfJqhaY2otANnmht78GDXElKIev1lhTNdpMcV2iQ&oe=67038D70'
-                                            alt={course.instructor.name}
-                                            className={cx('instructor-avatar')}/>
-                                        <span>{course.instructor.name}</span>
-                                    </div>
-                                </div>
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-
-
-                <div className={cx('testimonials-section')}>
-                    <h1>What Our Learners Say</h1>
-                    <Row className={cx('testimonial-items')}>
-                        {testimonials.map((testimonial, index) => (
-                            <Col lg='4' key={index} className={cx('testimonial-item')}>
-                                <p>"{testimonial.content}"</p>
-                                <h5>- {testimonial.name}</h5>
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-
-                <div className={cx('roadmap-section')}>
-                    <h1>How to Purchase Your Course</h1>
-                    <Row className={cx('roadmap-items')}>
-                        {roadmapSteps.map((roadmapItem, index) => (
-                            <Col lg='2' key={index} className={cx('roadmap-item')}>
-                                <div className={cx('roadmap-icon')}>{roadmapItem.icon}</div>
-                                <h4>{roadmapItem.step}</h4>
-                                <p>{roadmapItem.description}</p>
-                                {/* Hiển thị đường nối trừ bước cuối cùng */}
-                                {index !== roadmapSteps.length - 1 && <div className={cx('timeline-connector')}></div>}
-                            </Col>
-                        ))}
-                    </Row>
-                </div>
-
-            </div>
         </div>
     )
         ;

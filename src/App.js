@@ -7,6 +7,7 @@ import SignUp from "./components/Modals/SignUp";
 import Footer from "./layouts/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from "./routes/routes";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
     const { activeLogIn, activeSignUp } = useContext(ModalContext);
@@ -26,6 +27,7 @@ function App() {
                         );
                     })}
                 </Routes>
+                <ScrollToTop/>
                 <Footer />
             </Router>
             {activeLogIn && <Login />}
