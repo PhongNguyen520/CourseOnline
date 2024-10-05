@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
@@ -6,42 +6,49 @@ import {Col, Container, Row} from "react-bootstrap";
 import images from "../../assets/images";
 import {SearchIcon} from '../../assets/icons/Icons';
 import GreatInstructor from "./GreatInstructor/GreatInstructor";
+import {FaSearch, FaBook, FaQrcode, FaGraduationCap, FaCheckCircle} from 'react-icons/fa';
+
 
 const cx = classNames.bind(styles);
 
 function HomePage() {
     const [searchQuery, setSearchQuery] = useState('');
 
+    useEffect(() => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }, []);
+
     const handleSearch = (e) => {
         e.preventDefault();
         console.log('Searching for:', searchQuery);
     };
 
+
     const roadmapSteps = useMemo(() => [
         {
             step: 'Step 1: Search for Courses',
             description: 'Use our intuitive search feature to find courses that match your interests.',
-            icon: '🔍',
+            icon: <FaSearch/>,
         },
         {
             step: 'Step 2: Select Your Favorite Course',
             description: 'Review course details and select the one that best fits your learning goals.',
-            icon: '📚',
+            icon: <FaBook/>,
         },
         {
             step: 'Step 3: Scan QR Code for Payment',
             description: 'Easily make payments by scanning the QR code and completing the transaction.',
-            icon: '💳',
+            icon: <FaQrcode/>,
         },
         {
             step: 'Step 4: Start Learning!',
             description: 'Access course materials and start your learning journey.',
-            icon: '🎓',
+            icon: <FaGraduationCap/>,
         },
         {
             step: 'Step 5: Take Assessments',
             description: 'Test your knowledge through quizzes and assessments provided in the course.',
-            icon: '✅',
+            icon: <FaCheckCircle/>,
         },
     ], []);
 
@@ -49,26 +56,38 @@ function HomePage() {
         {
             name: 'John Doe',
             content: 'The courses I took really helped me boost my skills! Highly recommend.',
+            rating: 4,
+            likes: 120,
         },
         {
             name: 'Jane Smith',
             content: 'Fantastic platform with a wide range of topics to choose from.',
+            rating: 5,
+            likes: 95,
         },
         {
             name: 'Emily Johnson',
             content: 'The instructors were amazing and really supportive throughout the learning process.',
+            rating: 5,
+            likes: 80,
         },
         {
             name: 'Michael Brown',
             content: 'I gained practical knowledge that I could apply immediately. Great experience!',
+            rating: 4,
+            likes: 110,
         },
         {
             name: 'Sarah Williams',
             content: 'The flexibility of the courses allowed me to learn at my own pace, which was a huge plus!',
+            rating: 5,
+            likes: 150,
         },
         {
             name: 'David Wilson',
             content: 'I love how interactive the courses are! It kept me engaged and motivated to learn.',
+            rating: 5,
+            likes: 75,
         },
     ], []);
 
@@ -84,7 +103,7 @@ function HomePage() {
             difficulty: 'Beginner',
             instructor: {
                 name: 'John Doe',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
         {
@@ -97,7 +116,7 @@ function HomePage() {
             difficulty: 'Intermediate',
             instructor: {
                 name: 'Jane Smith',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
         {
@@ -110,7 +129,7 @@ function HomePage() {
             difficulty: 'Beginner',
             instructor: {
                 name: 'Emily Johnson',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
         {
@@ -123,7 +142,7 @@ function HomePage() {
             difficulty: 'Intermediate',
             instructor: {
                 name: 'Mark Brown',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
         {
@@ -136,7 +155,7 @@ function HomePage() {
             difficulty: 'Advanced',
             instructor: {
                 name: 'Sophia Lee',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
         {
@@ -149,77 +168,77 @@ function HomePage() {
             difficulty: 'Intermediate',
             instructor: {
                 name: 'Michael Smith',
-                avatar: 'https://via.placeholder.com/50', // Thay bằng URL của avatar
+                avatar: 'https://via.placeholder.com/50',
             },
         },
     ], []);
 
     const top10 = useMemo(() => [
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Anna Johnson',
             headline: 'Expert in Data Science and Machine Learning',
             subjectTutors: 'Data Science, Machine Learning',
             totalHour: 1200,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'James Williams',
             headline: 'Specialist in Web Development',
             subjectTutors: 'HTML, CSS, JavaScript',
             totalHour: 1500,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Emily Davis',
             headline: 'Marketing Strategist and SEO Expert',
             subjectTutors: 'Digital Marketing, SEO',
             totalHour: 900,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Michael Brown',
             headline: 'Python Programming and Automation',
             subjectTutors: 'Python, Automation',
             totalHour: 1300,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Sarah Miller',
             headline: 'Graphic Design Expert',
             subjectTutors: 'Graphic Design, Adobe Photoshop',
             totalHour: 1100,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'David Wilson',
             headline: 'JavaScript Full Stack Developer',
             subjectTutors: 'React, Node.js, MongoDB',
             totalHour: 1400,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Jessica Moore',
             headline: 'Experienced in UI/UX Design',
             subjectTutors: 'UI/UX, Figma',
             totalHour: 800,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Daniel Taylor',
             headline: 'Specialist in Cloud Computing',
             subjectTutors: 'AWS, Google Cloud',
             totalHour: 1000,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Sophia Anderson',
             headline: 'Project Management and Agile Coaching',
             subjectTutors: 'Project Management, Agile',
             totalHour: 950,
         },
         {
-            avatar: 'https://via.placeholder.com/50',
+            avatar: 'https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=xN1CupsQEv4Q7kNvgHaZvMm&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AoCdzzIIuN0yWr_fqOn9dPV&oh=00_AYCKyhrodIb20tOhLAB-MRBz3Sxmb5pXsNQ2_qyN81lL3Q&oe=670668B0',
             fullName: 'Matthew Thompson',
             headline: 'Blockchain and Cryptocurrency Specialist',
             subjectTutors: 'Blockchain, Cryptocurrency',
@@ -382,13 +401,33 @@ function HomePage() {
                         <h1>What Our Learners Say</h1>
                         <Row className={cx('testimonial-items')}>
                             {testimonials.map((testimonial, index) => (
-                                <Col lg='4' key={index} className={cx('testimonial-item')}>
-                                    <p>"{testimonial.content}"</p>
-                                    <h5>- {testimonial.name}</h5>
+                                <Col lg='4' md='6' key={index} className={cx('testimonial-item')}>
+                                    <div className={cx('testimonial-card')}>
+                                        <div className={cx('testimonial-avatar')}>
+                                            <img
+                                                src='https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/461938509_1249316636419148_7431080090941975245_n.jpg?stp=dst-jpg_s200x200&_nc_cat=101&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFen98joCoVGZnQKA5v5pam0kLCU58FduvSQsJTnwV26xSzeKYpfvTuU-Quor3Fy43xSQb1qSY1xbk1uFiB8oW4&_nc_ohc=FUBu5WZlTsQQ7kNvgFlNPUT&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=AkmPiTWWseAQDzRUtm2fKfK&oh=00_AYCLh5iIc1W7I_KBCu25sSo-dMjRKqI9pVXpLWFOT2Itng&oe=67068506'
+                                                alt={testimonial.name}/>
+                                        </div>
+                                        <p className={cx('testimonial-content')}>“{testimonial.content}”</p>
+                                        <div className={cx('testimonial-rating-wrapper')}>
+                                            <div className={cx('testimonial-rating')}>
+                                                {/* Hiển thị số sao */}
+                                                {Array.from({length: 5}, (_, i) => (
+                                                    <span key={i}
+                                                          className={cx('star', {active: i < testimonial.rating})}>
+                                    ⭐
+                                </span>
+                                                ))}
+                                            </div>
+                                            <span className={cx('likes')}> {testimonial.likes} Likes</span>
+                                        </div>
+                                        <h5 className={cx('testimonial-name')}>- {testimonial.name}</h5>
+                                    </div>
                                 </Col>
                             ))}
                         </Row>
                     </div>
+
 
                     <div className={cx('roadmap-section')}>
                         <h1>How to Purchase Your Course</h1>
