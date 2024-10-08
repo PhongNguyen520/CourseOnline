@@ -194,66 +194,6 @@
   }
 }
 
-//.testimonials-section {
-//  margin: 40px 0;
-//  h1 {
-//    text-align: center;
-//    margin-bottom: 20px;
-//    font-weight: bold;
-//    font-size: 4rem;
-//  }
-//
-//  .testimonial-items {
-//    display: flex;
-//    flex-wrap: wrap;
-//    justify-content: center;
-//
-//    .testimonial-item {
-//      background: #f9f9f9;
-//      padding: 40px;
-//      border-radius: 8px;
-//      margin: 10px;
-//      flex: 0 1 calc(33.33% - 20px);
-//      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-//      transition: transform 0.2s, box-shadow 0.2s;
-//      position: relative;
-//
-//      &:hover {
-//        transform: translateY(-5px);
-//        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-//      }
-//
-//      p {
-//        font-style: italic;
-//        color: #666;
-//        margin-bottom: 15px;
-//        font-size: 1.2rem;
-//
-//      }
-//
-//      h5 {
-//        margin-top: 10px;
-//        color: #333;
-//        font-weight: 600;
-//      }
-//
-//      &:before {
-//        content: '';
-//        position: absolute;
-//        top: -18px;
-//        left: -10px;
-//        width: 50px;
-//        height: 50px;
-//        border-radius: 50%;
-//        background: linear-gradient(135deg, #afb1bd, #fc5c7d);
-//        z-index: 0;
-//      }
-//
-//      z-index: 1;
-//    }
-//  }
-//}
-
 .testimonials-section {
   background-color: #f9f9f9;
   padding: 50px 0;
@@ -312,24 +252,24 @@
 
   .testimonial-rating-wrapper {
     display: flex;
-    justify-content: space-between; // Căn giữa số sao và lượt thích
-    align-items: center; // Căn giữa theo chiều dọc
-    margin-top: 10px; // Khoảng cách giữa nội dung và số sao
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
   }
 
   .testimonial-rating {
     display: flex;
-    align-items: center; // Căn giữa theo chiều dọc cho số sao
+    align-items: center;
   }
 
   .star {
-    color: #ffcc00; // Màu vàng cho sao
-    margin: 0 2px; // Khoảng cách giữa các sao
+    color: #ffcc00;
+    margin: 0 2px;
   }
 
   .likes {
-    margin-left: 10px; // Khoảng cách giữa sao và lượt thích
-    font-weight: normal; // Định dạng cho lượt thích
+    margin-left: 10px;
+    font-weight: normal;
   }
 }
 
@@ -589,3 +529,50 @@
     border: #736e6d solid 1px;
   }
 }
+
+//
+//.testimonial-title {
+//  text-align: center;
+//  font-size: 2rem;
+//  margin-bottom: 30px;
+//  color: #fff;
+//}
+//
+//.testimonials {
+//  display: flex;
+//  flex-wrap: wrap;
+//  justify-content: space-between;
+//}
+//
+//.testimonial-card {
+//  background-color: #002f3b;
+//  color: #fff;
+//  padding: 20px;
+//  border: none;
+//  transition: transform 0.3s ease, box-shadow 0.3s ease;
+//  &:hover {
+//    transform: translateY(-10px);
+//    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+//  }
+//}
+//
+//.testimonial-header {
+//  display: flex;
+//  align-items: center;
+//  margin-bottom: 15px;
+//}
+//
+//.testimonial-avatar {
+//  width: 50px;
+//  height: 50px;
+//  border-radius: 50%;
+//  margin-right: 15px;
+//}
+//
+//.testimonial-role {
+//  background-color: #00c896;
+//  padding: 5px 10px;
+//  border-radius: 20px;
+//  color: #002f3b;
+//  font-weight: bold;
+//}

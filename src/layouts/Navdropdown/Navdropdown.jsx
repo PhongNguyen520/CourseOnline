@@ -11,7 +11,7 @@ function NavDropdown() {
             {
                 title: 'Find Courses',
                 items: [
-                    { label: 'Search Courses', link: '/topCourses' },
+                    { label: 'Search Courses', link: '/searchCourses' },
                     { label: 'Excellent Instructors', link: '/courses' },
                 ],
             },

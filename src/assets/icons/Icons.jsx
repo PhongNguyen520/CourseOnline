@@ -1,4 +1,4 @@
-export const CloseIcon = ({ className, width = '2.4rem', height = '2.4rem' }) => (
+export const CloseIcon = ({className, width = '2.4rem', height = '2.4rem'}) => (
     <svg
         className={className}
         width={width}
@@ -16,7 +16,7 @@ export const CloseIcon = ({ className, width = '2.4rem', height = '2.4rem' }) =>
     </svg>
 );
 
-export const SearchIcon = ({ className, width = '2.4rem', height = '2.4rem' }) => (
+export const SearchIcon = ({className, width = '2.4rem', height = '2.4rem'}) => (
     <svg
         width={width}
         data-e2e=""
@@ -34,7 +34,7 @@ export const SearchIcon = ({ className, width = '2.4rem', height = '2.4rem' }) =
 );
 
 
-export const FaceBookIcon = ({ className, width = '1rem', height = '1rem' }) => (
+export const FaceBookIcon = ({className, width = '1rem', height = '1rem'}) => (
     <svg
         width={width}
         height={height}
@@ -54,7 +54,7 @@ export const FaceBookIcon = ({ className, width = '1rem', height = '1rem' }) => 
     </svg>
 );
 
-export const InstagramIcon = ({ className, width = '1rem', height = '1rem' }) => (
+export const InstagramIcon = ({className, width = '1rem', height = '1rem'}) => (
     <svg
         width={width}
         height={height}
@@ -122,7 +122,7 @@ export const InstagramIcon = ({ className, width = '1rem', height = '1rem' }) =>
     </svg>
 );
 
-export const LineIcon = ({ className, width = '1rem', height = '1rem' }) => (
+export const LineIcon = ({className, width = '1rem', height = '1rem'}) => (
     <svg
         width={width}
         height={height}
@@ -160,7 +160,7 @@ export const LineIcon = ({ className, width = '1rem', height = '1rem' }) => (
     </svg>
 );
 
-export const TelegramIcon = ({ className, width = '1rem', height = '1rem' }) => (
+export const TelegramIcon = ({className, width = '1rem', height = '1rem'}) => (
     <svg
         width={width}
         height={height}
@@ -188,7 +188,7 @@ export const TelegramIcon = ({ className, width = '1rem', height = '1rem' }) => 
     </svg>
 );
 
-export const InvalidIcon = ({ width = '1.4rem', height = '1.4rem', className }) => (
+export const InvalidIcon = ({width = '1.4rem', height = '1.4rem', className}) => (
     <svg
         width={width}
         height={height}
@@ -209,7 +209,7 @@ export const InvalidIcon = ({ width = '1.4rem', height = '1.4rem', className }) 
     </svg>
 );
 
-export const ValidIcon = ({ width = '1.4rem', height = '1.4rem', className }) => (
+export const ValidIcon = ({width = '1.4rem', height = '1.4rem', className}) => (
     <svg
         width={width}
         height={height}
@@ -230,7 +230,7 @@ export const ValidIcon = ({ width = '1.4rem', height = '1.4rem', className }) =>
     </svg>
 );
 
-export const MoveIcon = ({ width = '1.6rem', height = '1.6rem', className }) => (
+export const MoveIcon = ({width = '1.6rem', height = '1.6rem', className}) => (
     <svg
         className={className}
         width={width}
@@ -244,6 +244,49 @@ export const MoveIcon = ({ width = '1.6rem', height = '1.6rem', className }) => 
             clipRule="evenodd"
             d="M22.1086 20.3412C23.1028 19.2196 24.8972 19.2196 25.8914 20.3412L42.8955 39.5236C44.2806 41.0861 43.1324 43.5 41.004 43.5L6.99596 43.5C4.86764 43.5 3.71945 41.0861 5.10454 39.5235L22.1086 20.3412Z"
         ></path>
-        <path d="M4.5 7.5C4.5 5.84315 5.84315 4.5 7.5 4.5L40.5 4.5C42.1569 4.5 43.5 5.84315 43.5 7.5C43.5 9.15685 42.1569 10.5 40.5 10.5L7.5 10.5C5.84315 10.5 4.5 9.15685 4.5 7.5Z"></path>
+        <path
+            d="M4.5 7.5C4.5 5.84315 5.84315 4.5 7.5 4.5L40.5 4.5C42.1569 4.5 43.5 5.84315 43.5 7.5C43.5 9.15685 42.1569 10.5 40.5 10.5L7.5 10.5C5.84315 10.5 4.5 9.15685 4.5 7.5Z"></path>
+    </svg>
+);
+
+export const UserNum = ({width = '1.6rem', height = '1.6rem', className}) => (
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="users" className="svg-inline--fa fa-users "
+         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+        <path fill="currentColor"
+              d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"></path>
+    </svg>
+);
+
+export const FilterIcon = ({width = '1.6rem', height = '1.6rem', className}) => (
+    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" className="shopee-svg-icon">
+        <g>
+            <polyline fill="none" points="5.5 13.2 5.5 5.8 1.5 1.2 13.5 1.2 9.5 5.8 9.5 10.2" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-miterlimit="10"></polyline>
+        </g>
+    </svg>
+);
+
+export const SearchResultIcon = ({width = '1.6rem', height = '1.6rem', className}) => (
+    <svg viewBox="0 0 18 24" className="shopee-svg-icon icon-hint-bulb">
+        <g transform="translate(-355 -149)">
+            <g transform="translate(355 149)">
+                <g fill-rule="nonzero" transform="translate(5.4 19.155556)">
+                    <path
+                        d="m1.08489412 1.77777778h5.1879153c.51164401 0 .92641344-.39796911.92641344-.88888889s-.41476943-.88888889-.92641344-.88888889h-5.1879153c-.51164402 0-.92641345.39796911-.92641345.88888889s.41476943.88888889.92641345.88888889z"></path>
+                    <g transform="translate(1.9 2.666667)">
+                        <path
+                            d="m .75 1.77777778h2.1c.41421356 0 .75-.39796911.75-.88888889s-.33578644-.88888889-.75-.88888889h-2.1c-.41421356 0-.75.39796911-.75.88888889s.33578644.88888889.75.88888889z"></path>
+                    </g>
+                </g>
+                <path
+                    d="m8.1 8.77777718v4.66666782c0 .4295545.40294373.7777772.9.7777772s.9-.3482227.9-.7777772v-4.66666782c0-.42955447-.40294373-.77777718-.9-.77777718s-.9.34822271-.9.77777718z"
+                    fill-rule="nonzero"></path>
+                <path
+                    d="m8.1 5.33333333v.88889432c0 .49091978.40294373.88888889.9.88888889s.9-.39796911.9-.88888889v-.88889432c0-.49091977-.40294373-.88888889-.9-.88888889s-.9.39796912-.9.88888889z"
+                    fill-rule="nonzero"></path>
+                <path
+                    d="m8.80092773 0c-4.86181776 0-8.80092773 3.97866667-8.80092773 8.88888889 0 1.69422221.47617651 3.26933331 1.295126 4.61333331l2.50316913 3.9768889c.30201078.4782222.84303623.7697778 1.42482388.7697778h7.17785139c.7077799 0 1.3618277-.368 1.7027479-.9617778l2.3252977-4.0213333c.7411308-1.2888889 1.1728395-2.7786667 1.1728395-4.37688891 0-4.91022222-3.9409628-8.88888889-8.80092777-8.88888889m0 1.77777778c3.82979317 0 6.94810087 3.18933333 6.94810087 7.11111111 0 1.24444441-.3168334 2.43022221-.9393833 3.51466671l-2.3252977 4.0213333c-.0166754.0284444-.0481735.0462222-.0833772.0462222h-7.07224026l-2.43461454-3.8648889c-.68184029-1.12-1.04128871-2.4053333-1.04128871-3.71733331 0-3.92177778 3.11645483-7.11111111 6.94810084-7.11111111"></path>
+            </g>
+        </g>
     </svg>
 );
