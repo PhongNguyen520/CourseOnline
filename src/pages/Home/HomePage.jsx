@@ -7,6 +7,7 @@ import images from "../../assets/images";
 import {SearchIcon} from '../../assets/icons/Icons';
 import GreatInstructor from "./GreatInstructor/GreatInstructor";
 import {FaSearch, FaBook, FaQrcode, FaGraduationCap, FaCheckCircle} from 'react-icons/fa';
+import ChatFeature from "./Chat/ChatFeature";
 
 
 const cx = classNames.bind(styles);
@@ -468,7 +469,6 @@ function HomePage() {
 
                 </div>
             </Container>
-
         </div>
     )
         ;

@@ -8,6 +8,7 @@ import Footer from "./layouts/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from "./routes/routes";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import ChatFeature from "./pages/Home/Chat/ChatFeature";
 
 function App() {
     const { activeLogIn, activeSignUp } = useContext(ModalContext);
@@ -28,6 +29,7 @@ function App() {
                     })}
                 </Routes>
                 <ScrollToTop/>
+                <ChatFeature />
                 <Footer />
             </Router>
             {activeLogIn && <Login />}
