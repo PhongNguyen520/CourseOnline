@@ -2,7 +2,7 @@ import React, {useMemo, useState, useEffect} from "react";
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row, Card} from "react-bootstrap";
 import images from "../../assets/images";
 import {SearchIcon} from '../../assets/icons/Icons';
 import GreatInstructor from "./GreatInstructor/GreatInstructor";
@@ -279,23 +279,6 @@ function HomePage() {
                 <div className={cx('wrapper')}>
                     <div className={cx('container')}>
                         <div className={cx('body')}>
-                            {/*<h1>{reasons.title}</h1>*/}
-                            {/*    <Row className={cx('container-items')}>*/}
-                            {/*        <Col lg='4' className={cx('items-img')}>*/}
-                            {/*            <img src={reasons.image} alt="tutor"/>*/}
-                            {/*        </Col>*/}
-                            {/*    <Col lg='8' className={cx('items-dsc')}>*/}
-                            {/*        {reasons.steps.map((items, index) => {*/}
-                            {/*            return (*/}
-                            {/*                <div key={index} className={cx('items-content')}>*/}
-                            {/*                    <p>{items.label}</p>*/}
-                            {/*                    <span>{items.content}</span>*/}
-                            {/*                </div>*/}
-                            {/*            );*/}
-                            {/*        })}*/}
-                            {/*    </Col>*/}
-                            {/*</Row>*/}
-
                             <Row className={cx('container__levels')}>
                                 <Col lg="6" className={cx('container__tutors')}>
                                     <div className={cx('slide-track')}>
@@ -411,7 +394,6 @@ function HomePage() {
                                         <p className={cx('testimonial-content')}>“{testimonial.content}”</p>
                                         <div className={cx('testimonial-rating-wrapper')}>
                                             <div className={cx('testimonial-rating')}>
-                                                {/* Hiển thị số sao */}
                                                 {Array.from({length: 5}, (_, i) => (
                                                     <span key={i}
                                                           className={cx('star', {active: i < testimonial.rating})}>
@@ -437,13 +419,52 @@ function HomePage() {
                                     <div className={cx('roadmap-icon')}>{roadmapItem.icon}</div>
                                     <h4>{roadmapItem.step}</h4>
                                     <p>{roadmapItem.description}</p>
-                                    {/* Hiển thị đường nối trừ bước cuối cùng */}
                                     {index !== roadmapSteps.length - 1 &&
                                         <div className={cx('timeline-connector')}></div>}
                                 </Col>
                             ))}
                         </Row>
                     </div>
+
+                    {/*<Row className="my-5">*/}
+                    {/*    <Col>*/}
+                    {/*        <h2 className={cx('testimonial-title')}>Why Students Love Our Courses</h2>*/}
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
+                    {/*<Row className={cx('testimonials')}>*/}
+                    {/*    <Col md={6} className="mb-4">*/}
+                    {/*        <Card className={cx('testimonial-card')}>*/}
+                    {/*            <Card.Body>*/}
+                    {/*                <div className={cx('testimonial-header')}>*/}
+                    {/*                    <img src="/path/to/avatar1.jpg" alt="Ashton W." className={cx('testimonial-avatar')} />*/}
+                    {/*                    <div>*/}
+                    {/*                        <h5>Ashton W.</h5>*/}
+                    {/*                        <span className={cx('testimonial-role')}>SURFACE PATTERN</span>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <Card.Text>*/}
+                    {/*                    <strong>This class was so helpful for me.</strong> I already had a Shopify website, but my site was in desperate need of a refresh! I was overwhelmed and not sure where to start, and this class made it seem much more doable. <strong>I’m so proud to send people to my website now.</strong> :)*/}
+                    {/*                </Card.Text>*/}
+                    {/*            </Card.Body>*/}
+                    {/*        </Card>*/}
+                    {/*    </Col>*/}
+                    {/*    <Col md={6} className="mb-4">*/}
+                    {/*        <Card className={cx('testimonial-card')}>*/}
+                    {/*            <Card.Body>*/}
+                    {/*                <div className={cx('testimonial-header')}>*/}
+                    {/*                    <img src="/path/to/avatar2.jpg" alt="Sean D." className={cx('testimonial-avatar')} />*/}
+                    {/*                    <div>*/}
+                    {/*                        <h5>Sean D.</h5>*/}
+                    {/*                        <span className={cx('testimonial-role')}>FILMMAKER, VIDEO EDITOR</span>*/}
+                    {/*                    </div>*/}
+                    {/*                </div>*/}
+                    {/*                <Card.Text>*/}
+                    {/*                    It’s so nice when a professional breaks down what can be a very complex topic and teach it <strong>simply, effectively and directly</strong>. Now I have a much better language for communicating lighting strategy and for lighting my work.*/}
+                    {/*                </Card.Text>*/}
+                    {/*            </Card.Body>*/}
+                    {/*        </Card>*/}
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
 
                 </div>
             </Container>

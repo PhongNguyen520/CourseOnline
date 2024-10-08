@@ -1,0 +1,199 @@
+.wrapper {
+  margin-top: var(--default-layout-height-header);
+  min-height: 100vh;
+
+  .search-course-container {
+    border-radius: 12px;
+    padding: 20px;
+
+    .result-container,
+    .search-form {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .search-bar-container {
+      display: flex;
+      align-items: center;
+
+      .search-input {
+        border-radius: 10px;
+        border: 1px solid #EE4D2D;
+        padding: 8px 20px;
+        font-size: 20px;
+        width: 100%;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #EE4D2D;
+          box-shadow: 0 0 5px #EE4D2D;
+        }
+      }
+
+      .search-button {
+        background-color: #EE4D2D;
+        border: none;
+        border-radius: 20px;
+        padding: 12px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #FF0000;
+        }
+      }
+    }
+
+    .sidebar {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+      .filter-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .filter-select {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        font-size: 16px;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 5px #FCA339;
+        }
+      }
+    }
+
+    .sort-buttons {
+      display: flex;
+      gap: 10px;
+
+      Button {
+        flex: 1;
+        transition: background-color 0.3s;
+
+        &.primary {
+          background-color: #FCA339;
+          border: none;
+        }
+
+        &.outline-primary {
+          background-color: transparent;
+          border: 1px solid #FCA339;
+        }
+      }
+    }
+  }
+}
+
+
+.popular-courses-section {
+  margin: 20px 0;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 4rem;
+  }
+
+  .course-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 28px;
+
+    .course-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      padding: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      flex: 1 1 calc(25% - 40px);
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .course-image {
+        position: relative; // Ensure that the badge can be positioned relative to the image
+        img {
+          border-radius: 10px;
+          width: 100%;
+          height: auto;
+        }
+
+        .discount-badge {
+          position: absolute;
+          top: 5px;
+          right: 0.1px;
+          background-color: #dc3545;
+          color: #fff;
+          padding: 5px;
+          border-radius: 5px;
+          font-weight: bold;
+          transform: rotate(30deg); // Diagonal effect
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-price {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #333;
+          margin-top: 5px;
+        }
+
+      }
+
+
+      .course-body {
+        padding: 10px;
+
+        h3 {
+          color: #333;
+          font-weight: bold;
+        }
+
+        p {
+          color: #555;
+          margin: 10px 0;
+        }
+
+        .course-info {
+          display: flex;
+          flex-direction: column;
+          color: #777;
+          font-size: 14px;
+
+          span {
+            margin: 5px 0;
+          }
+        }
+
+        .instructor-info {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+
+          .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
