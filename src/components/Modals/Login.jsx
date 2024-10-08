@@ -4,8 +4,11 @@ import styles from './Login.module.scss';
 import { CloseIcon } from '../../assets/icons/Icons';
 import images from "../../assets/images";
 import { ModalContext } from "../ModalProvider/ModalProvider";
-import axios from 'axios'; // Import axios
-import {API_URL} from "../../config/API";
+import axios from 'axios';
+import { API_URL } from "../../config/API";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const cx = classNames.bind(styles);
 
 function Login() {
@@ -13,6 +16,17 @@ function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const notifySuccess = () => toast.success('Login successful!', {
+        className: 'toast-success',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeButton: false,
+        pauseOnHover: false,
+        draggable: false,
+    });
+    const notifyError = (message) => toast.error(message || 'Login failed. Please check your credentials.');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,23 +36,46 @@ function Login() {
                 password: password,
             });
 
-            setAuth(response.data);
-            setActiveLogIn(false);
-            console.log('Login successful:', response.data);
+            // Check response status code for different cases
+            if (response.status === 200) {
+                setAuth({
+                    token: response.data.token,
+                    userName: response.data.userName,
+                });
+                setActiveLogIn(false);
+                notifySuccess();
+            } else if (response.status === 401) {
+                setError('Invalid username or password.');
+                notifyError('Invalid username or password.');
+            } else if (response.status === 500) {
+                setError('Server error. Please try again later.');
+                notifyError('Server error. Please try again later.');
+            } else {
+                setError('An unknown error occurred.');
+                notifyError('An unknown error occurred.');
+            }
         } catch (err) {
+            // Handle errors that might occur during request
             setError('Login failed. Please check your credentials.');
-            console.error('Error logging in:', err);
+            if (err.response && err.response.data) {
+                notifyError(err.response.data.message || err.message);
+            } else {
+                notifyError();
+            }
         }
     };
+
+
     const handleGoogleLogin = () => {
         window.location.href = `${API_URL}/GoogleAuth/login`;
     };
+
     return (
         <div className={cx('modal', 'show')}>
             <div className={cx('modal__wrapper')}>
                 <div className={cx('modal__container')}>
                     <div onClick={() => setActiveLogIn(false)} className={cx('modal__close')}>
-                        <CloseIcon className={cx('modal__close-icon')}/>
+                        <CloseIcon className={cx('modal__close-icon')} />
                     </div>
                     <div className={cx('modal__title')}>LOGIN</div>
                     <div className={cx('modal__body')}>
@@ -75,7 +112,7 @@ function Login() {
                                 className={cx('modal__button', 'modal__button--google-sign-in')}
                                 onClick={handleGoogleLogin}
                             >
-                                <img src={images.google} alt='Google' className={cx('modal__button-icon')}/>
+                                <img src={images.google} alt='Google' className={cx('modal__button-icon')} />
                                 <span className={cx('modal__button-text')}>Login with Google</span>
                             </button>
                             <div className={cx('modal__license')}>
@@ -97,6 +134,7 @@ function Login() {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

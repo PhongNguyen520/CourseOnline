@@ -15,7 +15,15 @@
   &.show {
     opacity: 1;
   }
-
+  .toast-success {
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
   .modal__wrapper {
     background-color: var(--white);
     border-radius: 8px;

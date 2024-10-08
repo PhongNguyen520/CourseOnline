@@ -11,8 +11,8 @@ const cx = classNames.bind(styles);
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const { setActiveLogIn, setActiveSignUp } = useContext(ModalContext);
-
+    const { setActiveLogIn, setActiveSignUp , auth} = useContext(ModalContext);
+    const isAuthenticated = Boolean(auth?.token);
     const handleScroll = () => {
         if (window.scrollY > 50) {
             setIsScrolled(true);
@@ -43,12 +43,18 @@ export default function Header() {
                     </Col>
 
                     <Col lg="2" className={cx('container__login-signup')}>
-                        <button onClick={()=> setActiveLogIn(true)} className={cx('container__login-signup-login-btn')}>
-                            LOG IN
-                        </button>
-                        <button onClick={() => setActiveSignUp(true)} className={cx('container__login-signup-signup-btn')}>
-                            SIGN UP
-                        </button>
+                        {!isAuthenticated ? (
+                            <>
+                                <button onClick={() => setActiveLogIn(true)} className={cx('container__login-signup-login-btn')}>
+                                    LOG IN
+                                </button>
+                                <button onClick={() => setActiveSignUp(true)} className={cx('container__login-signup-signup-btn')}>
+                                    SIGN UP
+                                </button>
+                            </>
+                        ) : (
+                            <span>Welcome back!</span>
+                        )}
                     </Col>
 
                 </Row>
