@@ -8,8 +8,11 @@ import axios from 'axios';
 import { API_URL } from "../../config/API";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import requests from '../../utils/requests'
+import { jwtDecode } from 'jwt-decode'
 
 const cx = classNames.bind(styles);
+const LOGIN_URL = 'Authen/login'
 
 function Login() {
     const { setActiveLogIn, setAuth, setActiveSignUp } = useContext(ModalContext);
@@ -31,16 +34,17 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${API_URL}/Authen/login`, {
+            const response = await requests.post(LOGIN_URL, {
                 email: userName,
                 password: password,
             });
 
-            // Check response status code for different cases
             if (response.status === 200) {
+                const userInfo = jwtDecode(response.data.token);
                 setAuth({
-                    token: response.data.token,
-                    userName: response.data.userName,
+                    token: response?.data?.token,
+                    // userName: response.data.userName,
+                    role: userInfo?.RoleId
                 });
                 setActiveLogIn(false);
                 notifySuccess();

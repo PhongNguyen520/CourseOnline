@@ -4,6 +4,7 @@ const routes = {
     registerStudent: '/register/student',
     searchCourses: '/searchCourses',
     courseDetail: '/courseDetail/:courseId',
+    profile: '/profile',
 }
 
 export default routes;
