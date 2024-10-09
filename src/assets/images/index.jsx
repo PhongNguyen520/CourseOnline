@@ -8,6 +8,7 @@ const images = {
     two: require('../images/two.png'),
     three: require('../images/three.png'),
     clickenrol: require('../images/clickenrol.png'),
+    panelprofile: require('../images/panelprofile.png'),
 }
 
 export default images;

@@ -28,8 +28,8 @@ function App() {
                         );
                     })}
                 </Routes>
-                <ScrollToTop/>
                 <ChatFeature />
+                <ScrollToTop/>
                 <Footer />
             </Router>
             {activeLogIn && <Login />}
