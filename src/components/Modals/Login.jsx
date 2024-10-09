@@ -4,8 +4,6 @@ import styles from './Login.module.scss';
 import { CloseIcon } from '../../assets/icons/Icons';
 import images from "../../assets/images";
 import { ModalContext } from "../ModalProvider/ModalProvider";
-import axios from 'axios';
-import { API_URL } from "../../config/API";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import requests from '../../utils/requests'
@@ -71,7 +69,7 @@ function Login() {
 
 
     const handleGoogleLogin = () => {
-        window.location.href = `${API_URL}/GoogleAuth/login`;
+        // window.location.href = `${API_URL}/GoogleAuth/login`;
     };
 
     return (
