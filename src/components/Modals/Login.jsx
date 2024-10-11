@@ -4,7 +4,6 @@ import styles from './Login.module.scss';
 import { CloseIcon } from '../../assets/icons/Icons';
 import images from "../../assets/images";
 import { ModalContext } from "../ModalProvider/ModalProvider";
-import axios from 'axios';
 import { API_URL } from "../../config/API";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,13 +37,14 @@ function Login() {
                 email: userName,
                 password: password,
             });
-
+            console.log(response.data);
             if (response.status === 200) {
                 const userInfo = jwtDecode(response.data.token);
                 setAuth({
                     token: response?.data?.token,
-                    // userName: response.data.userName,
-                    role: userInfo?.RoleId
+                    role: userInfo?.RoleId,
+                    avatar: response.data.avatar,
+                    fullName: response.data.fullName,
                 });
                 setActiveLogIn(false);
                 notifySuccess();

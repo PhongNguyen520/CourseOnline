@@ -33,7 +33,6 @@ export default function Header() {
     };
 
     const signOut = () => {
-        // Logic for sign out
         console.log('Logged out');
     };
 
@@ -93,7 +92,7 @@ export default function Header() {
                                         onClick={toggleDropdown}
                                     >
                                         <img
-                                            src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
+                                            src={auth?.avatar ? auth?.avatar : images.defaultAvatar }
                                             alt='avatar'
                                             className={cx('container__login-user-img')}
                                         />
@@ -104,14 +103,14 @@ export default function Header() {
                                             <div className={cx('user-info')}>
                                                 <div className={cx('avatar-container')}>
                                                     <img
-                                                        src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
+                                                        src={auth?.avatar ? auth?.avatar : images.defaultAvatar }
                                                         alt='avatar'
                                                         className={cx('dropdown-avatar')}
                                                     />
-                                                    <span className={cx('active-status')}></span> {/* Chấm xanh lục */}
+                                                    <span className={cx('active-status')}></span>
                                                 </div>
                                                 <div className={cx('user-details')}>
-                                                    <p className={cx('user-name')}>Nguyễn Thành Phong</p>
+                                                    <p className={cx('user-name')}>{auth?.fullName}</p>
                                                     <Link to={config.routes.profile} className={cx('profile-link')}>
                                                         <i className="bi bi-person"></i>
                                                         See profile
@@ -119,7 +118,6 @@ export default function Header() {
                                                 </div>
                                             </div>
 
-                                            {/* Các mục menu */}
                                             <ul className={cx('menu-list')}>
                                                 <Link to="/classes">
                                                     <li>

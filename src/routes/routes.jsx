@@ -6,6 +6,7 @@ import RegisterStudent from "../pages/Register/RegisterStudent";
 import SearchCourses from "../pages/SearchCourse/SearchCourse";
 import CourseDetail from "../pages/CourseDetail/CourseDetail";
 import Profile from "../pages/Profile/Profile";
+import ExcellentInstructor from "../pages/ExcellentInstructor/ExcellentInstructor";
 
 const publicRoutes = [
     {path: config.routes.home, component: Home},
@@ -14,6 +15,7 @@ const publicRoutes = [
     {path: config.routes.searchCourses, component: SearchCourses},
     {path: config.routes.courseDetail, component: CourseDetail},
     {path: config.routes.profile, component: Profile},
+    {path: config.routes.excellentInstructor, component: ExcellentInstructor},
 
 ]
 

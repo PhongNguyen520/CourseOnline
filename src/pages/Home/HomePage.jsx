@@ -287,7 +287,7 @@ function HomePage() {
                                             return (
                                                 <GreatInstructor
                                                     key={index}
-                                                    avatar={subject.avatar}
+                                                    avatar='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=Rt-0B-9BYgUQ7kNvgGZg3dS&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Aj_-YSHzVWhlLSfsNPYQgQr&oh=00_AYCp4jExgygM_RAmhGwcmjqOJhYmBL8Uihoik9cQzUerhQ&oe=670D0030'
                                                     fullName={subject.fullName}
                                                     headline={subject.headline}
                                                     subject={subject.subjectTutors}
@@ -369,7 +369,7 @@ function HomePage() {
                                         </div>
                                         <div className={cx('instructor-info')}>
                                             <img
-                                                src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=IQm2RukBjzcQ7kNvgHpob4S&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AFWilurBFZKVaT5cQYGP0Y-&oh=00_AYAeWhAfJqhaY2otANnmht78GDXElKIev1lhTNdpMcV2iQ&oe=67038D70'
+                                                src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=Rt-0B-9BYgUQ7kNvgGZg3dS&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Aj_-YSHzVWhlLSfsNPYQgQr&oh=00_AYCp4jExgygM_RAmhGwcmjqOJhYmBL8Uihoik9cQzUerhQ&oe=670D0030'
                                                 alt={course.instructor.name}
                                                 className={cx('instructor-avatar')}/>
                                             <span>{course.instructor.name}</span>

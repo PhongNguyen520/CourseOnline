@@ -9,6 +9,7 @@ const images = {
     three: require('../images/three.png'),
     clickenrol: require('../images/clickenrol.png'),
     panelprofile: require('../images/panelprofile.png'),
+    defaultAvatar: require('../images/defaultAvatar.png'),
 }
 
 export default images;

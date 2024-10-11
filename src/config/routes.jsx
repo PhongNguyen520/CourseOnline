@@ -5,6 +5,7 @@ const routes = {
     searchCourses: '/searchCourses',
     courseDetail: '/courseDetail/:courseId',
     profile: '/profile',
+    excellentInstructor: '/excellentInstructor',
 }
 
 export default routes;

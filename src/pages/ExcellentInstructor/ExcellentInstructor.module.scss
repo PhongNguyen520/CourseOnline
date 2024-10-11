@@ -1,0 +1,197 @@
+.wrapper {
+  margin-top: var(--default-layout-height-header);
+  min-height: 100vh;
+  padding: 40px 20px;
+
+  .search-instructor-container {
+    border-radius: 12px;
+    padding: 20px;
+
+    .result-container,
+    .search-form {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .filter-section {
+      padding: 10px;
+    }
+
+    .search-bar-container {
+      display: flex;
+      align-items: center;
+
+      .search-input {
+        border-radius: 10px;
+        border: 1px solid #EE4D2D;
+        padding: 8px 20px;
+        font-size: 20px;
+        width: 100%;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #EE4D2D;
+          box-shadow: 0 0 5px #EE4D2D;
+        }
+      }
+
+      .search-button {
+        background-color: #EE4D2D;
+        border: none;
+        border-radius: 20px;
+        padding: 12px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #FF0000;
+        }
+      }
+    }
+
+    .sidebar {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+      .filter-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .filter-select {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        font-size: 16px;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 5px #FCA339;
+        }
+      }
+    }
+
+    .sort-buttons {
+      display: flex;
+      gap: 10px;
+
+      Button {
+        flex: 1;
+        transition: background-color 0.3s;
+
+        &.primary {
+          background-color: #FCA339;
+          border: none;
+        }
+
+        &.outline-primary {
+          background-color: transparent;
+          border: 1px solid #FCA339;
+        }
+      }
+    }
+  }
+
+  .result-list {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .instructor-card {
+      margin-bottom: 20px;
+
+      .card {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .avatar-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+
+            .avatar {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              margin-right: 15px;
+              border: 2px solid #ddd;
+              object-fit: cover;
+              position: relative;
+            }
+
+            .active-status {
+              position: absolute;
+              bottom: 0;
+              right: 15px;
+              width: 12px;
+              height: 12px;
+              background-color: #28a745;
+              border-radius: 50%;
+              border: 2px solid white;
+            }
+
+            h5 {
+              font-size: 1.2rem;
+              font-weight: 600;
+              color: #333;
+              margin: 0;
+            }
+          }
+
+          .phone-icon {
+            font-size: 2rem;
+            color: #28a745;
+            animation: shake 3s infinite;
+            margin-right: 10px;
+          }
+        }
+
+        .info {
+          margin-top: 15px;
+          font-size: 0.9rem;
+          color: #666;
+          line-height: 1.6;
+
+          p {
+            margin: 5px 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0%, 80%, 100% {
+    transform: translate(0, 0);
+  }
+  90% {
+    transform: translate(1px, -2px) rotate(10deg);
+  }
+  95% {
+    transform: translate(-1px, 1px) rotate(-10deg);
+  }
+}
