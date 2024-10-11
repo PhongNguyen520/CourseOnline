@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import { CloseIcon } from '../../assets/icons/Icons';
@@ -6,70 +6,131 @@ import images from "../../assets/images";
 import { ModalContext } from "../ModalProvider/ModalProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import requests from '../../utils/requests'
-import { jwtDecode } from 'jwt-decode'
+import requests from '../../utils/requests';
+import { jwtDecode } from 'jwt-decode';
+import Cookies from "js-cookie";
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
-const LOGIN_URL = 'Authen/login'
+const LOGIN_URL = 'Authen/login';
 
 function Login() {
-    const { setActiveLogIn, setAuth, setActiveSignUp } = useContext(ModalContext);
+    const { setActiveLogIn, setAuth, setActiveSignUp, setUser } = useContext(ModalContext);
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [token, setToken] = useState(null);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const authToken = Cookies.get('authToken') || localStorage.getItem('authToken');
+        console.log('Initial authToken:', authToken); // Debugging
+        if (authToken) {
+            setToken(authToken);
+            handleTokenAuthentication(authToken);
+        }
+    }, []);
 
     const notifySuccess = () => toast.success('Login successful!', {
         className: 'toast-success',
-        position: toast.POSITION.TOP_CENTER,
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: true,
         closeButton: false,
         pauseOnHover: false,
         draggable: false,
     });
+
+
     const notifyError = (message) => toast.error(message || 'Login failed. Please check your credentials.');
 
+    const handleTokenAuthentication = (token) => {
+        console.log('Attempting to authenticate with token:', token);
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log('Decoded token:', decodedToken);
+
+            setAuth({
+                token: token,
+                role: decodedToken.RoleId
+            });
+
+            setUser({
+                fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+                email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+                avatar: decodedToken.Avatar,
+                roleId: decodedToken.RoleId
+            });
+
+            setActiveLogIn(false);
+            navigate('/');
+            notifySuccess();
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            setError('Invalid token. Please log in again.');
+            Cookies.remove('authToken');
+            localStorage.removeItem('authToken');
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!userName || !password) {
+            setError('Please enter both username and password.');
+            return;
+        }
+
+        setLoading(true);
         try {
+            // Gửi yêu cầu đăng nhập
             const response = await requests.post(LOGIN_URL, {
                 email: userName,
                 password: password,
+            }, { withCredentials: true });
+
+            const token = Cookies.get('authToken');
+            if (!token) {
+                throw new Error('Token not found in cookies.');
+            }
+
+            // Giải mã token
+            const decodedToken = jwtDecode(token);
+            console.log('Decoded token:', decodedToken);
+
+            // Cập nhật trạng thái sau khi login
+            setAuth({
+                token: token,
+                role: decodedToken.RoleId
             });
 
-            if (response.status === 200) {
-                const userInfo = jwtDecode(response.data.token);
-                setAuth({
-                    token: response?.data?.token,
-                    // userName: response.data.userName,
-                    role: userInfo?.RoleId
-                });
-                setActiveLogIn(false);
-                notifySuccess();
-            } else if (response.status === 401) {
-                setError('Invalid username or password.');
-                notifyError('Invalid username or password.');
-            } else if (response.status === 500) {
-                setError('Server error. Please try again later.');
-                notifyError('Server error. Please try again later.');
-            } else {
-                setError('An unknown error occurred.');
-                notifyError('An unknown error occurred.');
-            }
+            setUser({
+                fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+                email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+                avatar: decodedToken.Avatar,
+                roleId: decodedToken.RoleId
+            });
+
+            notifySuccess();
+            setActiveLogIn(false);
+            navigate('/');
         } catch (err) {
-            // Handle errors that might occur during request
+            console.error('Login error:', err);
             setError('Login failed. Please check your credentials.');
             if (err.response && err.response.data) {
                 notifyError(err.response.data.message || err.message);
             } else {
                 notifyError();
             }
+        } finally {
+            setLoading(false);
         }
     };
 
 
     const handleGoogleLogin = () => {
-        // window.location.href = `${API_URL}/GoogleAuth/login`;
+        // Implement your Google login logic here
+        // For example: window.location.href = `${API_URL}/GoogleAuth/login`;
     };
 
     return (
@@ -103,7 +164,12 @@ function Login() {
                                     required
                                 />
                                 {error && <div className={cx('modal__error')}>{error}</div>}
-                                <button className={cx('modal__button', 'modal__button--sign-in')}>Log In</button>
+                                <button
+                                    className={cx('modal__button', 'modal__button--sign-in')}
+                                    disabled={loading}
+                                >
+                                    {loading ? 'Logging in...' : 'Log In'}
+                                </button>
                             </form>
                             <div className={cx('modal__support')}>
                                 <a className={cx('modal__forgot-link')}>

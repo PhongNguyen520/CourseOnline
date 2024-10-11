@@ -1,34 +1,24 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback, useContext} from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import './ChatFeature.scss';
 import { HubConnectionBuilder, LogLevel, HttpTransportType } from '@microsoft/signalr';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import {ModalContext} from "../../../components/ModalProvider/ModalProvider";
 
 const useSignalR = () => {
     const [messages, setMessages] = useState([]);
     const [connection, setConnection] = useState(null);
     const [connectionError, setConnectionError] = useState(null);
+    const { auth } = useContext(ModalContext);
 
     const startConnection = useCallback(async () => {
         try {
             const token = Cookies.get('authToken');
-            if (!token) {
+            if (!token || typeof token !== 'string') {
                 console.error("Invalid or missing token");
                 return;
             }
-
-            if (!token || typeof token !== 'string') {
-                console.error("Invalid or missing token");
-                return; // Exit if token is not available or not a valid string
-            }
-
-            const decodedToken = jwtDecode(token); // Decode the token
-            console.log(decodedToken.exp);
-            const username = decodedToken?.sub || '';  // sub is a common claim for username
-            const roleId = decodedToken?.RoleId || 0; // Get roleId from token (use "RoleId" here)
-
-            // Set up SignalR connection here as before...
             const newConnection = new HubConnectionBuilder()
                 .withUrl('https://localhost:7269/chatHub', {
                     accessTokenFactory: () => token,
@@ -40,31 +30,25 @@ const useSignalR = () => {
                 .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
                 .build();
 
-            newConnection.on('ReceiveMessage', (user, message, role, messageId) => {
+            newConnection.on('ReceiveMessage', (fullName, message, roleId, messageId, avatar) => {
                 setMessages(prevMessages => [...prevMessages, {
                     id: messageId,
                     text: message,
-                    sender: role === 1 ? 'user' : 'instructor',
-                    name: user,
-                    avatarUrl: role === 1
-                        ? 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
-                        : 'https://assets-prd.ignimgs.com/2022/11/22/avatar-blogroll2-1669090391194.jpg'
+                    sender: roleId === 1 ? 'user' : 'instructor',
+                    name: fullName,
+                    avatarUrl: avatar || 'default-avatar-url.jpg'
                 }]);
             });
-
             newConnection.on('ReceiveMessageHistory', (messageHistory) => {
                 setMessages(messageHistory.map(msg => ({
                     id: msg.id,
                     text: msg.content,
-                    sender: msg.senderId === 1 ? 'user' : 'instructor',
-                    name: msg.senderId,
+                    sender: msg.senderId === auth.userName ? 'user' : 'instructor',
+                    name: msg.senderName,
                     timestamp: new Date(msg.timestamp),
-                    avatarUrl: msg.senderId === 1
-                        ? 'https://m.media-amazon.com/images/S/pv-target-images/16627900db04b76fae3b64266ca161511422059cd24062fb5d900971003a0b70.jpg'
-                        : 'https://assets-prd.ignimgs.com/2022/11/22/avatar-blogroll2-1669090391194.jpg'
+                    avatarUrl: msg.avatar || 'default-avatar-url.jpg'
                 })));
             });
-
             newConnection.onclose(error => {
                 setConnectionError(error);
                 console.error("SignalR Connection closed: ", error);
@@ -81,7 +65,7 @@ const useSignalR = () => {
             console.error('SignalR Connection Error: ', err);
             setConnectionError(err);
         }
-    }, []);
+    }, [auth.userName]);
 
     const sendMessage = async (message, courseId = null) => {
         if (connection && connection.state === 'Connected') {
@@ -127,6 +111,7 @@ const ChatIcon = ({ onClick }) => (
 const ChatWindow = ({ onClose, courseId }) => {
     const [inputMessage, setInputMessage] = useState('');
     const { messages, sendMessage, getMessageHistory, connectionError } = useSignalR();
+    const { auth } = useContext(ModalContext);
 
     useEffect(() => {
         getMessageHistory(courseId);
@@ -138,7 +123,6 @@ const ChatWindow = ({ onClose, courseId }) => {
             setInputMessage('');
         }
     };
-
     return (
         <div className="chat-window">
             <div className="chat-header">

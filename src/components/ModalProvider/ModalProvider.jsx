@@ -6,33 +6,25 @@ export function ModalProvider({ children }) {
     const [activeLogIn, setActiveLogIn] = useState(false);
     const [activeSignUp, setActiveSignUp] = useState(false);
     const [auth, setAuth] = useState({});
+    const [user, setUser] = useState(null); // Add user state
 
-    const handleActive = () => {
-        setActiveLogIn(true);
-    };
-
-    const handleHiddenActive = () => {
+    // Đóng tất cả các modal
+    const closeAllModals = () => {
         setActiveLogIn(false);
         setActiveSignUp(false);
     };
-
-    const handleActiveSignUp = () => {
-        setActiveSignUp(!activeLogIn);
-    };
-
 
     const value = {
         activeLogIn,
         activeSignUp,
         auth,
+        user,
         setActiveLogIn,
         setActiveSignUp,
         setAuth,
-        handleActive,
-        handleHiddenActive,
-        handleActiveSignUp,
+        setUser,
+        closeAllModals,
     };
 
     return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
 }
-

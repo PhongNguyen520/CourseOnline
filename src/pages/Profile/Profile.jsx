@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import classNames from "classnames/bind";
 import styles from "./Profile.module.scss";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
@@ -8,18 +8,22 @@ import { Button, TextField, Box, Typography, Modal } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import {jwtDecode} from "jwt-decode";
+import {ModalContext} from "../../components/ModalProvider/ModalProvider";
 
-const API_DATAUSER = 'DataUser';
-const API_UPDATEPROFILE = 'Update-Profile';
+const API_GET_PROFILE = 'User/GetUserProfile';  // Adjust this endpoint as per your API
+const API_UPDATE_PROFILE = 'User/Update-Profile';
 const cx = classNames.bind(styles);
 
 export default function Profile() {
+    const { auth } = useContext(ModalContext);
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editedUser, setEditedUser] = useState(null);
     const [avatarFile, setAvatarFile] = useState(null);
     const [certificationFile, setCertificationFile] = useState(null);
-    const [open, setOpen] = useState(false); // Quản lý trạng thái của Modal
+    const [open, setOpen] = useState(false);
+    const [userName, setUserName] = useState("");
 
     const defaultUser = {
         avatar: "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg",
@@ -36,20 +40,19 @@ export default function Profile() {
     };
 
     useEffect(() => {
+        if (auth.token) {
+            const decodedToken = jwtDecode(auth.token);
+            setUserName(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"] || "");
+        }
         const fetchUserData = async () => {
             try {
-                const response = await requests.get(API_DATAUSER);
+                const response = await requests.get(API_GET_PROFILE);
                 if (response.data) {
                     setUser(response.data);
                     setEditedUser(response.data);
-                } else {
-                    setUser(defaultUser);
-                    setEditedUser(defaultUser);
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
-                setUser(defaultUser);
-                setEditedUser(defaultUser);
             }
         };
 
@@ -78,17 +81,17 @@ export default function Profile() {
         e.preventDefault();
         const formData = new FormData();
 
+        // Append form data
         for (const key in editedUser) {
             if (key !== 'avatar' && key !== 'certification') {
                 formData.append(key, editedUser[key]);
             }
         }
-
         if (avatarFile) formData.append('Avatar', avatarFile);
         if (certificationFile) formData.append('Certification', certificationFile);
 
         try {
-            const response = await requests.put(API_UPDATEPROFILE, formData, {
+            const response = await requests.put(`${API_UPDATE_PROFILE}/${userName}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -96,7 +99,7 @@ export default function Profile() {
             if (response.data) {
                 setUser(response.data);
                 setIsEditing(false);
-                setOpen(false); // Đóng Modal sau khi lưu thành công
+                setOpen(false);
             }
         } catch (error) {
             console.error("Error updating profile:", error);
@@ -157,7 +160,6 @@ export default function Profile() {
                             Edit Profile
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit} className={cx("edit-form")}>
-                            {/* Full Name */}
                             <TextField
                                 fullWidth
                                 name="fullName"
@@ -165,9 +167,10 @@ export default function Profile() {
                                 value={editedUser.fullName}
                                 onChange={handleInputChange}
                                 margin="normal"
+                                InputLabelProps={{ style: { fontSize: 18 } }}
+                                inputProps={{ style: { fontSize: 15, padding: '10px 14px' } }}
                             />
 
-                            {/* Email */}
                             <TextField
                                 fullWidth
                                 name="email"
@@ -176,9 +179,10 @@ export default function Profile() {
                                 value={editedUser.email}
                                 onChange={handleInputChange}
                                 margin="normal"
+                                InputLabelProps={{ style: { fontSize: 18 } }}
+                                inputProps={{ style: { fontSize: 15, padding: '10px 14px' } }}
                             />
 
-                            {/* Address */}
                             <TextField
                                 fullWidth
                                 name="address"
@@ -186,50 +190,66 @@ export default function Profile() {
                                 value={editedUser.address}
                                 onChange={handleInputChange}
                                 margin="normal"
+                                InputLabelProps={{ style: { fontSize: 18 } }}
+                                inputProps={{ style: { fontSize: 15, padding: '10px 14px' } }}
                             />
 
-                            {/* Date of Birth */}
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DatePicker
                                     label="Date of Birth"
                                     value={new Date(editedUser.dob)}
                                     onChange={handleDateChange}
-                                    renderInput={(params) => <TextField {...params} fullWidth margin="normal" />}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            fullWidth
+                                            margin="normal"
+                                            InputLabelProps={{ style: { fontSize: 28 } }}
+                                            inputProps={{ ...params.inputProps, style: { fontSize: 28, padding: '10px 14px' } }}
+                                        />
+                                    )}
                                 />
                             </LocalizationProvider>
 
-                            {/* Avatar Upload */}
                             <Typography variant="body1" gutterBottom>
                                 Upload Avatar
                             </Typography>
                             <TextField
                                 type="file"
                                 onChange={(e) => handleFileChange(e, 'avatar')}
-                                inputProps={{ accept: "image/*" }}
+                                inputProps={{ accept: "image/*", style: { fontSize: 14, padding: '10px 14px' } }}
                                 margin="normal"
                             />
 
-                            {/* Certification Upload */}
                             <Typography variant="body1" gutterBottom>
                                 Upload Certification
                             </Typography>
                             <TextField
                                 type="file"
                                 onChange={(e) => handleFileChange(e, 'certification')}
-                                inputProps={{ accept: ".pdf,.doc,.docx" }}
+                                inputProps={{ accept: ".pdf,.doc,.docx", style: { fontSize: 14, padding: '10px 14px' } }}
                                 margin="normal"
                             />
 
-                            {/* Action Buttons */}
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-                                <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    sx={{ fontSize: '1.4rem', padding: '10px 20px' }}
+                                >
                                     Save Changes
                                 </Button>
-                                <Button variant="outlined" onClick={handleClose} sx={{ mt: 2 }}>
+                                <Button
+                                    variant="outlined"
+                                    onClick={handleClose}
+                                    sx={{ fontSize: '1.4rem', padding: '10px 20px' }}
+                                >
                                     Cancel
                                 </Button>
                             </Box>
                         </Box>
+
                     </Box>
                 </Modal>
 
