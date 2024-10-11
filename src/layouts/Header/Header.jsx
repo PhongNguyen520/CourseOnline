@@ -1,11 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import NavDropdown from "../Navdropdown/Navdropdown";
 import {Col, Container, Row} from "react-bootstrap";
 import images from "../../assets/images";
 import {ModalContext} from "../../components/ModalProvider/ModalProvider";
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode';
 import config from "../../config";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -13,10 +15,12 @@ const cx = classNames.bind(styles);
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const {setActiveLogIn, setActiveSignUp, auth} = useContext(ModalContext);
+    const { setActiveLogIn, setActiveSignUp, auth, setAuth } = useContext(ModalContext);
     const isAuthenticated = Boolean(auth?.token);
-
+    const [userName, setUserName] = useState('');
     const location = useLocation();
+    const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
     const handleScroll = () => {
         if (window.scrollY > 50) {
@@ -32,9 +36,24 @@ export default function Header() {
         setDropdownVisible(!isDropdownVisible);
     };
 
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDropdownVisible(false); // Ẩn dropdown khi nhấn ngoài
+        }
+    };
+
     const signOut = () => {
+        Cookies.remove('authToken');
+        setAuth(null);
+        navigate(config.routes.home);
         console.log('Logged out');
     };
+    useEffect(() => {
+        if (isAuthenticated) {
+            const decodedToken = jwtDecode(auth.token);
+            setUserName(decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"] || ""); // Lưu username
+        }
+    }, [auth, isAuthenticated]);
 
     useEffect(() => {
         setDropdownVisible(false);
@@ -42,23 +61,25 @@ export default function Header() {
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
+        document.addEventListener('mousedown', handleClickOutside);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
     return (
-        <div className={cx('wrapper', {scrolled: isScrolled})}>
+        <div className={cx('wrapper', { scrolled: isScrolled })}>
             <Container className={cx('header-container')}>
                 <Row>
                     <Col lg='1' className={cx('logo')}>
                         <Link className={cx('container__logo-link')} to={config.routes.home}>
-                            <img src={images.logo} alt="logo"/>
+                            <img src={images.logo} alt="logo" />
                         </Link>
                     </Col>
 
                     <Col lg="9">
-                        <NavDropdown/>
+                        <NavDropdown />
                     </Col>
 
                     <Col lg="2" className={cx('container__login-signup')}>
@@ -86,13 +107,13 @@ export default function Header() {
                                     </Link>
                                 </div>
 
-                                <div className={cx('profile-container')}>
+                                <div className={cx('profile-container')} ref={dropdownRef}>
                                     <div
                                         className={cx('container__login-user')}
                                         onClick={toggleDropdown}
                                     >
                                         <img
-                                            src={auth?.avatar ? auth?.avatar : images.defaultAvatar }
+                                            src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
                                             alt='avatar'
                                             className={cx('container__login-user-img')}
                                         />
@@ -103,14 +124,14 @@ export default function Header() {
                                             <div className={cx('user-info')}>
                                                 <div className={cx('avatar-container')}>
                                                     <img
-                                                        src={auth?.avatar ? auth?.avatar : images.defaultAvatar }
+                                                        src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
                                                         alt='avatar'
                                                         className={cx('dropdown-avatar')}
                                                     />
-                                                    <span className={cx('active-status')}></span>
+                                                    <span className={cx('active-status')}></span> {/* Chấm xanh lục */}
                                                 </div>
                                                 <div className={cx('user-details')}>
-                                                    <p className={cx('user-name')}>{auth?.fullName}</p>
+                                                    <p className={cx('user-name')}>{userName}</p>
                                                     <Link to={config.routes.profile} className={cx('profile-link')}>
                                                         <i className="bi bi-person"></i>
                                                         See profile
@@ -118,6 +139,7 @@ export default function Header() {
                                                 </div>
                                             </div>
 
+                                            {/* Các mục menu */}
                                             <ul className={cx('menu-list')}>
                                                 <Link to="/classes">
                                                     <li>
@@ -154,5 +176,3 @@ export default function Header() {
         </div>
     );
 }
-
-

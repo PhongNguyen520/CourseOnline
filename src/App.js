@@ -9,9 +9,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from "./routes/routes";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import ChatFeature from "./pages/Home/Chat/ChatFeature";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     const { activeLogIn, activeSignUp } = useContext(ModalContext);
+
     return (
         <div className="App">
             <Router>
@@ -29,11 +31,13 @@ function App() {
                     })}
                 </Routes>
                 <ChatFeature />
-                <ScrollToTop/>
+                <ScrollToTop />
                 <Footer />
+
+                {activeLogIn && <Login />}
+                {activeSignUp && <SignUp />}
             </Router>
-            {activeLogIn && <Login />}
-            {activeSignUp && <SignUp />}
+            <ToastContainer />
         </div>
     );
 }
