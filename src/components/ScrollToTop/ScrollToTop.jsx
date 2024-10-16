@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import Button from "../Button/Button";
 import { MoveIcon } from '../../assets/icons/Icons';
@@ -13,7 +13,7 @@ function ScrollToTop() {
 
     useState(() => {
         window.addEventListener('scroll', () => {
-            if (window.scrollY >= 100) {
+            if (window.scrollY >= 1500) {
                 setStatus(true);
             } else {
                 setStatus(false);

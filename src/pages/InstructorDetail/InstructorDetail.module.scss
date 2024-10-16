@@ -1,0 +1,95 @@
+.wrapper {
+  margin-top: 8%;
+  min-height: 100vh;
+}
+
+.container_instructor-info {
+  text-align: center;
+  border-radius: 5%;
+  border: 2px solid #e0e0e0;
+  padding: 20px;
+  min-height: 80%;
+
+  .instructor-avatar {
+    margin-bottom: 20px;
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #007bff;
+    }
+  }
+
+  h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+}
+
+.container-about {
+  padding-left: 20px;
+  h4{
+    font-size: 2.5rem;
+    font-weight: bold;
+
+  }
+}
+
+.certificates {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: center;
+
+  .certificate-image {
+    border-radius: 5%;
+    border: 1px solid #e0e0e0;
+    width: 50%;
+    height: auto;
+  }
+}
+
+.course-list,
+.feedback-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+}
+
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  background: #F0F0F0;
+  padding: 20px;
+  .course-item {
+    text-align: center;
+
+    .course-image {
+      width: 100%; // Đảm bảo hình ảnh chiếm toàn bộ chiều rộng
+      height: 100%; // Tự động điều chỉnh chiều cao
+      border-radius: 5px; // Bo tròn góc
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Thêm bóng cho hình ảnh
+    }
+
+    .course-title {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+    :hover{
+      cursor: pointer;
+    }
+  }
+}
+
+.course-grid, .feedback-list{
+  margin-bottom: 20px;
+}

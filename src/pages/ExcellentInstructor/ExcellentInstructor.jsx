@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, {useMemo, useState} from "react";
 import classNames from "classnames/bind";
 import styles from "./ExcellentInstructor.module.scss";
-import { Col, Row, Form, Button } from "react-bootstrap";
-import { FaSearch, FaPhoneAlt } from "react-icons/fa";
+import {Col, Row, Form, Button} from "react-bootstrap";
+import {FaSearch, FaPhoneAlt} from "react-icons/fa";
 import images from "../../assets/images";
+import {Link} from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -151,27 +152,29 @@ export default function ExcellentInstructor() {
                 {filteredInstructors.length > 0 ? (
                     filteredInstructors.map((instructor) => (
                         <Col key={instructor.id} xs={12} md={6} lg={4} className={cx("instructor-card")}>
-                            <div className={cx("card")}>
-                                <div className={cx("header")}>
-                                    <div className={cx("avatar-container")}>
-                                        <img
-                                            src={images.defaultAvatar}
-                                            alt={`${instructor.fullName}'s avatar`}
-                                            className={cx("avatar")}
-                                        />
-                                        <span className={cx('active-status')}></span>
+                            <Link to={`/excellentInstructor/${instructor.id}`}>
+                                <div className={cx("card")}>
+                                    <div className={cx("header")}>
+                                        <div className={cx("avatar-container")}>
+                                            <img
+                                                src={images.defaultAvatar}
+                                                alt={`${instructor.fullName}'s avatar`}
+                                                className={cx("avatar")}
+                                            />
+                                            <span className={cx('active-status')}></span>
+                                        </div>
+                                        <FaPhoneAlt className={cx("phone-icon")}/>
                                     </div>
-                                    <FaPhoneAlt className={cx("phone-icon")} />
+                                    <div className={cx("info")}>
+                                        <p>Email: {instructor.email}</p>
+                                        <p>Address: {instructor.address}</p>
+                                        <p>Date of Birth: {instructor.dob}</p>
+                                        <p>Status: {instructor.status}</p>
+                                        <p>Courses: {instructor.courses}</p>
+                                        <p>Feedbacks: {instructor.feedbacks}</p>
+                                    </div>
                                 </div>
-                                <div className={cx("info")}>
-                                    <p>Email: {instructor.email}</p>
-                                    <p>Address: {instructor.address}</p>
-                                    <p>Date of Birth: {instructor.dob}</p>
-                                    <p>Status: {instructor.status}</p>
-                                    <p>Courses: {instructor.courses}</p>
-                                    <p>Feedbacks: {instructor.feedbacks}</p>
-                                </div>
-                            </div>
+                            </Link>
                         </Col>
                     ))
                 ) : (

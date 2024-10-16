@@ -5,14 +5,13 @@
   bottom: 0;
   right: 0;
   z-index: 5;
-  height: var(--default-layout-height-header);
-  //background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
-  //transition: background 0.3s ease, height 0.3s ease;
-  background: #363232;
+  height: 12%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
+  transition: background 0.3s ease, height 0.3s ease;
 
   &.scrolled {
-    height: var(--default-layout-height-header);
-    background: #363232;
+    height: 9%;
+    background: #565656;
   }
 }
 
@@ -84,9 +83,6 @@
   i {
     font-size: 24px;
     color: #ffffff;
-    &:hover {
-      color: red; /* Đổi màu khi hover */
-    }
   }
 }
 
@@ -99,9 +95,6 @@
   i {
     font-size: 24px;
     color: #ffffff;
-    &:hover {
-      color: #4CAF50; /* Đổi màu khi hover */
-    }
   }
 
 
@@ -226,6 +219,25 @@
     }
   }
 }
+
+.container__bookmark,
+.container__cart {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+}
+
 
 @keyframes fadeIn {
   from {
