@@ -543,7 +543,7 @@ const RegisterInstructor = () => {
                                 <button
                                     // orange
                                     // onClick={handleChangeImage}
-                                    className={cx('button_upload')}
+                                    // className={cx('button_uploadd')}
                                     style={{
                                         width: '60px',
                                         height: '20px',

@@ -55,6 +55,8 @@ function Login() {
                 role: decodedToken.RoleId
             });
 
+
+
             setUser({
                 fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
                 userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
@@ -89,6 +91,7 @@ function Login() {
             }, { withCredentials: true });
 
             const token = Cookies.get('authToken');
+            console.log(token);
             if (!token) {
                 throw new Error('Token not found in cookies.');
             }
@@ -100,7 +103,7 @@ function Login() {
             // Cập nhật trạng thái sau khi login
             setAuth({
                 token: token,
-                role: decodedToken.RoleId
+                role: decodedToken?.RoleId
             });
 
             setUser({
@@ -144,7 +147,7 @@ function Login() {
                     <div className={cx('modal__body')}>
                         <div className={cx('modal__form-wrapper')}>
                             <form className={cx('modal__form', 'modal__form--sign-in')} onSubmit={handleSubmit}>
-                                <label htmlFor="userName" className={cx('modal__label')}>User name</label>
+                                <label htmlFor="userName" className={cx('modal__label')}>Email</label>
                                 <input
                                     type="text"
                                     id="userName"
