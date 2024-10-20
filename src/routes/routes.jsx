@@ -9,6 +9,7 @@ import Profile from "../pages/Profile/Profile";
 import ExcellentInstructor from "../pages/ExcellentInstructor/ExcellentInstructor";
 import PracticeQuiz from "../pages/PracticeQuiz/PracticeQuiz";
 import InstructorDetail from "../pages/InstructorDetail/InstructorDetail";
+import AuthGoogle from "../pages/AuthGoogle/AuthGoogle";
 
 const publicRoutes = [
     {path: config.routes.home, component: Home},
@@ -20,6 +21,7 @@ const publicRoutes = [
     {path: config.routes.excellentInstructor, component: ExcellentInstructor},
     {path: config.routes.practiceQuiz, component: PracticeQuiz},
     {path: config.routes.instructorDetail, component: InstructorDetail},
+    {path: config.routes.googleAuth, component: AuthGoogle},
 ]
 
 const privateRoutes = [

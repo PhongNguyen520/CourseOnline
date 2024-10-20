@@ -13,10 +13,11 @@ import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 const LOGIN_URL = 'Authen/login';
+const LOGIN_WITH_GOOGLE = 'GoogleAuth/login';
 
 function Login() {
     const { setActiveLogIn, setAuth, setActiveSignUp, setUser } = useContext(ModalContext);
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -24,7 +25,6 @@ function Login() {
     const navigate = useNavigate();
     useEffect(() => {
         const authToken = Cookies.get('authToken') || localStorage.getItem('authToken');
-        console.log('Initial authToken:', authToken); // Debugging
         if (authToken) {
             setToken(authToken);
             handleTokenAuthentication(authToken);
@@ -77,7 +77,7 @@ function Login() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!userName || !password) {
+        if (!email || !password) {
             setError('Please enter both username and password.');
             return;
         }
@@ -86,15 +86,15 @@ function Login() {
         try {
             // Gửi yêu cầu đăng nhập
             const response = await requests.post(LOGIN_URL, {
-                email: userName,
+                email: email,
                 password: password,
             }, { withCredentials: true });
 
             const token = Cookies.get('authToken');
-            console.log(token);
-            if (!token) {
-                throw new Error('Token not found in cookies.');
-            }
+            console.log("Test"+token);
+            // if (!token) {
+            //     throw new Error('Token not found in cookies.');
+            // }
 
             // Giải mã token
             const decodedToken = jwtDecode(token);
@@ -132,8 +132,7 @@ function Login() {
 
 
     const handleGoogleLogin = () => {
-        // Implement your Google login logic here
-        // For example: window.location.href = `${API_URL}/GoogleAuth/login`;
+         window.location.href = process.env.REACT_APP_URL_API +LOGIN_WITH_GOOGLE;
     };
 
     return (
@@ -147,14 +146,14 @@ function Login() {
                     <div className={cx('modal__body')}>
                         <div className={cx('modal__form-wrapper')}>
                             <form className={cx('modal__form', 'modal__form--sign-in')} onSubmit={handleSubmit}>
-                                <label htmlFor="userName" className={cx('modal__label')}>Email</label>
+                                <label htmlFor="Email" className={cx('modal__label')}>Email</label>
                                 <input
                                     type="text"
-                                    id="userName"
-                                    className={cx('modal__input', 'modal__input--username')}
+                                    id="Email"
+                                    className={cx('modal__input', 'modal__input--email')}
                                     autoComplete="off"
-                                    value={userName}
-                                    onChange={(e) => setUserName(e.target.value)}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
                                 <label htmlFor="password" className={cx('modal__label')}>Password</label>
