@@ -92,9 +92,9 @@ function Login() {
 
             const token = Cookies.get('authToken');
             console.log("Test"+token);
-            // if (!token) {
-            //     throw new Error('Token not found in cookies.');
-            // }
+            if (!token) {
+                throw new Error('Token not found in cookies.');
+            }
 
             // Giải mã token
             const decodedToken = jwtDecode(token);
