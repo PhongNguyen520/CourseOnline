@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
-    const {setActiveLogIn, setActiveSignUp, auth, setAuth, user} = useContext(ModalContext);
+    const {setActiveLogIn, setActiveSignUp, auth, setAuth, user, setUser} = useContext(ModalContext);
     const isAuthenticated = Boolean(auth?.token);
     const location = useLocation();
     const navigate = useNavigate();
@@ -47,8 +47,8 @@ export default function Header() {
     const signOut = () => {
         Cookies.remove('authToken');
         setAuth(null);
+        setUser(null);
         navigate(config.routes.home);
-        console.log('Logged out');
     };
 
 

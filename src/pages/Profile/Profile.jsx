@@ -84,7 +84,7 @@ export default function Profile() {
 
                     <Box className={cx("section")}>
                         <Typography variant="h6">Other</Typography>
-                        <Typography><strong>Certification:</strong> {fetchUser.certification}</Typography>
+                        <Typography><strong>Certification:</strong> <img src={fetchUser.certification} alt='certificate'/></Typography>
                         <Typography><strong>Account Created:</strong> {fetchUser.createdDate}</Typography>
                         <Typography><strong>Status:</strong> {fetchUser.Role}</Typography>
                         <Typography><strong>Comment:</strong> {fetchUser.comment}</Typography>
