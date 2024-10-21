@@ -409,8 +409,8 @@
 .slide-track {
   display: flex;
   flex-direction: row;
-  width: calc(9 * 200px);
-  animation: scroll 40s linear infinite;
+  width: calc(4 * 220px * 3); // 4 instructors, 3 repetitions, and 220px per card
+  animation: scroll 20s linear infinite;
 }
 
 .slide-track:hover {
@@ -422,9 +422,12 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-4.5 * 200px));
+    transform: translateX(calc(-4.5 * 220px)); // Width of each element plus margin
   }
 }
+
+
+
 
 .container__levels {
   display: flex;
@@ -530,49 +533,8 @@
   }
 }
 
-//
-//.testimonial-title {
-//  text-align: center;
-//  font-size: 2rem;
-//  margin-bottom: 30px;
-//  color: #fff;
-//}
-//
-//.testimonials {
-//  display: flex;
-//  flex-wrap: wrap;
-//  justify-content: space-between;
-//}
-//
-//.testimonial-card {
-//  background-color: #002f3b;
-//  color: #fff;
-//  padding: 20px;
-//  border: none;
-//  transition: transform 0.3s ease, box-shadow 0.3s ease;
-//  &:hover {
-//    transform: translateY(-10px);
-//    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-//  }
-//}
-//
-//.testimonial-header {
-//  display: flex;
-//  align-items: center;
-//  margin-bottom: 15px;
-//}
-//
-//.testimonial-avatar {
-//  width: 50px;
-//  height: 50px;
-//  border-radius: 50%;
-//  margin-right: 15px;
-//}
-//
-//.testimonial-role {
-//  background-color: #00c896;
-//  padding: 5px 10px;
-//  border-radius: 20px;
-//  color: #002f3b;
-//  font-weight: bold;
-//}
+.search-icon{
+  &:hover{
+    cursor: pointer;
+  }
+}

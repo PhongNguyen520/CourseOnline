@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ModalContext } from "../../components/ModalProvider/ModalProvider";
 import images from "../../assets/images";
+import { format } from 'date-fns';
 
 const API_GET_PROFILE = 'User/GetUserProfile';
 const API_UPDATE_PROFILE = 'User/Update-Profile';
@@ -23,20 +24,20 @@ export default function Profile() {
     const [certificationFile, setCertificationFile] = useState(null);
     const [open, setOpen] = useState(false);
 
-    // Fetch user data on component mount
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await requests.get(API_GET_PROFILE);
-                if (response.data) {
-                    setFetchUser(response.data);
-                    setEditedUser(response.data);
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
+    console.log(user);
+    const fetchUserData = async () => {
+        try {
+            const response = await requests.get(API_GET_PROFILE);
+            if (response.data) {
+                setFetchUser(response.data);
+                setEditedUser(response.data);
             }
-        };
+        } catch (error) {
+            console.error("Error fetching user data:", error);
+        }
+    };
 
+    useEffect(() => {
         fetchUserData();
     }, []);
 
@@ -58,18 +59,54 @@ export default function Profile() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleSaveChanges = async (e) => {
+        e.preventDefault();
+
+        if (!user) {
+            console.error("User is not available.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('fullName', editedUser.fullName);
+        formData.append('email', editedUser.email);
+        formData.append('address', editedUser.address);
+        formData.append('dob', editedUser.dob);
+        if (avatarFile) formData.append('avatar', avatarFile);
+        if (certificationFile) formData.append('certification', certificationFile);
+
+        try {
+            const response = await requests.put(`${API_UPDATE_PROFILE}/${user.userName}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            if (response.status === 200) {
+                console.log("Profile updated successfully:", response.data);
+                fetchUserData();
+                handleClose();
+            } else {
+                console.error("Failed to update profile:", response);
+            }
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+    };
+
     if (!fetchUser) {
         return <Typography>Loading...</Typography>;
     }
 
+    console.log(fetchUser);
+
     return (
-        <motion.div className={cx("wrapper")} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <div className={cx("wrapper")} >
             <Box className={cx("profile-container")}>
                 <Box className={cx("profile-header")}>
                     <img src={user?.avatar || images.defaultAvatar} alt="Avatar" className={cx("profile-avatar")} />
                     <Box className={cx("profile-title")}>
                         <Typography variant="h4">{fetchUser.fullName}</Typography>
-                        <Typography variant="subtitle1">{fetchUser.userName}</Typography>
                     </Box>
                 </Box>
 
@@ -79,15 +116,13 @@ export default function Profile() {
                         <Typography><strong>Email:</strong> {fetchUser.email}</Typography>
                         <Typography><strong>Phone Number:</strong> {fetchUser.phoneNumber}</Typography>
                         <Typography><strong>Address:</strong> {fetchUser.address}</Typography>
-                        <Typography><strong>Date of Birth:</strong> {fetchUser.dob}</Typography>
+                        <Typography><strong>Date of Birth:</strong> {fetchUser.dob ? format(new Date(fetchUser.dob), 'dd/MM/yyyy') : ''}</Typography>
+                        <Typography><strong>Account Created:</strong> {fetchUser.createdDate ? format(new Date(fetchUser.createdDate), 'dd/MM/yyyy') : ''}</Typography>
                     </Box>
 
                     <Box className={cx("section")}>
                         <Typography variant="h6">Other</Typography>
                         <Typography><strong>Certification:</strong> <img src={fetchUser.certification} alt='certificate'/></Typography>
-                        <Typography><strong>Account Created:</strong> {fetchUser.createdDate}</Typography>
-                        <Typography><strong>Status:</strong> {fetchUser.Role}</Typography>
-                        <Typography><strong>Comment:</strong> {fetchUser.comment}</Typography>
                     </Box>
                 </Box>
 
@@ -102,6 +137,7 @@ export default function Profile() {
                     onInputChange={handleInputChange}
                     onDateChange={handleDateChange}
                     onFileChange={handleFileChange}
+                    handleSaveChanges={handleSaveChanges}
                 />
 
                 <Box className={cx("social-links")}>
@@ -113,18 +149,18 @@ export default function Profile() {
                     </a>
                 </Box>
             </Box>
-        </motion.div>
+        </div>
     );
 }
 
-const ProfileEditModal = ({ open, onClose, editedUser, onInputChange, onDateChange, onFileChange }) => {
+const ProfileEditModal = ({ open, onClose, editedUser, onInputChange, onDateChange, onFileChange, handleSaveChanges }) => {
     return (
         <Modal open={open} onClose={onClose} aria-labelledby="edit-profile-modal">
             <Box className={cx("modal-box")}>
                 <Typography variant="h6" id="edit-profile-modal" gutterBottom>
                     Edit Profile
                 </Typography>
-                <Box component="form" className={cx("edit-form")}>
+                <Box component="form" className={cx("edit-form")} onSubmit={handleSaveChanges}>
                     <TextField
                         fullWidth
                         name="fullName"
@@ -186,7 +222,7 @@ const ProfileEditModal = ({ open, onClose, editedUser, onInputChange, onDateChan
                     <TextField
                         type="file"
                         onChange={(e) => onFileChange(e, 'certification')}
-                        inputProps={{ accept: ".pdf,.doc,.docx", style: { fontSize: 14, padding: '10px 14px' } }}
+                        inputProps={{ accept: "image/*", style: { fontSize: 14, padding: '10px 14px' } }}
                         margin="normal"
                     />
 
