@@ -93,7 +93,6 @@
   }
 }
 
-
 .popular-courses-section {
   margin: 20px 0;
 
@@ -107,8 +106,7 @@
   .course-items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 28px;
+    gap: 20px;
 
     .course-item {
       background: #fff;
@@ -118,7 +116,10 @@
       padding: 10px;
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
-      flex: 1 1 calc(25% - 40px);
+      flex: 1 1 30%;
+      max-width: 30%;
+      flex-grow: 0;
+      flex-shrink: 0;
 
       &:hover {
         transform: translateY(-5px);
@@ -126,7 +127,7 @@
       }
 
       .course-image {
-        position: relative; // Ensure that the badge can be positioned relative to the image
+        position: relative;
         img {
           border-radius: 10px;
           width: 100%;
@@ -142,7 +143,7 @@
           padding: 5px;
           border-radius: 5px;
           font-weight: bold;
-          transform: rotate(30deg); // Diagonal effect
+          transform: rotate(30deg);
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -152,9 +153,7 @@
           color: #333;
           margin-top: 5px;
         }
-
       }
-
 
       .course-body {
         padding: 10px;
@@ -195,5 +194,9 @@
       }
     }
   }
+  .not-found{
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+  }
 }
-

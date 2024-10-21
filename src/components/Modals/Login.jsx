@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import requests from '../../utils/requests';
 import { jwtDecode } from 'jwt-decode';
-import Cookies from "js-cookie";
+import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -84,7 +84,6 @@ function Login() {
 
         setLoading(true);
         try {
-            // Gửi yêu cầu đăng nhập
             const response = await requests.post(LOGIN_URL, {
                 email: email,
                 password: password,

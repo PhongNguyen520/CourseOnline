@@ -8,12 +8,11 @@ export function ModalProvider({ children }) {
     const [activeLogIn, setActiveLogIn] = useState(false);
     const [activeSignUp, setActiveSignUp] = useState(false);
     const [auth, setAuth] = useState({});
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
     const [authToken] = useState(Cookies.get('authToken'));
 
     useEffect(() => {
         const handleTokenAuthentication = (token) => {
-            console.log('Attempting to authenticate with token:', token);
             try {
                 const decodedToken = jwtDecode(token);
                 console.log('Decoded token:', decodedToken);

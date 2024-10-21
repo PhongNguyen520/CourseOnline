@@ -30,7 +30,7 @@ function App() {
                         );
                     })}
                 </Routes>
-                <ChatFeature />
+                {/*<ChatFeature />*/}
                 <ScrollToTop />
                 <Footer />
 

@@ -1,11 +1,14 @@
 .wrapper {
   margin-top: var(--default-layout-height-header);
-  min-height: 100vh;
+  min-height: 70vh;
   padding: 40px 20px;
+  background-color: #f9f9f9;
 
   .search-instructor-container {
     border-radius: 12px;
     padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 
     .result-container,
     .search-form {
@@ -20,78 +23,34 @@
     .search-bar-container {
       display: flex;
       align-items: center;
+      margin-bottom: 15px;
 
       .search-input {
         border-radius: 10px;
         border: 1px solid #EE4D2D;
         padding: 8px 20px;
-        font-size: 20px;
+        font-size: 18px;
         width: 100%;
         transition: border-color 0.3s;
 
         &:focus {
-          border-color: #EE4D2D;
-          box-shadow: 0 0 5px #EE4D2D;
+          border-color: #FCA339;
+          box-shadow: 0 0 8px rgba(252, 163, 57, 0.4);
         }
       }
 
       .search-button {
         background-color: #EE4D2D;
         border: none;
-        border-radius: 20px;
-        padding: 12px 15px;
+        border-radius: 45%;
+        padding: 12px;
         margin-left: 10px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.3s;
 
         &:hover {
-          background-color: #FF0000;
-        }
-      }
-    }
-
-    .sidebar {
-      background-color: #f4f4f4;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
-      .filter-title {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        color: #333;
-      }
-
-      .filter-select {
-        border-radius: 5px;
-        padding: 10px;
-        border: 1px solid #ced4da;
-        font-size: 16px;
-        transition: border-color 0.3s;
-
-        &:focus {
-          border-color: #007bff;
-          box-shadow: 0 0 5px #FCA339;
-        }
-      }
-    }
-
-    .sort-buttons {
-      display: flex;
-      gap: 10px;
-
-      Button {
-        flex: 1;
-        transition: background-color 0.3s;
-
-        &.primary {
-          background-color: #FCA339;
-          border: none;
-        }
-
-        &.outline-primary {
-          background-color: transparent;
-          border: 1px solid #FCA339;
+          background-color: #FF5722;
+          transform: scale(1.05);
         }
       }
     }
@@ -101,10 +60,12 @@
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 
     .instructor-card {
       margin-bottom: 20px;
+      width: 100%;
+      max-width: 25%;
+      padding: 0 15px;
 
       .card {
         background-color: #fff;
@@ -114,12 +75,11 @@
         transition: transform 0.3s, box-shadow 0.3s;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         height: 100%;
 
         &:hover {
           transform: translateY(-5px);
-          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .header {
@@ -133,11 +93,11 @@
             position: relative;
 
             .avatar {
-              width: 50px;
-              height: 50px;
+              width: 60px;
+              height: 60px;
               border-radius: 50%;
               margin-right: 15px;
-              border: 2px solid #ddd;
+              border: 2px solid #eee;
               object-fit: cover;
               position: relative;
             }
@@ -161,6 +121,14 @@
             }
           }
 
+          .full-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-right: 15px;
+            color: #333;
+            white-space: nowrap;
+          }
+
           .phone-icon {
             font-size: 2rem;
             color: #28a745;
@@ -171,12 +139,20 @@
 
         .info {
           margin-top: 15px;
-          font-size: 0.9rem;
+          font-size: 1.2rem;
           color: #666;
           line-height: 1.6;
 
           p {
             margin: 5px 0;
+            display: flex;
+            align-items: center;
+
+            .icon {
+              margin-right: 10px;
+              font-size: 1.5rem;
+              color: #fca339;
+            }
           }
         }
       }

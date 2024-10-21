@@ -1,106 +1,47 @@
-import React, {useMemo, useState} from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ExcellentInstructor.module.scss";
-import {Col, Row, Form, Button} from "react-bootstrap";
-import {FaSearch, FaPhoneAlt} from "react-icons/fa";
+import { Col, Row, Form, Button } from "react-bootstrap";
+import { FaSearch, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaBirthdayCake, FaCalendarAlt } from "react-icons/fa"; // Added icons
 import images from "../../assets/images";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import requests from '../../utils/requests';
 
 const cx = classNames.bind(styles);
-
-const instructors = [
-    {
-        id: 1,
-        avatar: "/path/to/avatar1.jpg",
-        userName: "johndoe",
-        fullName: "John Doe",
-        courses: 10,
-        feedbacks: 200,
-        email: "john@example.com",
-        phoneNumber: "123-456-7890",
-        address: "123 Main St",
-        dob: "1980-01-01",
-        status: "Active"
-    },
-    {
-        id: 2,
-        avatar: "/path/to/avatar2.jpg",
-        userName: "janesmith",
-        fullName: "Jane Smith",
-        courses: 15,
-        feedbacks: 150,
-        email: "jane@example.com",
-        phoneNumber: "987-654-3210",
-        address: "456 Elm St",
-        dob: "1985-02-15",
-        status: "Active"
-    },
-    {
-        id: 3,
-        avatar: "/path/to/avatar3.jpg",
-        userName: "peterparker",
-        fullName: "Peter Parker",
-        courses: 8,
-        feedbacks: 180,
-        email: "peter@example.com",
-        phoneNumber: "456-789-1234",
-        address: "789 Maple Ave",
-        dob: "1990-03-10",
-        status: "Inactive"
-    },
-    {
-        id: 4,
-        avatar: "/path/to/avatar4.jpg",
-        userName: "brucewayne",
-        fullName: "Bruce Wayne",
-        courses: 12,
-        feedbacks: 100,
-        email: "bruce@example.com",
-        phoneNumber: "789-123-4567",
-        address: "1 Wayne Manor",
-        dob: "1975-09-15",
-        status: "Active"
-    },
-    {
-        id: 5,
-        avatar: "/path/to/avatar5.jpg",
-        userName: "clarkkent",
-        fullName: "Clark Kent",
-        courses: 20,
-        feedbacks: 300,
-        email: "clark@example.com",
-        phoneNumber: "321-654-9870",
-        address: "234 Daily Planet",
-        dob: "1978-06-18",
-        status: "Active"
-    },
-    {
-        id: 6,
-        avatar: "/path/to/avatar5.jpg",
-        userName: "clarkkent",
-        fullName: "Clark Kent",
-        courses: 20,
-        feedbacks: 300,
-        email: "clark@example.com",
-        phoneNumber: "321-654-9870",
-        address: "234 Daily Planet",
-        dob: "1978-06-18",
-        status: "Active"
-    }
-];
+const INSTRUCTOR_URL = 'User/Get-all';
 
 export default function ExcellentInstructor() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filter, setFilter] = useState("all");
+    const [instructors, setInstructors] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchInstructors = async () => {
+            try {
+                setLoading(true);
+                const response = await requests.get(INSTRUCTOR_URL);
+                setInstructors(response.data.items.filter(user => user.roleId.roleName === 'Instructor') || []);
+            } catch (err) {
+                setError('Error fetching instructors');
+                console.error('API call failed:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchInstructors();
+    }, []);
 
     const filteredInstructors = useMemo(() => {
         let filtered = instructors;
 
-        if (filter === "mostCourses") {
-            filtered = [...filtered].sort((a, b) => b.courses - a.courses);
-        } else if (filter === "mostFeedbacks") {
-            filtered = [...filtered].sort((a, b) => b.feedbacks - a.feedbacks);
-        }
+        // if (filter === "mostCourses") {
+        //     filtered = [...filtered].sort((a, b) => b.courses - a.courses);
+        // } else if (filter === "mostFeedbacks") {
+        //     filtered = [...filtered].sort((a, b) => b.feedbacks - a.feedbacks);
+        // }
 
         if (searchTerm) {
             filtered = filtered.filter(instructor =>
@@ -109,11 +50,10 @@ export default function ExcellentInstructor() {
         }
 
         return filtered;
-    }, [searchTerm, filter]);
+    }, [searchTerm, filter, instructors]);
 
     return (
         <div className={cx("wrapper")}>
-
             <div className={cx("search-instructor-container")}>
                 <Row className="justify-content-end mt-4">
                     <Col md={5}>
@@ -126,8 +66,8 @@ export default function ExcellentInstructor() {
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className={cx('search-input')}
                                 />
-                                <Button type="submit" className={cx('search-button')}>
-                                    <FaSearch/>
+                                <Button type="submit" className={cx('search-button')} onClick={(e) => e.preventDefault()}>
+                                    <FaSearch />
                                 </Button>
                             </div>
                         </Form>
@@ -149,7 +89,9 @@ export default function ExcellentInstructor() {
             </div>
 
             <Row className={cx("result-list")}>
-                {filteredInstructors.length > 0 ? (
+                {loading && <p>Loading instructors...</p>}
+                {error && <p>{error}</p>}
+                {!loading && !error && filteredInstructors.length > 0 ? (
                     filteredInstructors.map((instructor) => (
                         <Col key={instructor.id} xs={12} md={6} lg={4} className={cx("instructor-card")}>
                             <Link to={`/excellentInstructor/${instructor.id}`}>
@@ -157,30 +99,27 @@ export default function ExcellentInstructor() {
                                     <div className={cx("header")}>
                                         <div className={cx("avatar-container")}>
                                             <img
-                                                src={images.defaultAvatar}
+                                                src={instructor.avatar || images.defaultAvatar}
                                                 alt={`${instructor.fullName}'s avatar`}
                                                 className={cx("avatar")}
                                             />
                                             <span className={cx('active-status')}></span>
                                         </div>
-                                        <FaPhoneAlt className={cx("phone-icon")}/>
+                                        <div className={cx("full-name")}>{instructor.fullName}</div>
+                                        <FaPhoneAlt className={cx("phone-icon")} />
                                     </div>
                                     <div className={cx("info")}>
-                                        <p>Email: {instructor.email}</p>
-                                        <p>Address: {instructor.address}</p>
-                                        <p>Date of Birth: {instructor.dob}</p>
-                                        <p>Status: {instructor.status}</p>
-                                        <p>Courses: {instructor.courses}</p>
-                                        <p>Feedbacks: {instructor.feedbacks}</p>
+                                        <p><FaEnvelope className={cx("icon")} /> {instructor.email}</p>
+                                        <p><FaMapMarkerAlt className={cx("icon")} /> {instructor.address}</p>
+                                        <p><FaBirthdayCake className={cx("icon")} /> {instructor.dob}</p>
+                                        <p><FaCalendarAlt className={cx("icon")} /> {new Date(instructor.createdDate).toLocaleDateString()}</p>
                                     </div>
                                 </div>
                             </Link>
                         </Col>
                     ))
                 ) : (
-                    <Col>
-                        <p>No instructors found.</p>
-                    </Col>
+                    !loading && <Col><p>No instructors found.</p></Col>
                 )}
             </Row>
         </div>

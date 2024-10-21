@@ -15,10 +15,6 @@
     max-width: 1200px;
     transition: transform 0.3s ease-in-out;
 
-    //&:hover {
-    //  transform: scale(1.01);
-    //}
-
     .profile-header {
       display: flex;
       align-items: center;
@@ -74,6 +70,19 @@
             font-weight: 600;
             color: #333;
           }
+        }
+
+        // Styling for the certificate image
+        img {
+          display: block;
+          width: 100%; // Ensure the image fits the container
+          max-width: 400px; // Optional: limit max width for larger screens
+          height: auto; // Maintain aspect ratio
+          margin-top: 1rem;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+          object-fit: contain; // Ensures image fits without distortion
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
       }
     }
@@ -143,20 +152,6 @@
     }
   }
 }
-    //button {
-    //  margin-top: 2rem;
-    //  padding: 1rem 2rem;
-    //  background-color: #1976d2;
-    //  color: white;
-    //  font-size: 1.2rem;
-    //  border-radius: 8px;
-    //  transition: background-color 0.3s ease;
-    //
-    //  &:hover {
-    //    background-color: #0056b3;
-    //  }
-    //}
-
 
 @media (max-width: 768px) {
   .wrapper {
