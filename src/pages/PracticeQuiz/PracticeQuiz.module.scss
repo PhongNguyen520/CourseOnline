@@ -1,10 +1,10 @@
 .wrapper {
-  margin-top: 8%;
-  max-width: 1600px;
+  margin-top: var(--default-layout-height-header);
   margin-left: auto;
   margin-right: auto;
   position: relative;
   padding: 20px;
+  min-height: 90vh;
 
   .course-header {
     display: flex;
@@ -131,18 +131,30 @@
 }
 
 .progress-circle {
-  position: absolute; // Để định vị nó bên trong course-header
-  bottom: 10px; // Cách từ dưới lên
-  right: 10px; // Cách từ bên phải vào
-  width: 40px; // Đường kính của vòng tròn
-  height: 40px; // Đường kính của vòng tròn
-  border-radius: 50%; // Để tạo hình tròn
-  background-color: #007bff; // Màu nền
-  display: flex; // Để căn giữa nội dung
-  align-items: center; // Căn giữa theo chiều dọc
-  justify-content: center; // Căn giữa theo chiều ngang
-  color: white; // Màu chữ
-  font-weight: bold; // Đậm chữ
-  font-size: 12px; // Kích thước chữ
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Thêm bóng cho vòng tròn
+  position: absolute;
+  bottom: 10px; 
+  right: 10px; 
+  width: 50px; 
+  height: 50px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+
+.take-quiz-btn {
+  background-color: #1bdd4b;
+  color: white;
+  margin-left: auto;
+}
+
+.review-quiz-btn {
+  background-color: #6c757d;
+  color: white;
+  margin-left: auto;
+}
+
+.quiz-item{
+  display: flex;
+  align-items: center;
 }

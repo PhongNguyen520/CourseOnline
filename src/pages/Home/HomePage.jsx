@@ -177,7 +177,7 @@ function HomePage() {
                                                     return (
                                                         <GreatInstructor
                                                             key={`${index}-${repetitionIndex}`} // Unique key combining instructor index and repetition index
-                                                            avatar={instructor.avatar || 'https://via.placeholder.com/50'}
+                                                            avatar={instructor.avatar || 'https://firebasestorage.googleapis.com/v0/b/cursus-4da28.appspot.com/o/avatars%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-08-19%20194338.png?alt=media&token=b2fca777-cbe9-47a5-85f9-af70fcc7dda0'}
                                                             fullName={instructor.fullName}
                                                             address={instructor.address}
                                                             email={instructor.email}
@@ -282,7 +282,7 @@ function HomePage() {
                                 courses.slice(0, 6).map((course, index) => (  // Slicing the array to get only 6 courses
                                     <Col lg='3' key={index} className={cx('course-item')}>
                                         <div className={cx('course-image')}>
-                                            <img src={'https://ditrpindia.com/images/defaultcourse.jpg'}
+                                            <img src={'https://foundr.com/wp-content/uploads/2023/04/How-to-create-an-online-course.jpg.webp'}
                                                  alt={course.courseTitle}/>
                                         </div>
                                         <div className={cx('course-body')}>
@@ -295,7 +295,7 @@ function HomePage() {
                                             </div>
                                             <div className={cx('instructor-info')}>
                                                 <img
-                                                    src={course.user?.avatar || 'https://via.placeholder.com/50'}
+                                                    src={course.user?.avatar || 'https://firebasestorage.googleapis.com/v0/b/cursus-4da28.appspot.com/o/avatars%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-08-19%20194338.png?alt=media&token=b2fca777-cbe9-47a5-85f9-af70fcc7dda0'}
                                                     alt={course.user?.fullName || 'Instructor'}
                                                     className={cx('instructor-avatar')}
                                                 />
@@ -319,7 +319,7 @@ function HomePage() {
                                     <div className={cx('testimonial-card')}>
                                         <div className={cx('testimonial-avatar')}>
                                             <img
-                                                src='https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/461938509_1249316636419148_7431080090941975245_n.jpg?stp=dst-jpg_s200x200&_nc_cat=101&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeFen98joCoVGZnQKA5v5pam0kLCU58FduvSQsJTnwV26xSzeKYpfvTuU-Quor3Fy43xSQb1qSY1xbk1uFiB8oW4&_nc_ohc=FUBu5WZlTsQQ7kNvgFlNPUT&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=AkmPiTWWseAQDzRUtm2fKfK&oh=00_AYCLh5iIc1W7I_KBCu25sSo-dMjRKqI9pVXpLWFOT2Itng&oe=67068506'
+                                                src='https://firebasestorage.googleapis.com/v0/b/cursus-4da28.appspot.com/o/avatars%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-08-19%20194338.png?alt=media&token=b2fca777-cbe9-47a5-85f9-af70fcc7dda0'
                                                 alt={testimonial.name}/>
                                         </div>
                                         <p className={cx('testimonial-content')}>“{testimonial.content}”</p>

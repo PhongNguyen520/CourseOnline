@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import classNames from 'classnames/bind';
 import styles from './CourseDetail.module.scss';
-import { Col, Row, Accordion, Card, useAccordionButton } from "react-bootstrap";
+import { Col, Row, Accordion } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
 

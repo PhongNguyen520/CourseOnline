@@ -1,0 +1,174 @@
+.wrapper {
+  margin-top: var(--default-layout-height-header);
+  min-height: 90vh;
+
+  .search-course-container {
+    border-radius: 12px;
+    padding: 20px;
+
+    .result-container,
+    .search-form {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .search-bar-container {
+      display: flex;
+      align-items: center;
+
+      .search-input {
+        border-radius: 10px;
+        border: 1px solid #ee4d2d;
+        padding: 8px 20px;
+        font-size: 20px;
+        width: 100%;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #ee4d2d;
+          box-shadow: 0 0 5px #ee4d2d;
+        }
+      }
+
+      .search-button {
+        background-color: #ee4d2d;
+        border: none;
+        border-radius: 20px;
+        padding: 12px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #ff0000;
+        }
+      }
+    }
+  }
+
+  .cart-page {
+
+    .cart-container {
+      .cart-item {
+        padding: 20px 0;
+        border-bottom: 1px solid #ccc;
+        .cart-item-row{
+          display: flex;
+          align-items: center;
+          text-align: center;
+        }
+        .product-image {
+          width: 180px;
+          height: 120px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+  
+        .course-title {
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+        .course-price,
+        .course-total {
+          font-size: 1rem;
+        }
+
+        .delete-btn {
+          display: flex;
+          align-items: center;
+          font-size: 0.9rem;
+        }
+      }
+
+      .empty-cart {
+        text-align: center;
+        font-size: 1.2rem;
+      }
+    }
+
+    .checkout-container {
+      position: fixed;
+      top: 30%;
+      right: 10%;
+      width: 20%;
+      min-height: 40%;
+      background-color: #f9f9f9;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    
+      .checkout-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+      }
+    
+      .checkout-summary {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+       
+        p {
+          margin: 5px 0;
+        }
+    
+        .form-check-label {
+          font-size: 1rem;
+        }
+      }
+    
+      .checkout-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1.2rem;
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        transition: background-color 0.3s;
+        &:hover {
+          background-color: #218838;
+        }
+    
+        &:disabled {
+          background-color: #ddd;
+          cursor: not-allowed;
+        }
+      }
+    }
+    
+  }
+}
+
+.course-price,
+.original-price {
+    font-size: 1rem;
+    color: #666;
+    display: flex;
+}
+
+.discounted-price {
+    font-size: 1.5rem;
+    color: #d9534f; 
+    font-weight: bold;
+}
+
+.discount-label {
+    font-size: 0.9rem;
+    color: #d9534f;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.text-end{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

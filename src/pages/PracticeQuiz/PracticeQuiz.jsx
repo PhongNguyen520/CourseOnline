@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PracticeQuiz.module.scss';
-import {Container, Row, Col, Accordion} from 'react-bootstrap';
+import { Container, Row, Col, Accordion, Button } from 'react-bootstrap';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { Link, useNavigate } from 'react-router-dom';
+import routes from '../../config/routes';
 
 const cx = classNames.bind(styles);
 
 export default function PracticeQuiz() {
+    const navigate = useNavigate();
     const sampleCourses = [
         {
             CourseId: 1,
@@ -24,7 +29,7 @@ export default function PracticeQuiz() {
                             LessonId: 1,
                             LessonTitle: 'Lesson 1: Variables and Expressions',
                             quizzes: [
-                                {QuizId: 1, QuizTitle: 'Quiz 1: Basic Variables'},
+                                {QuizId: 1, QuizTitle: 'Quiz 1: Basic Variables', completed: true},
                                 {QuizId: 2, QuizTitle: 'Quiz 2: Expressions and Operations'}
                             ]
                         }
@@ -49,7 +54,7 @@ export default function PracticeQuiz() {
                             LessonId: 1,
                             LessonTitle: 'Lesson 1: Variables and Data Types',
                             quizzes: [
-                                {QuizId: 1, QuizTitle: 'Quiz 1: Python Basics'}
+                                {QuizId: 1, QuizTitle: 'Quiz 1: Python Basics', completed: true}
                             ]
                         }
                     ]
@@ -73,7 +78,7 @@ export default function PracticeQuiz() {
                             LessonId: 1,
                             LessonTitle: 'Lesson 1: Introduction to JSX',
                             quizzes: [
-                                {QuizId: 1, QuizTitle: 'Quiz 1: Understanding JSX'}
+                                {QuizId: 1, QuizTitle: 'Quiz 1: Understanding JSX', completed: true},
                             ]
                         }
                     ]
@@ -130,6 +135,10 @@ export default function PracticeQuiz() {
         }
     ];
 
+    const handleEnroll = (quizId) => {
+        navigate(`/takeQuiz/${quizId}`);
+    };
+
 
     return (
         <div className={cx('wrapper')}>
@@ -141,37 +150,25 @@ export default function PracticeQuiz() {
                                 <div className={cx('course-level')}>{course.Level}</div>
                                 <Row className={cx('container_course')}>
                                     <div className={cx('course-image')}>
-                                        <img
-                                            src={course.ImageUrl}
-                                            alt={course.CourseTitle}
-                                        />
+                                        <img src={course.ImageUrl} alt={course.CourseTitle} />
                                     </div>
-
                                     <Col lg={6} className={cx('course-details')}>
                                         <h5>{course.CourseTitle}</h5>
                                         <p className={cx('course-description')}>{course.ShortDescription}</p>
                                         <div className={cx('instructor-info')}>
-                                            <img
-                                                src={course.InstructorImageUrl}
-                                                alt={course.Author}
-                                                className={cx('instructor-avatar')}
-                                            />
+                                            <img src={course.InstructorImageUrl} alt={course.Author} className={cx('instructor-avatar')} />
                                             <span className={cx('instructor-name')}>{course.Author}</span>
                                         </div>
                                     </Col>
                                 </Row>
-                                <div className={cx('progress-circle')}>
-                                    <span>75%</span>
-                                </div>
+                                <AnimatedProgressCircle targetProgress={75} />
                             </Accordion.Header>
                             <Accordion.Body>
                                 <Accordion>
                                     {course.chapters.map((chapter, chapterIndex) => (
                                         <Accordion.Item eventKey={`${chapterIndex}`} key={chapter.ChapterId}>
                                             <Accordion.Header>
-                                                <div className={cx('chapter-header')}>
-                                                    {chapter.ChapterTitle}
-                                                </div>
+                                                <div className={cx('chapter-header')}>{chapter.ChapterTitle}</div>
                                             </Accordion.Header>
                                             <Accordion.Body>
                                                 <ul className={cx('lessons')}>
@@ -180,7 +177,15 @@ export default function PracticeQuiz() {
                                                             <strong>{lesson.LessonTitle}</strong>
                                                             <ul className={cx('quizzes')}>
                                                                 {lesson.quizzes.map((quiz) => (
-                                                                    <li key={quiz.QuizId}>{quiz.QuizTitle}</li>
+                                                                    <li key={quiz.QuizId} className={cx('quiz-item')}>
+                                                                        {quiz.QuizTitle}
+                                                                            <Button
+                                                                                className={cx(quiz.completed ? 'review-quiz-btn' : 'take-quiz-btn')}
+                                                                            onClick={() => handleEnroll(quiz.QuizId)}
+                                                                            >
+                                                                                {quiz.completed ? 'Review' : 'Take Quiz'}
+                                                                            </Button>
+                                                                    </li>
                                                                 ))}
                                                             </ul>
                                                         </li>
@@ -195,6 +200,50 @@ export default function PracticeQuiz() {
                     ))}
                 </Accordion>
             </Container>
+        </div>
+    );
+}
+
+function handleQuizButtonClick(quiz) {
+    if (quiz.completed) {
+        alert(`Reviewing ${quiz.QuizTitle}`);
+    } else {
+        alert(`Starting ${quiz.QuizTitle}`);
+    }
+}
+
+function AnimatedProgressCircle({ targetProgress }) {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        const increment = () => {
+            setProgress((prev) => {
+                if (prev < targetProgress) {
+                    return Math.min(prev + 1, targetProgress);
+                } else {
+                    return prev;
+                }
+            });
+        };
+
+        if (progress < targetProgress) {
+            const timer = setInterval(increment, 20);
+            return () => clearInterval(timer);
+        }
+    }, [progress, targetProgress]);
+
+    return (
+        <div className={cx('progress-circle')}>
+            <CircularProgressbar
+                value={progress}
+                text={`${progress}%`}
+                styles={buildStyles({
+                    pathColor: '#61A2C4',
+                    textColor: '#61A2C4',
+                    trailColor: '#d6d6d6',
+                    textSize: '25px',
+                })}
+            />
         </div>
     );
 }

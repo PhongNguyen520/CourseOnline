@@ -5,14 +5,15 @@
   bottom: 0;
   right: 0;
   z-index: 5;
-  height: 12%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
-  transition: background 0.3s ease, height 0.3s ease;
+  height: 9%;
+  background: #565656;
+  // background: linear-gradient(to bottom, rgba(0, 0, 0, .9), rgba(0, 0, 0, 0));
+  // transition: background 0.3s ease, height 0.3s ease;
 
-  &.scrolled {
-    height: 9%;
-    background: #565656;
-  }
+  // &.scrolled {
+  //   height: 9%;
+  //   background: #565656;
+  // }
 }
 
 .header-container {
@@ -21,6 +22,8 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   img{
     width: 60px;
     height: 60px;

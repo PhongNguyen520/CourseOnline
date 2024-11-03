@@ -131,7 +131,6 @@ export default function Header() {
                                                     </div>
                                                 </div>
 
-                                                {/* Các mục menu */}
                                                 <ul className={cx('menu-list')}>
                                                     <Link to="/classes">
                                                         <li>
