@@ -7,8 +7,8 @@ export const ModalContext = createContext(undefined);
 export function ModalProvider({ children }) {
     const [activeLogIn, setActiveLogIn] = useState(false);
     const [activeSignUp, setActiveSignUp] = useState(false);
-    const [auth, setAuth] = useState({});
-    const [user, setUser] = useState({});
+    const [auth, setAuth] = useState(null);
+    const [user, setUser] = useState(null);
     const [authToken] = useState(Cookies.get('authToken'));
 
     useEffect(() => {

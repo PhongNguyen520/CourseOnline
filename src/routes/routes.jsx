@@ -10,6 +10,9 @@ import ExcellentInstructor from "../pages/ExcellentInstructor/ExcellentInstructo
 import PracticeQuiz from "../pages/PracticeQuiz/PracticeQuiz";
 import InstructorDetail from "../pages/InstructorDetail/InstructorDetail";
 import AuthGoogle from "../pages/AuthGoogle/AuthGoogle";
+import Cart from "../pages/Cart/Cart";
+import BookMark from "../pages/Bookmark/Bookmark";
+import TakeQuiz from "../pages/TakeQuiz/TakeQuiz";
 
 const publicRoutes = [
     {path: config.routes.home, component: Home},
@@ -22,6 +25,9 @@ const publicRoutes = [
     {path: config.routes.practiceQuiz, component: PracticeQuiz},
     {path: config.routes.instructorDetail, component: InstructorDetail},
     {path: config.routes.googleAuth, component: AuthGoogle},
+    {path: config.routes.cart, component: Cart},
+    {path: config.routes.bookMark, component: BookMark},
+    {path: config.routes.takeQuiz, component: TakeQuiz},
 ]
 
 const privateRoutes = [

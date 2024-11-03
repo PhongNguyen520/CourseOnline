@@ -1,14 +1,14 @@
 .wrapper {
-  margin-top: var(--default-layout-height-header, 64px);
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Roboto', sans-serif;
+  margin-top: var(--default-layout-height-header);
 
   .profile-container {
     background-color: white;
-    padding: 5rem;
+    padding: 3rem 3rem;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -72,16 +72,15 @@
           }
         }
 
-        // Styling for the certificate image
         img {
           display: block;
-          width: 100%; // Ensure the image fits the container
-          max-width: 400px; // Optional: limit max width for larger screens
-          height: auto; // Maintain aspect ratio
+          width: 100%; 
+          max-width: 300px; 
+          height: auto; 
           margin-top: 1rem;
           border: 2px solid #ccc;
           border-radius: 10px;
-          object-fit: contain; // Ensures image fits without distortion
+          object-fit: contain; 
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
       }
@@ -91,7 +90,6 @@
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      margin-top: 2rem;
 
       a {
         color: #1976d2;
@@ -181,3 +179,17 @@
     width: 90%;
   }
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; // Ensure it appears above other content
+}
+

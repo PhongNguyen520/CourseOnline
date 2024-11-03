@@ -11,6 +11,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ModalContext } from "../../components/ModalProvider/ModalProvider";
 import images from "../../assets/images";
 import { format } from 'date-fns';
+import ReactLoading from 'react-loading'; 
 
 const API_GET_PROFILE = 'User/GetUserProfile';
 const API_UPDATE_PROFILE = 'User/Update-Profile';
@@ -23,18 +24,20 @@ export default function Profile() {
     const [avatarFile, setAvatarFile] = useState(null);
     const [certificationFile, setCertificationFile] = useState(null);
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true); 
 
-    console.log(user);
     const fetchUserData = async () => {
         try {
+            setLoading(true); 
             const response = await requests.get(API_GET_PROFILE);
             if (response.data) {
                 setFetchUser(response.data);
                 setEditedUser(response.data);
+                setLoading(false);
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
-        }
+        } 
     };
 
     useEffect(() => {
@@ -74,18 +77,18 @@ export default function Profile() {
         formData.append('dob', editedUser.dob);
         if (avatarFile) formData.append('avatar', avatarFile);
         if (certificationFile) formData.append('certification', certificationFile);
-
         try {
+            setLoading(true); 
             const response = await requests.put(`${API_UPDATE_PROFILE}/${user.userName}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
+            
             if (response.status === 200) {
-                console.log("Profile updated successfully:", response.data);
                 fetchUserData();
                 handleClose();
+                setLoading(false);
             } else {
                 console.error("Failed to update profile:", response);
             }
@@ -94,14 +97,13 @@ export default function Profile() {
         }
     };
 
-    if (!fetchUser) {
-        return <Typography>Loading...</Typography>;
-    }
-
-    console.log(fetchUser);
-
     return (
         <div className={cx("wrapper")} >
+            {loading ? (
+                <div className={cx("loading-overlay")}>
+                    <ReactLoading type="spin" color="#fff" height={60} width={60} />
+                </div>
+            ) :
             <Box className={cx("profile-container")}>
                 <Box className={cx("profile-header")}>
                     <img src={user?.avatar || images.defaultAvatar} alt="Avatar" className={cx("profile-avatar")} />
@@ -149,6 +151,7 @@ export default function Profile() {
                     </a>
                 </Box>
             </Box>
+            }
         </div>
     );
 }
@@ -247,4 +250,4 @@ const ProfileEditModal = ({ open, onClose, editedUser, onInputChange, onDateChan
             </Box>
         </Modal>
     );
-};
+}; 
