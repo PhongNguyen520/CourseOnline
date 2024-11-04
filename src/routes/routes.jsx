@@ -13,6 +13,7 @@ import AuthGoogle from "../pages/AuthGoogle/AuthGoogle";
 import Cart from "../pages/Cart/Cart";
 import BookMark from "../pages/Bookmark/Bookmark";
 import TakeQuiz from "../pages/TakeQuiz/TakeQuiz";
+import DashboardInstructor from "../pages/DashBoardInstructor/DashBoardInstructor";
 
 const publicRoutes = [
     {path: config.routes.home, component: Home},
@@ -28,6 +29,7 @@ const publicRoutes = [
     {path: config.routes.cart, component: Cart},
     {path: config.routes.bookMark, component: BookMark},
     {path: config.routes.takeQuiz, component: TakeQuiz},
+    {path: config.routes.dashboardInstructor, component: DashboardInstructor},
 ]
 
 const privateRoutes = [

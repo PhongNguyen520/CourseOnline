@@ -18,6 +18,7 @@ const routes = {
     quizQuestion: '/quizQuestion/:courseId/:lessonId/:questionId',
     bookMark: '/bookmarks',
     takeQuiz: '/takeQuiz/:quizid',
+    dashboardInstructor: '/dashboard/instructor',
 }
 
 export default routes;
