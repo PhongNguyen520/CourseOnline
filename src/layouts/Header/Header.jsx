@@ -132,7 +132,7 @@ export default function Header() {
                                                 </div>
 
                                                 <ul className={cx('menu-list')}>
-                                                    <Link to="/classes">
+                                                    <Link to="/myClass">
                                                         <li>
                                                             <i className="bi bi-book"></i> My Classes
                                                         </li>
@@ -147,7 +147,7 @@ export default function Header() {
                                                             <i className="bi bi-pencil-square"></i> My Post
                                                         </li>
                                                     </Link>
-                                                    <Link to="/walletstudent">
+                                                    <Link to="/wallet">
                                                         <li>
                                                             <i className="bi bi-wallet2"></i> Wallet
                                                         </li>

@@ -19,6 +19,9 @@ const routes = {
     bookMark: '/bookmarks',
     takeQuiz: '/takeQuiz/:quizid',
     dashboardInstructor: '/dashboard/instructor',
+    myClasses: '/myClass',
+    wallet: '/wallet',
+    dashboardAdmin: '/dashboard/admin',
 }
 
 export default routes;
