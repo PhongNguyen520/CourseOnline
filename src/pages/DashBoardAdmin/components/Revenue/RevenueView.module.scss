@@ -1,0 +1,109 @@
+.revenueDashboard {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9fafb;
+
+  .overviewSection {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+  }
+
+  .historySection {
+    gap: 20px;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .wallet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #1c1b2a, #6b7280);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+
+    .walletHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.2rem;
+    }
+
+    .walletBalance {
+      display: flex;
+      flex-direction: column;
+      .balanceAmount {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .wrapBalance{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wrapExpireDate{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+      .expireDate {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-top: 5px;
+
+        &.positive {
+          color: #10b981;
+        }
+
+        &.negative {
+          color: #ef4444;
+        }
+      }
+    }
+  }
+
+  .revenueFlow {
+    h4 {
+      font-size: 1.2rem;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+  }
+
+  .transactionsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+
+    .amount {
+      font-weight: 600;
+
+      &.positive {
+        color: #34d399;
+      }
+
+      &.negative {
+        color: #f87171;
+      }
+    }
+  }
+}

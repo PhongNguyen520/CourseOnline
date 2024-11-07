@@ -1,0 +1,142 @@
+.dashboardView {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+  
+        .searchBox {
+          padding: 8px 12px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          width: 200px;
+        }
+  
+        .userProfile {
+          display: flex;
+          align-items: center;
+  
+          .userAvatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 8px;
+          }
+  
+          .userName {
+            font-weight: bold;
+          }
+        }
+      }
+    .summaryCards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+
+            .cardIcon {
+                font-size: 24px;
+                margin-right: 12px;
+            }
+
+            .cardContent {
+                flex: 1;
+
+                .cardTitle {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin-bottom: 4px;
+                }
+
+                .cardValue {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                .cardChange {
+                    font-size: 14px;
+
+                    &.positive {
+                        color: #4caf50;
+                    }
+
+                    &.negative {
+                        color: #f44336;
+                    }
+                }
+            }
+        }
+    }
+
+    .analyticsCharts {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .chart {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+
+            .chartTitle {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 12px;
+            }
+        }
+
+        .lineChart {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .pieChart {
+            width: 400px;
+        }
+    }
+
+    .activityTable {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 16px;
+        margin-top: 20px;
+
+        .tableTitle {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .completed {
+                color: #4caf50;
+            }
+
+            .pending {
+                color: #f44336;
+            }
+        }
+    }
+}

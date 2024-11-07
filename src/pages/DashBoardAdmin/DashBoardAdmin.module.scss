@@ -1,0 +1,44 @@
+.dashboard {
+    display: flex;
+    margin-top: var(--default-layout-height-header);
+    min-height: 90vh;
+    .sidebar {
+      width: 200px;
+      background-color: #f0f0f0;
+      padding: 20px;
+  
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+  
+      .navMenu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+  
+        .navLink {
+          display: flex;
+          align-items: center;
+          color: #333;
+          text-decoration: none;
+          padding: 8px 12px;
+          border-radius: 4px;
+  
+          &:hover {
+            background-color: #e0e0e0;
+          }
+  
+          .navIcon {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+  }

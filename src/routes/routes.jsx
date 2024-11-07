@@ -14,6 +14,9 @@ import Cart from "../pages/Cart/Cart";
 import BookMark from "../pages/Bookmark/Bookmark";
 import TakeQuiz from "../pages/TakeQuiz/TakeQuiz";
 import DashboardInstructor from "../pages/DashBoardInstructor/DashBoardInstructor";
+import MyClasses from "../pages/MyClasses/MyClasses";
+import Wallet from "../pages/Wallet/Wallet";
+import DashBoardAdmin from "../pages/DashBoardAdmin/DashBoardAdmin";
 
 const publicRoutes = [
     {path: config.routes.home, component: Home},
@@ -30,6 +33,9 @@ const publicRoutes = [
     {path: config.routes.bookMark, component: BookMark},
     {path: config.routes.takeQuiz, component: TakeQuiz},
     {path: config.routes.dashboardInstructor, component: DashboardInstructor},
+    {path: config.routes.myClasses, component: MyClasses},
+    {path: config.routes.wallet, component: Wallet},
+    {path: config.routes.dashboardAdmin, component: DashBoardAdmin},
 ]
 
 const privateRoutes = [

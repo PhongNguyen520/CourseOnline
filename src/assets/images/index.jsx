@@ -10,6 +10,7 @@ const images = {
     clickenrol: require('../images/clickenrol.png'),
     panelprofile: require('../images/panelprofile.png'),
     defaultAvatar: require('../images/defaultAvatar.png'),
+    courseDefault: require('../images/courseDefault.jpg'),
 }
 
 export default images;
