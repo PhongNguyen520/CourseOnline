@@ -1,5 +1,3 @@
-import config from "../config";
-
 import Home from "../pages/Home/HomePage";
 import RegisterInstructor from "../pages/Register/RegisterInstructor";
 import RegisterStudent from "../pages/Register/RegisterStudent";
@@ -17,30 +15,43 @@ import DashboardInstructor from "../pages/DashBoardInstructor/DashBoardInstructo
 import MyClasses from "../pages/MyClasses/MyClasses";
 import Wallet from "../pages/Wallet/Wallet";
 import DashBoardAdmin from "../pages/DashBoardAdmin/DashBoardAdmin";
+import Unauthorized from "../pages/Unauthorized/Unauthorized";
+import DefaultLayout from '../layouts/DefaultLayout/DefaultLayout';
+import config from '../config';
 
-const publicRoutes = [
-    {path: config.routes.home, component: Home},
-    {path: config.routes.registerInstructor, component: RegisterInstructor},
-    {path: config.routes.registerStudent, component: RegisterStudent},
-    {path: config.routes.searchCourses, component: SearchCourses},
-    {path: config.routes.courseDetail, component: CourseDetail},
-    {path: config.routes.profile, component: Profile},
-    {path: config.routes.excellentInstructor, component: ExcellentInstructor},
-    {path: config.routes.practiceQuiz, component: PracticeQuiz},
-    {path: config.routes.instructorDetail, component: InstructorDetail},
-    {path: config.routes.googleAuth, component: AuthGoogle},
-    {path: config.routes.cart, component: Cart},
-    {path: config.routes.bookMark, component: BookMark},
-    {path: config.routes.takeQuiz, component: TakeQuiz},
-    {path: config.routes.dashboardInstructor, component: DashboardInstructor},
-    {path: config.routes.myClasses, component: MyClasses},
-    {path: config.routes.wallet, component: Wallet},
-    {path: config.routes.dashboardAdmin, component: DashBoardAdmin},
-]
+export const publicRoutes = [
+  { path: config.routes.home, component: Home, layout: DefaultLayout },
+  { path: config.routes.registerInstructor, component: RegisterInstructor, layout: DefaultLayout },
+  { path: config.routes.registerStudent, component: RegisterStudent, layout: DefaultLayout },
+  { path: config.routes.googleAuth, component: AuthGoogle, layout: null },
+  { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+];
 
-const privateRoutes = [
-    {path: config.routes.home, component: Home, role: ['Student, Instructor']},
-    {path: config.routes.registerInstructor, component: RegisterInstructor, role: ['Student, Instructor']},
-]
+export const studentRoutes = [
+  { path: config.routes.searchCourses, component: SearchCourses },
+  { path: config.routes.courseDetail, component: CourseDetail },
+  { path: config.routes.profile, component: Profile },
+  { path: config.routes.excellentInstructor, component: ExcellentInstructor },
+  { path: config.routes.practiceQuiz, component: PracticeQuiz },
+  { path: config.routes.cart, component: Cart },
+  { path: config.routes.bookMark, component: BookMark },
+  { path: config.routes.takeQuiz, component: TakeQuiz },
+  { path: config.routes.myClasses, component: MyClasses },
+  { path: config.routes.wallet, component: Wallet },
+  { path: config.routes.instructorDetail, component: InstructorDetail },
+  { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+];
 
-export { publicRoutes, privateRoutes };
+export const instructorRoutes = [
+  { path: config.routes.profile, component: Profile },
+  { path: config.routes.courseDetail, component: CourseDetail },
+  { path: config.routes.dashboardInstructor, component: DashboardInstructor },
+  { path: config.routes.wallet, component: Wallet },
+  { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+];
+
+export const adminRoutes = [
+  { path: config.routes.dashboardAdmin, component: DashBoardAdmin, layout: null },
+  { path: config.routes.profile, component: Profile },
+  { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+];

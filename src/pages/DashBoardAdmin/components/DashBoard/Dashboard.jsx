@@ -100,7 +100,7 @@ const DashboardView = () => {
             alt="User"
             className={cx("userAvatar")}
           />
-          <span className={cx("userName")}>Admin</span>
+          <span className={cx("userName")}>Phong Nguyen</span>
         </div>
       </div>
       <div className={cx("summaryCards")}>

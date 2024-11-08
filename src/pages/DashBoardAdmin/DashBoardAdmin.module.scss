@@ -1,7 +1,6 @@
 .dashboard {
     display: flex;
-    margin-top: var(--default-layout-height-header);
-    min-height: 90vh;
+    min-height: 100vh;
     .sidebar {
       width: 200px;
       background-color: #f0f0f0;
@@ -28,6 +27,7 @@
   
           &:hover {
             background-color: #e0e0e0;
+            cursor: pointer;
           }
   
           .navIcon {
