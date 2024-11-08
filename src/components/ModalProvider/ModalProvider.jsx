@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from 'react';
+import { createContext, useEffect, useState } from 'react';
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 
@@ -9,38 +9,41 @@ export function ModalProvider({ children }) {
     const [activeSignUp, setActiveSignUp] = useState(false);
     const [auth, setAuth] = useState(null);
     const [user, setUser] = useState(null);
+    const [pathName, setPathName] = useState(null);
     const [authToken] = useState(Cookies.get('authToken'));
-
+    
     useEffect(() => {
-        const handleTokenAuthentication = (token) => {
+        if (authToken) {
             try {
-                const decodedToken = jwtDecode(token);
+                const decodedToken = jwtDecode(authToken);
                 console.log('Decoded token:', decodedToken);
-
+                const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+                
                 setAuth({
-                    token: token,
+                    token: authToken,
                     role: decodedToken.RoleId
                 });
-
-
-
+                
                 setUser({
                     fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
                     userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
                     email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
                     avatar: decodedToken.Avatar,
-                    roleId: decodedToken.RoleId
+                    roleName: roleName
                 });
+                
+                const currentPath = window.location.pathname;
+                setPathName(currentPath);
+                
+                
             } catch (error) {
                 console.error('Error decoding token:', error);
                 Cookies.remove('authToken');
                 localStorage.removeItem('authToken');
             }
-        };
-        if (authToken){
-            handleTokenAuthentication(authToken);
         }
-    }, []);
+    }, [authToken]);
+
 
     const closeAllModals = () => {
         setActiveLogIn(false);
@@ -60,5 +63,9 @@ export function ModalProvider({ children }) {
         closeAllModals,
     };
 
-    return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
+    return (
+        <ModalContext.Provider value={value}>
+            {children}
+        </ModalContext.Provider>
+    );
 }

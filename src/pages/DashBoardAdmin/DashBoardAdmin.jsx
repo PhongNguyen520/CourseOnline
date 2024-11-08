@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaUsers, FaDollarSign, FaChartLine, FaChalkboardTeacher, FaBook } from 'react-icons/fa';
+import { FaUsers, FaDollarSign, FaChartLine, FaChalkboardTeacher, FaBook, FaWpforms } from 'react-icons/fa';
 import classNames from 'classnames/bind';
 import styles from './DashBoardAdmin.module.scss';
 import DashboardView from './components/DashBoard/Dashboard';
@@ -7,6 +7,7 @@ import CoursesView from './components/Course/CoursesView';
 import StudentsView from './components/Student/StudentView';
 import InstructorsView from './components/Instructor/InstructorView';
 import RevenueView from './components/Revenue/RevenueView';
+import FormRequest from "./components/FormRequest/FormRequest";
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +26,8 @@ export default function DashBoardAdmin() {
         return <InstructorsView />;
       case "revenue":
         return <RevenueView />;
+      case "request":
+        return <FormRequest />;
       default:
         return <DashboardView />;
     }
@@ -35,31 +38,36 @@ export default function DashBoardAdmin() {
       <div className={cx('sidebar')}>
         <div className={cx('logo')}>Course Admin</div>
         <nav className={cx('navMenu')}>
-          <a href="#dashboard" className={cx('navLink', { active: activeView === "dashboard" })}
+          <span className={cx('navLink', { active: activeView === "dashboard" })}
              onClick={() => setActiveView("dashboard")}>
             <FaChartLine className={cx('navIcon')} />
             Dashboard
-          </a>
-          <a href="#courses" className={cx('navLink', { active: activeView === "courses" })}
+          </span>
+          <span className={cx('navLink', { active: activeView === "courses" })}
              onClick={() => setActiveView("courses")}>
             <FaBook className={cx('navIcon')} />
             Courses
-          </a>
-          <a href="#students" className={cx('navLink', { active: activeView === "students" })}
+          </span>
+          <span className={cx('navLink', { active: activeView === "students" })}
              onClick={() => setActiveView("students")}>
             <FaUsers className={cx('navIcon')} />
             Students
-          </a>
-          <a href="#instructors" className={cx('navLink', { active: activeView === "instructors" })}
+          </span>
+          <span className={cx('navLink', { active: activeView === "instructors" })}
              onClick={() => setActiveView("instructors")}>
             <FaChalkboardTeacher className={cx('navIcon')} />
             Instructors
-          </a>
-          <a href="#revenue" className={cx('navLink', { active: activeView === "revenue" })}
+          </span>
+          <span className={cx('navLink', { active: activeView === "revenue" })}
              onClick={() => setActiveView("revenue")}>
             <FaDollarSign className={cx('navIcon')} />
             Revenue
-          </a>
+          </span>
+          <span className={cx('navLink', { active: activeView === "request" })}
+             onClick={() => setActiveView("request")}>
+            <FaWpforms className={cx('navIcon')} />
+            Request
+          </span>
         </nav>
       </div>
       <div className={cx('content')}>

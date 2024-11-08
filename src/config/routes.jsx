@@ -22,6 +22,7 @@ const routes = {
     myClasses: '/myClass',
     wallet: '/wallet',
     dashboardAdmin: '/dashboard/admin',
+    unauthorized: '/unauthorized',
 }
 
 export default routes;

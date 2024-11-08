@@ -142,7 +142,7 @@ export default function Header() {
                                                             <i className="bi bi-file-earmark-text"></i> Forms
                                                         </li>
                                                     </Link>
-                                                    <Link to="/myblog">
+                                                    <Link to="/dashboard/admin">
                                                         <li>
                                                             <i className="bi bi-pencil-square"></i> My Post
                                                         </li>
