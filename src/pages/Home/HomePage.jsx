@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect} from "react";
+import React, {useMemo, useState, useEffect, useContext} from "react";
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
@@ -9,6 +9,8 @@ import GreatInstructor from "./GreatInstructor/GreatInstructor";
 import {FaSearch, FaBook, FaQrcode, FaGraduationCap, FaCheckCircle} from 'react-icons/fa';
 import requests from '../../utils/requests';
 import {useNavigate} from "react-router-dom";
+import { ModalContext } from "../../components/ModalProvider/ModalProvider";
+import config from "../../config";
 
 
 const CATEGORY_URL = 'Category';
@@ -22,7 +24,6 @@ function HomePage() {
     const [categoryNames, setCategoryNames] = useState([]);
     const [courses, setCourses] = useState(null);
     const [instructors, setInstructors] = useState(null);
-
 
     const navigate = useNavigate();
 
@@ -242,38 +243,6 @@ function HomePage() {
                             </Row>
                         </div>
                     </div>
-
-
-                    {/*<div className={cx('popular-courses-section')}>*/}
-                    {/*    <h1>Popular Courses</h1>*/}
-                    {/*    <Row className={cx('course-items')}>*/}
-                    {/*        {popularCourses.map((course, index) => (*/}
-                    {/*            <Col lg='3' key={index} className={cx('course-item')}>*/}
-                    {/*                <div className={cx('course-image')}>*/}
-                    {/*                    <img src={course.img}*/}
-                    {/*                         alt={course.title}/>*/}
-                    {/*                </div>*/}
-                    {/*                <div className={cx('course-body')}>*/}
-                    {/*                    <h3>{course.title}</h3>*/}
-                    {/*                    <p>{course.description}</p>*/}
-                    {/*                    <div className={cx('course-info')}>*/}
-                    {/*                        <span>Rating: {course.rating} ⭐</span>*/}
-                    {/*                        <span>Total Lessons: {course.totalLessons}</span>*/}
-                    {/*                        <span>Total Assessments: {course.totalAssessments}</span>*/}
-                    {/*                        <span>Difficulty: {course.difficulty}</span>*/}
-                    {/*                    </div>*/}
-                    {/*                    <div className={cx('instructor-info')}>*/}
-                    {/*                        <img*/}
-                    {/*                            src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=Rt-0B-9BYgUQ7kNvgGZg3dS&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Aj_-YSHzVWhlLSfsNPYQgQr&oh=00_AYCp4jExgygM_RAmhGwcmjqOJhYmBL8Uihoik9cQzUerhQ&oe=670D0030'*/}
-                    {/*                            alt={course.instructor.name}*/}
-                    {/*                            className={cx('instructor-avatar')}/>*/}
-                    {/*                        <span>{course.instructor.name}</span>*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*            </Col>*/}
-                    {/*        ))}*/}
-                    {/*    </Row>*/}
-                    {/*</div>*/}
 
                     <div className={cx('popular-courses-section')}>
                         <h1>Popular Courses</h1>

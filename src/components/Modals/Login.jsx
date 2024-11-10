@@ -23,13 +23,13 @@ function Login() {
     const [loading, setLoading] = useState(false);
     // const [token, setToken] = useState(null);
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     const authToken = Cookies.get('authToken') || localStorage.getItem('authToken');
-    //     if (authToken) {
-    //         setToken(authToken);
-    //         handleTokenAuthentication(authToken);
-    //     }
-    // }, []);
+    useEffect(() => {
+        const authToken = Cookies.get('authToken') || localStorage.getItem('authToken');
+        if (authToken) {
+            // setToken(authToken);
+            handleTokenAuthentication(authToken);
+        }
+    }, []);
 
     const notifySuccess = () => toast.success('Login successful!', {
         className: 'toast-success',
@@ -44,37 +44,45 @@ function Login() {
 
     const notifyError = (message) => toast.error(message || 'Login failed. Please check your credentials.');
 
-    // const handleTokenAuthentication = (token) => {
-    //     console.log('Attempting to authenticate with token:', token);
-    //     try {
-    //         const decodedToken = jwtDecode(token);
-    //         console.log('Decoded token:', decodedToken);
+    const handleTokenAuthentication = (token) => {
+        console.log('Attempting to authenticate with token:', token);
+        try {
+            const decodedToken = jwtDecode(token);
+            const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    //         setAuth({
-    //             token: token,
-    //             role: decodedToken.RoleId
-    //         });
+            console.log('Decoded token:', decodedToken);
+
+            setAuth({
+                token: token,
+                role: decodedToken.RoleId
+            });
 
 
 
-    //         setUser({
-    //             fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-    //             userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
-    //             email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
-    //             avatar: decodedToken.Avatar,
-    //             roleName: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-    //         });
+            setUser({
+                fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+                userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
+                email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
+                avatar: decodedToken.Avatar,
+                roleName: roleName
+            });
 
-    //         setActiveLogIn(false);
-    //         navigate('/');
-    //         notifySuccess();
-    //     } catch (error) {
-    //         console.error('Error decoding token:', error);
-    //         setError('Invalid token. Please log in again.');
-    //         Cookies.remove('authToken');
-    //         localStorage.removeItem('authToken');
-    //     }
-    // };
+            setActiveLogIn(false);
+            notifySuccess();
+            if (roleName === 'Admin') {
+                navigate('/dashboard/admin');
+            } else if (roleName === 'Instructor') {
+                navigate('/dashboard/instructor');
+            } else {
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            setError('Invalid token. Please log in again.');
+            Cookies.remove('authToken');
+            localStorage.removeItem('authToken');
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {

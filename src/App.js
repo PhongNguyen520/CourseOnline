@@ -17,9 +17,16 @@ import RequireAuth from "./pages/RequireAuth/RequireAuth";
 import DefaultLayout from "./layouts/DefaultLayout/DefaultLayout";
 import Cookies from "js-cookie";
 
-function App() {
+const AppContent = () => {
   const { user } = useContext(ModalContext);
+  const navigate = useNavigate();
   const authToken = Cookies.get("authToken");
+
+  useEffect(() => {
+    if (user?.roleName === "Admin") {
+      navigate("/dashboard/admin");
+    }
+  }, [user?.roleName, navigate]);
 
   const renderRoute = (route, index) => {
     const Page = route.component;
@@ -56,20 +63,25 @@ function App() {
   };
 
   return (
+    <Routes>
+      {publicRoutes.map(renderRoute)}
+
+      {authToken && (
+        <Route element={<RequireAuth allowedRoles={[user?.roleName]} />}>
+          {getRoleRoutes().map(renderRoute)}
+        </Route>
+      )}
+
+      <Route path="*" element={<Navigate to="/unauthorized" replace />} />
+    </Routes>
+  );
+};
+
+function App() {
+  return (
     <div className="App">
       <Router>
-        <Routes>
-          {publicRoutes.map(renderRoute)}
-
-          {authToken && (
-            <Route element={<RequireAuth allowedRoles={[user?.roleName]} />}>
-              {getRoleRoutes().map(renderRoute)}
-            </Route>
-          )}
-
-          {/* Optional: Redirect any unmatched route to "/unauthorized" */}
-          {/* <Route path="*" element={<Navigate to="/unauthorized" replace />} /> */}
-        </Routes>
+        <AppContent />
       </Router>
     </div>
   );

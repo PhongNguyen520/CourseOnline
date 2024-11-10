@@ -4,7 +4,7 @@ import styles from './AuthGoogle.module.scss';
 import { Col, Container, Row, Card, Button } from "react-bootstrap";
 import { FaChalkboardTeacher, FaUserGraduate } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";  // Import required hooks
-import requests from "../../utils/requests";  // Assuming requests is a pre-configured axios instance
+import requests from "../../utils/requests";  
 
 const cx = classNames.bind(styles);
 const SELECT_ROLE_URL = 'GoogleAuth/select-role-user';
