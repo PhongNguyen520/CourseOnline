@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@microsoft/signalr": "^8.0.7",
@@ -15,6 +16,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@tippyjs/react": "^4.2.6",
     "@types/jwt-decode": "^3.1.0",
+    "antd": "^5.21.6",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",

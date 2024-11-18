@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './MyClasses.module.scss';
 import images from '../../assets/images';
+import { Link } from 'react-router-dom';
+import config from '../../config';
 
 const cx = classNames.bind(styles);
 
@@ -104,9 +106,11 @@ export default function MyClasses() {
                             )}
                         </div>
                         <div className={cx('course-action')}>
+                            <Link to={config.routes.lectures}>
                             <button>
                                 {course.progress > 0 ? 'Continue Course' : 'Start Course'}
                             </button>
+                            </Link>
                         </div>
                     </div>
                 ))}

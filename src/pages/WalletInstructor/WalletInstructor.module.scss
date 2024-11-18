@@ -1,0 +1,128 @@
+.walletPage {
+    padding: 1.5rem;
+  
+    .header {
+      .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+  
+      .controls {
+        .controlButton {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #f1f5f9;
+          border: 1px solid #d1d5db;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          cursor: pointer;
+  
+          &:hover {
+            background: #e2e8f0;
+          }
+        }
+      }
+    }
+  
+    .summaryCards {
+      .card {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+        .cardHeader {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #4b5563;
+          margin-bottom: 0.5rem;
+        }
+  
+        .cardContent {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+  
+          .iconContainer {
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+  
+          .value {
+            font-size: 2rem;
+            font-weight: bold;
+          }
+  
+          .textSmall {
+            font-size: 0.875rem;
+            color: #6b7280;
+          }
+  
+          .trend {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+  
+    .transactionsHeader {
+      .withdrawButton {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  
+    .transactionsTable {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+  
+        th, td {
+          padding: 0.75rem;
+          text-align: left;
+          border-bottom: 1px solid #e5e7eb;
+        }
+  
+        th {
+          font-weight: 600;
+          color: #4b5563;
+        }
+  
+        .statusLabel {
+          padding: 0.25rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-weight: 500;
+  
+          &.completed {
+            background-color: #d4f5d4;
+            color: #2e7d32;
+          }
+  
+          &.processing {
+            background-color: #fff4e6;
+            color: #b28704;
+          }
+        }
+      }
+    }
+  }
+  

@@ -12,7 +12,6 @@ function GoogleSignIn() {
             const token = params.get('token');
 
             if (token) {
-                // Store token in localStorage
                 localStorage.setItem('authToken', token);
                 setAuth({ token });
                 navigate('/home');

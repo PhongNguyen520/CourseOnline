@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect} from "react";
+import React, {useMemo, useState, useEffect, useContext} from "react";
 import {ReactTyped} from "react-typed";
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
@@ -9,6 +9,8 @@ import GreatInstructor from "./GreatInstructor/GreatInstructor";
 import {FaSearch, FaBook, FaQrcode, FaGraduationCap, FaCheckCircle} from 'react-icons/fa';
 import requests from '../../utils/requests';
 import {useNavigate} from "react-router-dom";
+import { ModalContext } from "../../components/ModalProvider/ModalProvider";
+import config from "../../config";
 
 
 const CATEGORY_URL = 'Category';
@@ -22,7 +24,6 @@ function HomePage() {
     const [categoryNames, setCategoryNames] = useState([]);
     const [courses, setCourses] = useState(null);
     const [instructors, setInstructors] = useState(null);
-
 
     const navigate = useNavigate();
 
@@ -171,13 +172,12 @@ function HomePage() {
                                 <Col lg="6" className={cx('container__tutors')}>
                                     <div className={cx('slide-track')}>
                                         {instructors && instructors.length > 0 ? (
-                                            // Repeat the instructors multiple times to create the infinite scroll illusion
                                             [...Array(3)].map((_, repetitionIndex) =>
                                                 instructors.map((instructor, index) => {
                                                     return (
                                                         <GreatInstructor
-                                                            key={`${index}-${repetitionIndex}`} // Unique key combining instructor index and repetition index
-                                                            avatar={instructor.avatar || 'https://firebasestorage.googleapis.com/v0/b/cursus-4da28.appspot.com/o/avatars%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-08-19%20194338.png?alt=media&token=b2fca777-cbe9-47a5-85f9-af70fcc7dda0'}
+                                                            key={`${index}-${repetitionIndex}`} 
+                                                            avatar={instructor.avatar || images.defaultAvatar}
                                                             fullName={instructor.fullName}
                                                             address={instructor.address}
                                                             email={instructor.email}
@@ -243,46 +243,14 @@ function HomePage() {
                         </div>
                     </div>
 
-
-                    {/*<div className={cx('popular-courses-section')}>*/}
-                    {/*    <h1>Popular Courses</h1>*/}
-                    {/*    <Row className={cx('course-items')}>*/}
-                    {/*        {popularCourses.map((course, index) => (*/}
-                    {/*            <Col lg='3' key={index} className={cx('course-item')}>*/}
-                    {/*                <div className={cx('course-image')}>*/}
-                    {/*                    <img src={course.img}*/}
-                    {/*                         alt={course.title}/>*/}
-                    {/*                </div>*/}
-                    {/*                <div className={cx('course-body')}>*/}
-                    {/*                    <h3>{course.title}</h3>*/}
-                    {/*                    <p>{course.description}</p>*/}
-                    {/*                    <div className={cx('course-info')}>*/}
-                    {/*                        <span>Rating: {course.rating} ⭐</span>*/}
-                    {/*                        <span>Total Lessons: {course.totalLessons}</span>*/}
-                    {/*                        <span>Total Assessments: {course.totalAssessments}</span>*/}
-                    {/*                        <span>Difficulty: {course.difficulty}</span>*/}
-                    {/*                    </div>*/}
-                    {/*                    <div className={cx('instructor-info')}>*/}
-                    {/*                        <img*/}
-                    {/*                            src='https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=Rt-0B-9BYgUQ7kNvgGZg3dS&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Aj_-YSHzVWhlLSfsNPYQgQr&oh=00_AYCp4jExgygM_RAmhGwcmjqOJhYmBL8Uihoik9cQzUerhQ&oe=670D0030'*/}
-                    {/*                            alt={course.instructor.name}*/}
-                    {/*                            className={cx('instructor-avatar')}/>*/}
-                    {/*                        <span>{course.instructor.name}</span>*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*            </Col>*/}
-                    {/*        ))}*/}
-                    {/*    </Row>*/}
-                    {/*</div>*/}
-
                     <div className={cx('popular-courses-section')}>
                         <h1>Popular Courses</h1>
                         <Row className={cx('course-items')}>
                             {courses && courses.length > 0 ? (
-                                courses.slice(0, 6).map((course, index) => (  // Slicing the array to get only 6 courses
+                                courses.slice(0, 6).map((course, index) => (  
                                     <Col lg='3' key={index} className={cx('course-item')}>
                                         <div className={cx('course-image')}>
-                                            <img src={'https://foundr.com/wp-content/uploads/2023/04/How-to-create-an-online-course.jpg.webp'}
+                                            <img src={course.images || images.courseDefault}
                                                  alt={course.courseTitle}/>
                                         </div>
                                         <div className={cx('course-body')}>
@@ -356,46 +324,6 @@ function HomePage() {
                             ))}
                         </Row>
                     </div>
-
-                    {/*<Row className="my-5">*/}
-                    {/*    <Col>*/}
-                    {/*        <h2 className={cx('testimonial-title')}>Why Students Love Our Courses</h2>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
-                    {/*<Row className={cx('testimonials')}>*/}
-                    {/*    <Col md={6} className="mb-4">*/}
-                    {/*        <Card className={cx('testimonial-card')}>*/}
-                    {/*            <Card.Body>*/}
-                    {/*                <div className={cx('testimonial-header')}>*/}
-                    {/*                    <img src="/path/to/avatar1.jpg" alt="Ashton W." className={cx('testimonial-avatar')} />*/}
-                    {/*                    <div>*/}
-                    {/*                        <h5>Ashton W.</h5>*/}
-                    {/*                        <span className={cx('testimonial-role')}>SURFACE PATTERN</span>*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*                <Card.Text>*/}
-                    {/*                    <strong>This class was so helpful for me.</strong> I already had a Shopify website, but my site was in desperate need of a refresh! I was overwhelmed and not sure where to start, and this class made it seem much more doable. <strong>I’m so proud to send people to my website now.</strong> :)*/}
-                    {/*                </Card.Text>*/}
-                    {/*            </Card.Body>*/}
-                    {/*        </Card>*/}
-                    {/*    </Col>*/}
-                    {/*    <Col md={6} className="mb-4">*/}
-                    {/*        <Card className={cx('testimonial-card')}>*/}
-                    {/*            <Card.Body>*/}
-                    {/*                <div className={cx('testimonial-header')}>*/}
-                    {/*                    <img src="/path/to/avatar2.jpg" alt="Sean D." className={cx('testimonial-avatar')} />*/}
-                    {/*                    <div>*/}
-                    {/*                        <h5>Sean D.</h5>*/}
-                    {/*                        <span className={cx('testimonial-role')}>FILMMAKER, VIDEO EDITOR</span>*/}
-                    {/*                    </div>*/}
-                    {/*                </div>*/}
-                    {/*                <Card.Text>*/}
-                    {/*                    It’s so nice when a professional breaks down what can be a very complex topic and teach it <strong>simply, effectively and directly</strong>. Now I have a much better language for communicating lighting strategy and for lighting my work.*/}
-                    {/*                </Card.Text>*/}
-                    {/*            </Card.Body>*/}
-                    {/*        </Card>*/}
-                    {/*    </Col>*/}
-                    {/*</Row>*/}
 
                 </div>
             </Container>

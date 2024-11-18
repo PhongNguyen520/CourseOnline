@@ -19,7 +19,7 @@
         .userProfile {
           display: flex;
           align-items: center;
-  
+          gap: 20px;  
           .userAvatar {
             width: 45px;
             height: 45px;
@@ -29,6 +29,17 @@
   
           .userName {
             font-weight: bold;
+          }
+
+          .logout-button{
+            display: flex;
+            justify-content: flex-end;
+            i{
+              font-size: 24px;
+              color: black;
+              cursor: pointer;
+              transition: color 0.3s ease;
+            }
           }
         }
       }
@@ -140,3 +151,4 @@
         }
     }
 }
+

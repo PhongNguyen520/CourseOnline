@@ -7,7 +7,7 @@ const RequireAuth = ({ allowedRoles }) => {
   const location = useLocation();
 
   if (!user) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    return <Navigate to="/home" state={{ from: location }} replace />;
   }
 
   if (!allowedRoles.includes(user.roleName)) {

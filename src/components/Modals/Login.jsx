@@ -21,16 +21,8 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    // const [token, setToken] = useState(null);
     const navigate = useNavigate();
-    // useEffect(() => {
-    //     const authToken = Cookies.get('authToken') || localStorage.getItem('authToken');
-    //     if (authToken) {
-    //         setToken(authToken);
-    //         handleTokenAuthentication(authToken);
-    //     }
-    // }, []);
-
+  
     const notifySuccess = () => toast.success('Login successful!', {
         className: 'toast-success',
         position: 'top-center',
@@ -43,38 +35,6 @@ function Login() {
 
 
     const notifyError = (message) => toast.error(message || 'Login failed. Please check your credentials.');
-
-    // const handleTokenAuthentication = (token) => {
-    //     console.log('Attempting to authenticate with token:', token);
-    //     try {
-    //         const decodedToken = jwtDecode(token);
-    //         console.log('Decoded token:', decodedToken);
-
-    //         setAuth({
-    //             token: token,
-    //             role: decodedToken.RoleId
-    //         });
-
-
-
-    //         setUser({
-    //             fullName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
-    //             userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
-    //             email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
-    //             avatar: decodedToken.Avatar,
-    //             roleName: decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
-    //         });
-
-    //         setActiveLogIn(false);
-    //         navigate('/');
-    //         notifySuccess();
-    //     } catch (error) {
-    //         console.error('Error decoding token:', error);
-    //         setError('Invalid token. Please log in again.');
-    //         Cookies.remove('authToken');
-    //         localStorage.removeItem('authToken');
-    //     }
-    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!email || !password) {
@@ -94,11 +54,8 @@ function Login() {
                 throw new Error('Token not found in cookies.');
             }
 
-            // Giải mã token
             const decodedToken = jwtDecode(token);
             const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-            console.log('Decoded token:', decodedToken);
-            console.log('RoleName:', roleName);
 
             setAuth({
                 token: token,
@@ -110,17 +67,17 @@ function Login() {
                 userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
                 email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
                 avatar: decodedToken.Avatar,
-                roleName: roleName
+                roleName: roleName,
             });
 
             notifySuccess();
             setActiveLogIn(false);
             if (roleName === 'Admin') {
-                navigate('/dashboard/admin');
+                navigate('/admin/dashboard');
             } else if (roleName === 'Instructor') {
-                navigate('/dashboard/instructor');
+                navigate('/instructor/dashboard');
             } else {
-                navigate('/');
+                navigate('/home');
             }
         } catch (err) {
             console.error('Login error:', err);

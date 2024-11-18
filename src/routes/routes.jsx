@@ -18,6 +18,13 @@ import DashBoardAdmin from "../pages/DashBoardAdmin/DashBoardAdmin";
 import Unauthorized from "../pages/Unauthorized/Unauthorized";
 import DefaultLayout from '../layouts/DefaultLayout/DefaultLayout';
 import config from '../config';
+import Lectures from "../pages/Lectures/Lectures";
+import ProfileInstructor from "../pages/ProfileInstructor/ProfileInstructor";
+import InstructorLayout from "../layouts/InstructorLayout/InstructorLayout";
+import CourseInstructor from "../pages/CourseInstructor/CourseInstructor";
+import LecturesInstructor from "../pages/LecturesInstructor/LecturesInstructor";
+import FeedbackInstructor from "../pages/FeedbackInstructor/FeedbackInstructor";
+import WalletInstructor from "../pages/WalletInstructor/WalletInstructor";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home, layout: DefaultLayout },
@@ -25,6 +32,7 @@ export const publicRoutes = [
   { path: config.routes.registerStudent, component: RegisterStudent, layout: DefaultLayout },
   { path: config.routes.googleAuth, component: AuthGoogle, layout: null },
   { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+  { path: config.routes.lectures, component: Lectures },
 ];
 
 export const studentRoutes = [
@@ -40,14 +48,18 @@ export const studentRoutes = [
   { path: config.routes.wallet, component: Wallet },
   { path: config.routes.instructorDetail, component: InstructorDetail },
   { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+  { path: config.routes.lectures, component: Lectures },
 ];
 
 export const instructorRoutes = [
-  { path: config.routes.profile, component: Profile },
+  { path: config.routes.profileInstructor, component: ProfileInstructor, layout: null },
   { path: config.routes.courseDetail, component: CourseDetail },
-  { path: config.routes.dashboardInstructor, component: DashboardInstructor },
-  { path: config.routes.wallet, component: Wallet },
+  { path: config.routes.dashboardInstructor, component: DashboardInstructor, layout: InstructorLayout },
   { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
+  { path: config.routes.instructorCourses, component: CourseInstructor, layout:  InstructorLayout },
+  { path: config.routes.instructorLectures, component: LecturesInstructor, layout:  InstructorLayout },
+  { path: config.routes.instructorFeedback, component: FeedbackInstructor, layout:  InstructorLayout },
+  { path: config.routes.instructorWallet, component: WalletInstructor, layout:  InstructorLayout },
 ];
 
 export const adminRoutes = [

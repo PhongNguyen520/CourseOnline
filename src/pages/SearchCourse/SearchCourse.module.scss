@@ -128,6 +128,14 @@
 
       .course-image {
         position: relative;
+        .icon{
+          position: absolute;
+          top: 5px;
+          left: 10px;
+          :hover{
+            cursor: pointer;
+          }
+        }
         img {
           border-radius: 10px;
           width: 100%;

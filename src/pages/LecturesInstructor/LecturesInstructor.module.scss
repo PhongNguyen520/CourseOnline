@@ -1,0 +1,116 @@
+.lecturesPage {
+    padding: 1.5rem;
+  
+    .header {
+      .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+  
+      .addLectureBtn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #4CAF50;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  
+    .summaryCards {
+      .card {
+        background-color: #f9f9f9;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+        .cardHeader {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+  
+        .cardContent {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+  
+          .value {
+            font-size: 2rem;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  
+    .lecturesTable {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+      .cardHeader {
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+  
+      .cardContent {
+        padding: 1rem;
+  
+        .table {
+          width: 100%;
+          border-collapse: collapse;
+  
+          th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+          }
+  
+          th {
+            font-weight: 600;
+          }
+  
+          .statusLabel {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+  
+            &.published {
+              background-color: #d4f5d4;
+              color: #2e7d32;
+            }
+  
+            &.draft {
+              background-color: #fff4e6;
+              color: #b28704;
+            }
+          }
+  
+          .actions {
+            display: flex;
+            gap: 0.5rem;
+  
+            .actionButton {
+              border: none;
+              background: transparent;
+              cursor: pointer;
+  
+              &:hover {
+                color: #4CAF50;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
