@@ -29,7 +29,7 @@ export function ModalProvider({ children }) {
                     userName: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"],
                     email: decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
                     avatar: decodedToken.Avatar,
-                    roleName: roleName
+                    roleName: roleName,
                 });
                 
                 const currentPath = window.location.pathname;

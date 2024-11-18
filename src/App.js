@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 import { ModalContext } from "./components/ModalProvider/ModalProvider";
 import {
@@ -16,25 +15,25 @@ import {
 import RequireAuth from "./pages/RequireAuth/RequireAuth";
 import DefaultLayout from "./layouts/DefaultLayout/DefaultLayout";
 import Cookies from "js-cookie";
+import config from "./config";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const AppContent = () => {
   const { user } = useContext(ModalContext);
-  const navigate = useNavigate();
   const authToken = Cookies.get("authToken");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user?.roleName === "Admin") {
-      navigate("/dashboard/admin");
+    if (authToken && user) {
+      setLoading(false);
+    } else if (!authToken) {
+      setLoading(false);
     }
-  }, [user?.roleName, navigate]);
+  }, [authToken, user]);
 
   const renderRoute = (route, index) => {
+    const Layout = route.layout === null ? Fragment : route.layout || DefaultLayout;
     const Page = route.component;
-    let Layout = route.layout || DefaultLayout;
-
-    if (route.layout === null) {
-      Layout = Fragment;
-    }
 
     return (
       <Route
@@ -50,20 +49,36 @@ const AppContent = () => {
   };
 
   const getRoleRoutes = () => {
-    switch (user?.roleName) {
-      case "Student":
-        return studentRoutes;
-      case "Instructor":
-        return instructorRoutes;
-      case "Admin":
-        return adminRoutes;
-      default:
-        return [];
-    }
+    const roleRoutesMap = {
+      Student: studentRoutes,
+      Instructor: instructorRoutes,
+      Admin: adminRoutes,
+    };
+    return roleRoutesMap[user?.roleName] || [];
   };
+
+  if (loading) return <LinearProgress />;
 
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          <Navigate
+            to={
+              authToken
+                ? user?.roleName === "Student"
+                  ? config.routes.home
+                  : user?.roleName === "Instructor"
+                  ? config.routes.dashboardInstructor
+                  : config.routes.dashboardAdmin
+                : config.routes.home
+            }
+            replace
+          />
+        }
+      />
+
       {publicRoutes.map(renderRoute)}
 
       {authToken && (

@@ -5,9 +5,11 @@ import { Col, Row, Form, Button } from "react-bootstrap";
 import { FaSearch } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import requests from "../../utils/requests";
+import images from "../../assets/images";
 
 const cx = classNames.bind(styles);
 const COURSE_URL = 'Course/Courses-active';
+const BOOKMARK_URL = 'BookmarkDetail';
 
 export default function SearchCourse() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -23,6 +25,8 @@ export default function SearchCourse() {
         try {
             const params = term ? { CategoryName: term } : {};
             const response = await requests.get(COURSE_URL, { params });
+            console.log(response.data);
+            
             setResultCourses(response.data.items || []);
         } catch (error) {
             console.error('Error fetching courses:', error);
@@ -33,8 +37,8 @@ export default function SearchCourse() {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const query = queryParams.get('query') || '';
-        setSearchTerm(query); // Set the query from the homepage or any location
-        searchCourses(query); // Immediately call searchCourses with the query
+        setSearchTerm(query); 
+        searchCourses(query); 
     }, [location]);
 
     const handleEnroll = (courseId) => {
@@ -43,10 +47,9 @@ export default function SearchCourse() {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        searchCourses(searchTerm); // Call searchCourses when search button or enter is pressed
+        searchCourses(searchTerm); 
     };
 
-    // Function to convert level number to text (Beginner, Intermediate, Advanced)
     const getLevelText = (level) => {
         if (level === 1) return 'Beginner';
         if (level === 2) return 'Intermediate';
@@ -56,7 +59,6 @@ export default function SearchCourse() {
 
     const filteredCourses = resultCourse
         .filter(course => {
-            // Price Filter
             if (priceRange === "0-50" && course.price > 50) return false;
             if (priceRange === "50-100" && (course.price < 50 || course.price > 100)) return false;
             if (priceRange === ">100" && course.price <= 100) return false;
@@ -82,6 +84,21 @@ export default function SearchCourse() {
             }
             return 0;
         });
+
+        const addBookMark = async (courseId) => {
+            try {
+              const params = { courseId: courseId };
+              const response = await requests.post(BOOKMARK_URL, params, {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              });
+              console.log(response.data);
+            } catch (error) {
+              console.error('Error adding bookmark:', error);
+            }
+          };
+          
 
     return (
         <div className={cx('wrapper')}>
@@ -114,7 +131,6 @@ export default function SearchCourse() {
                 <Row className="justify-content-center mt-4">
                     <Col md={3} className={cx('sidebar')}>
                         <h5 className={cx('filter-title')}>Filters</h5>
-                        {/* Price Filter */}
                         <Form.Group controlId="priceFilter">
                             <Form.Label>Price Range</Form.Label>
                             <Form.Control
@@ -196,7 +212,10 @@ export default function SearchCourse() {
                                 {filteredCourses.map((course, index) => (
                                     <Col lg='3' key={index} className={cx('course-item')}>
                                         <div className={cx('course-image')}>
-                                            <img src={'https://ditrpindia.com/images/defaultcourse.jpg'} alt={course.courseTitle} />
+                                            <span className={cx('icon')} onClick={() => addBookMark(course.courseId)}>
+                                                <i class="bi bi-heart"></i>
+                                            </span>
+                                            <img src={course.image || images.courseDefault} alt={course.courseTitle} />
                                             {course.discount > 0 && (
                                                 <span className={cx('discount-badge')}>-{course.discount}%</span>
                                             )}

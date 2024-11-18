@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './AuthGoogle.module.scss';
 import { Col, Container, Row, Card, Button } from "react-bootstrap";
 import { FaChalkboardTeacher, FaUserGraduate } from "react-icons/fa";
-import { useNavigate, useLocation } from "react-router-dom";  // Import required hooks
+import { useNavigate, useLocation } from "react-router-dom"; 
 import requests from "../../utils/requests";  
 
 const cx = classNames.bind(styles);
@@ -38,7 +38,6 @@ export default function AuthGoogle() {
 
             console.log('API response:', response.data);
 
-            // Redirect to a success page or another action after API call
             navigate(`/googleAuth?email=${encodeURIComponent(email)}&name=${encodeURIComponent(name)}&roleId=${roleId}`);
         } catch (error) {
             console.error('Error during role selection:', error);

@@ -11,7 +11,7 @@ const Wallet = () => {
   const [balance, setBalance] = useState(300.0);
   const transactions = [
     { type: "Payment", title: "React Course", date: "Jan", amount: -45.0 },
-    { type: "Refund", title: "Java Course", date: "Feb", amount: 45.0 },
+    { type: "Refund", title: "Java Course Refund", date: "Feb", amount: 45.0 },
     { type: "Top-up", title: "Wallet Top-up", date: "Mar", amount: 100.0 },
     { type: "Payment", title: "Python Course", date: "Apr", amount: -30.0 },
   ];

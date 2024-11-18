@@ -1,0 +1,69 @@
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+    padding: 20px 30px 0 30px;
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 5px;
+    min-width: 18%;
+    img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .dashboardTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .btnLogout {
+    display: flex;
+    font-size: 1.3rem;
+    align-items: center;
+    font-weight: 500;
+    gap: 5px;
+    :hover {
+      cursor: pointer;
+      color: black;
+    }
+  }
+
+  .headerActions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+    .navbar {
+      display: flex;
+      width: 80%;
+      margin-bottom: 0;
+      padding: 0;
+      justify-content: space-around;
+      .nav-item {
+        cursor: pointer;
+        align-items: center;
+
+        list-style: none;
+        font-size: 1.7rem;
+        font-weight: 600;
+        padding: 4px 7px;
+        border-radius: 5%;
+        &:hover {
+          background-color: #b2cbf7;
+          a {
+            color: #362e2e;
+          }
+        }
+      }
+    }
+  }
+}

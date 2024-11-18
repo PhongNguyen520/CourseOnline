@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card } from "react-bootstrap";
 import {
   LineChart,
@@ -17,6 +17,8 @@ import {
   Users,
   Star,
   Percent,
+  Plus,
+  LogOut,
 } from "lucide-react";
 import styles from "./DashBoardInstructor.module.scss";
 import classNames from "classnames/bind";
@@ -81,28 +83,22 @@ const InstructorDashboard = () => {
 
   return (
     <div className={cx("dashboardContainer")}>
-      <div className={cx("dashboardHeader")}>
-        <h1 className={cx("dashboardTitle")}>Instructor Dashboard</h1>
-        <div className={cx("headerActions")}>
-          <button className={cx("btn", "btnSecondary")}>
-            <Download size={16} />
-            Export Report
-          </button>
-          <button className={cx("btn", "btnPrimary")}>+ Add New Course</button>
+      <div className={cx("btnContainer")}>
+        <div className={cx("btn")}>
+          <Download size={16} />
+          <span>Export Report</span>
         </div>
       </div>
-
       <div className={cx("dashboardStats")}>
         <Card className={cx("statCard")}>
           <Card.Body>
             <div className={cx("cardHeader")}>
               <div className={cx("iconContainer", "iconPurple")}>
                 <Users size={20} color="#9333ea" />
+                <p>Total Students</p>
               </div>
             </div>
             <h3 className={cx("statValue")}>1,245</h3>
-            <p>Total Students</p>
-            <p className={cx("statTrend", "trendUp")}>↑ 12.5% vs last month</p>
           </Card.Body>
         </Card>
 
@@ -111,11 +107,10 @@ const InstructorDashboard = () => {
             <div className={cx("cardHeader")}>
               <div className={cx("iconContainer", "iconBlue")}>
                 <TrendingUp size={20} color="#3b82f6" />
+                <p>Total Revenue</p>
               </div>
             </div>
             <h3 className={cx("statValue")}>$24,500</h3>
-            <p>Total Revenue</p>
-            <p className={cx("statTrend", "trendUp")}>↑ 8.2% vs last month</p>
           </Card.Body>
         </Card>
 
@@ -124,11 +119,10 @@ const InstructorDashboard = () => {
             <div className={cx("cardHeader")}>
               <div className={cx("iconContainer", "iconGreen")}>
                 <Star size={20} color="#22c55e" />
+                <p>Average Rating</p>
               </div>
             </div>
             <h3 className={cx("statValue")}>4.7</h3>
-            <p>Average Rating</p>
-            <p className={cx("statTrend", "trendUp")}>↑ 0.3 vs last month</p>
           </Card.Body>
         </Card>
 
@@ -137,41 +131,51 @@ const InstructorDashboard = () => {
             <div className={cx("cardHeader")}>
               <div className={cx("iconContainer", "iconOrange")}>
                 <Percent size={20} color="#f97316" />
+                <p>Active Discounts</p>
               </div>
             </div>
             <h3 className={cx("statValue")}>15%</h3>
-            <p>Active Discounts</p>
-            <p className={cx("statTrend", "trendDown")}>↓ 2% vs last month</p>
           </Card.Body>
         </Card>
       </div>
 
       <div className={cx("dashboardCharts")}>
-      <Card className={cx("chartCard")}>
-  <Card.Body>
-    <div className={cx("chartHeader")}>
-      <h3>Student Enrollments</h3>
-      <select className={cx("btn", "btnSecondary")}>
-        <option>Last 6 months</option>
-        <option>Last year</option>
-      </select>
-    </div>
-    <LineChart width={500} height={300} data={enrollmentData}>
-      <XAxis dataKey="month" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="total" stroke="#8b5cf6" name="Total Students" strokeWidth={2} />
-      <Line type="monotone" dataKey="new" stroke="#22c55e" name="New Enrollments" strokeWidth={2} />
-    </LineChart>
-  </Card.Body>
-</Card>
-
+        <Card className={cx("chartCard")}>
+          <Card.Body>
+            <div className={cx("chartHeader")}>
+              <h3 className={cx("titleStatistic")}>Student Enrollments</h3>
+              <select className={cx("btn", "btnSecondary")}>
+                <option>Last 6 months</option>
+                <option>Last year</option>
+              </select>
+            </div>
+            <LineChart width={500} height={300} data={enrollmentData}>
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="total"
+                stroke="#8b5cf6"
+                name="Total Students"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="new"
+                stroke="#22c55e"
+                name="New Enrollments"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </Card.Body>
+        </Card>
 
         <Card className={cx("chartCard")}>
           <Card.Body>
             <div className={cx("chartHeader")}>
-              <h3>Course Performance</h3>
+              <h3 className={cx("titleStatistic")}>Course Performance</h3>
               <select className={cx("btn", "btnSecondary")}>
                 <option>All Time</option>
                 <option>Last 3 months</option>
@@ -179,7 +183,7 @@ const InstructorDashboard = () => {
             </div>
             <div className={cx("coursePerformance")}>
               <div className={cx("pieChartContainer")}>
-                <PieChart width={250} height={300}>
+                <PieChart width={280} height={320}>
                   <Pie
                     data={revenueByCoursePieData}
                     cx={120}
@@ -234,10 +238,13 @@ const InstructorDashboard = () => {
       <Card className={cx("tableCard")}>
         <Card.Body>
           <div className={cx("tableHeader")}>
-            <h3>Active Discounts</h3>
-            <button className={cx("btn", "btnPrimary")}>
-              Create New Discount
-            </button>
+            <h3 className={cx("titleStatistic")}>Active Discounts</h3>
+            <div className={cx("btn")}>
+              <span>
+                <Plus size={16} />
+                Create Discount
+              </span>
+            </div>
           </div>
           <table className={cx("table")}>
             <thead>

@@ -1,5 +1,5 @@
 const routes = {
-    home: '/',
+    home: '/home',
     registerInstructor: '/register/instructor',
     registerStudent: '/register/student',
     searchCourses: '/searchCourses',
@@ -18,11 +18,17 @@ const routes = {
     quizQuestion: '/quizQuestion/:courseId/:lessonId/:questionId',
     bookMark: '/bookmarks',
     takeQuiz: '/takeQuiz/:quizid',
-    dashboardInstructor: '/dashboard/instructor',
+    dashboardInstructor: '/instructor/dashboard',
+    profileInstructor: '/instructor/profile',
     myClasses: '/myClass',
     wallet: '/wallet',
-    dashboardAdmin: '/dashboard/admin',
+    dashboardAdmin: '/admin/dashboard',
     unauthorized: '/unauthorized',
+    lectures: '/lectures',
+    instructorLectures: '/instructor/lectures',
+    instructorCourses: '/instructor/courses',
+    instructorWallet: '/instructor/wallet',
+    instructorFeedback: '/instructor/feedback',
 }
 
 export default routes;

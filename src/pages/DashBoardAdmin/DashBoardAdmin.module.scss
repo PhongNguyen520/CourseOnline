@@ -2,21 +2,33 @@
     display: flex;
     min-height: 100vh;
     .sidebar {
-      width: 200px;
-      background-color: #f0f0f0;
       padding: 20px;
   
       .logo {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        span {
+          font-size: 2.4rem;
+          font-weight: bold;
+          margin-left: 2%;
+          color: #bc0126;
+        }
+    
+        .title {
+          display: flex;
+          justify-content: flex-end;
+          span {
+            font-size: 2rem;
+            font-weight: 600;
+            color: black;
+          }
+        }
       }
   
       .navMenu {
         display: flex;
         flex-direction: column;
         gap: 10px;
-  
+        height: 80vh;
         .navLink {
           display: flex;
           align-items: center;
@@ -24,7 +36,8 @@
           text-decoration: none;
           padding: 8px 12px;
           border-radius: 4px;
-  
+          font-size: 1.5rem;
+          font-family: Arial, Helvetica, sans-serif;
           &:hover {
             background-color: #e0e0e0;
             cursor: pointer;
@@ -34,11 +47,20 @@
             margin-right: 8px;
           }
         }
+
+        .active{
+          background-color: #b64e4e;
+          cursor: pointer;
+          color: white;
+          font-weight: bold;
+        }
       }
+
+      
     }
   
     .content {
       flex: 1;
-      padding: 20px;
+      padding: 20px 5px;
     }
   }

@@ -1,5 +1,5 @@
 // DashboardView.jsx
-import React from "react";
+import React, { useContext } from "react";
 import {
   FaUsers,
   FaDollarSign,
@@ -19,6 +19,10 @@ import {
 } from "recharts";
 import classNames from "classnames/bind";
 import styles from "./Dashboard.module.scss";
+import Cookies from "js-cookie";
+import { ModalContext } from "../../../../components/ModalProvider/ModalProvider";
+import config from "../../../../config";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -86,6 +90,17 @@ const DashboardView = () => {
     },
   ];
 
+  const { setAuth, setUser } = useContext(ModalContext);
+
+  const navigate = useNavigate();
+
+  const signOut = () => {
+    Cookies.remove("authToken");
+    setAuth(null);
+    setUser(null);
+    navigate(config.routes.home);
+  };
+
   return (
     <div className={cx("dashboardView")}>
       <div className={cx("header")}>
@@ -95,12 +110,17 @@ const DashboardView = () => {
           className={cx("searchBox")}
         />
         <div className={cx("userProfile")}>
-          <img
-            src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=sHlx2Rzrg0sQ7kNvgGRBPyy&_nc_zt=23&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=ANvMjIWa51gMtfLakHV-G8x&oh=00_AYCM2AtWTPr2oHo3s-F3v_UyzuPVFWKKfU2JMKcQ_QQVqA&oe=6732CB30"
-            alt="User"
-            className={cx("userAvatar")}
-          />
-          <span className={cx("userName")}>Phong Nguyen</span>
+          <div>
+            <img
+              src="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=mix8r9CqT9AQ7kNvgGmOH6c&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Ake5ZOJc-z6iue2PwxkN0aO&oh=00_AYBNO8YKaxldThk2Ns5T-kfEatTyQGrby0p_Jnge4uigkg&oe=673C05B0"
+              alt="User"
+              className={cx("userAvatar")}
+            />
+            <span className={cx("userName")}>Phong Nguyen</span>
+          </div>
+          <div className={cx("logout-button")}>
+            <i class="bi bi-box-arrow-right" onClick={signOut}></i>
+          </div>
         </div>
       </div>
       <div className={cx("summaryCards")}>

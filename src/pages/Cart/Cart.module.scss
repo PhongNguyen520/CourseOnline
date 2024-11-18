@@ -49,6 +49,10 @@
   .cart-page {
 
     .cart-container {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
       .cart-item {
         padding: 20px 0;
         border-bottom: 1px solid #ccc;
@@ -71,7 +75,11 @@
 
         .course-price,
         .course-total {
-          font-size: 1rem;
+          font-size: 1.6rem;
+          color: #d9534f;
+          font-weight: bold;
+          display: flex;
+          justify-content: center;
         }
 
         .delete-btn {
