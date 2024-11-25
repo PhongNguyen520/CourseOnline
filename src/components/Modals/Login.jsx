@@ -52,11 +52,13 @@ function Login() {
             });
 
             const token = Cookies.get('authToken');
-            console.log('All Cookies:', document.cookie);
+            console.log('All Cookies:', response.data.token);
             console.log('AuthToken:', Cookies.get('authToken'));
 
             if (!token) {
-                throw new Error('Token not found in cookies.');
+                if(response.data.token != null){
+                    response.data.token = token;
+                }
             }
 
             const decodedToken = jwtDecode(token);
