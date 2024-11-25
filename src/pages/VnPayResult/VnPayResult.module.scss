@@ -1,0 +1,132 @@
+.wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    &.failed {
+        background: linear-gradient(135deg, #ffebee, #e3cacd); 
+      }
+  }
+  
+  .container {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 45rem;
+    width: 100%;
+    height: 55rem;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+  }
+  
+  .successIcon {
+    width: 10rem;
+    height: 10rem;
+    color: #22c55e; 
+    margin-bottom: 1rem;
+  }
+  
+  .failureIcon {
+    width: 10rem;
+    height: 10rem;
+    color: #e53e3e; 
+    margin-bottom: 1rem;
+  }
+  
+  .detailValue.failure {
+    color: #e53e3e;
+    font-weight: 600;
+  }
+  
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .message {
+    color: #4b5563;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .details {
+    width: 100%;
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .detailRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .detailLabel {
+    color: #4b5563;
+  }
+  
+  .detailValue {
+    font-weight: 600;
+    color: #111827;
+  
+    &.success {
+      color: #22c55e;
+    }
+  }
+  
+  .illustration {
+    width: 80%;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+  
+  .button {
+    width: 50%;
+    background-color: #22c55e;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background-color: #16a34a;
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
+    }
+  }
+  

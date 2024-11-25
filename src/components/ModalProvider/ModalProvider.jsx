@@ -16,7 +16,6 @@ export function ModalProvider({ children }) {
         if (authToken) {
             try {
                 const decodedToken = jwtDecode(authToken);
-                console.log('Decoded token:', decodedToken);
                 const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
                 
                 setAuth({

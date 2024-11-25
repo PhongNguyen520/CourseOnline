@@ -60,7 +60,6 @@ function HomePage() {
         fetchData();
     }, []);
 
-    console.log(instructors);
 
     const roadmapSteps = useMemo(() => [
         {
