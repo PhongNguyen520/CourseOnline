@@ -22,7 +22,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-  
+
     const notifySuccess = () => toast.success('Login successful!', {
         className: 'toast-success',
         position: 'top-center',
@@ -47,9 +47,14 @@ function Login() {
             const response = await requests.post(LOGIN_URL, {
                 email: email,
                 password: password,
-            }, { withCredentials: true });
+            }, {
+                withCredentials: true
+            });
 
             const token = Cookies.get('authToken');
+            console.log('All Cookies:', document.cookie);
+            console.log('AuthToken:', Cookies.get('authToken'));
+
             if (!token) {
                 throw new Error('Token not found in cookies.');
             }
