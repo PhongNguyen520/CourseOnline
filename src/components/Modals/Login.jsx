@@ -48,25 +48,32 @@ function Login() {
                 email: email,
                 password: password,
             }, {
-                withCredentials: true
+                withCredentials: true // Ensure the cookie is sent with the request
             });
 
-            const token = Cookies.get('authToken');
-            console.log('All Cookies:', response.data.token);
-            console.log('AuthToken:', Cookies.get('authToken'));
+            // Check if the token is available in the cookie
+            let token = Cookies.get('authToken');
 
-            if (!token) {
-                if(response.data.token != null){
-                    response.data.token = token;
-                }
+            // If token is not in cookie, check the response for the token
+            if (!token && response.data.token) {
+                token = response.data.token;
+                // Set the token in the cookie for future requests
+                Cookies.set('authToken', token, { expires: 7, secure: true, sameSite: 'None' });
             }
 
+            if (!token) {
+                setError('Failed to retrieve token.');
+                notifyError('Login failed. Please try again.');
+                return;
+            }
+
+            // Decode the token and handle user data
             const decodedToken = jwtDecode(token);
             const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
             setAuth({
                 token: token,
-                role: decodedToken?.RoleId
+                role: decodedToken?.RoleId,
             });
 
             setUser({
