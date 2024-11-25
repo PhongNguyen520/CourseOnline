@@ -61,13 +61,13 @@ function Login() {
                 Cookies.set('authToken', token, { expires: 7, secure: true, sameSite: 'None' });
             }
 
-            if (!token) {
+            if (!token || typeof token !== 'string') {
                 setError('Failed to retrieve token.');
                 notifyError('Login failed. Please try again.');
                 return;
             }
 
-            // Decode the token and handle user data
+            // Decode the token
             const decodedToken = jwtDecode(token);
             const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
@@ -105,6 +105,7 @@ function Login() {
             setLoading(false);
         }
     };
+
 
 
     const handleGoogleLogin = () => {
