@@ -25,10 +25,13 @@ const routes = {
     dashboardAdmin: '/admin/dashboard',
     unauthorized: '/unauthorized',
     lectures: '/lectures',
-    instructorLectures: '/instructor/lectures',
+    instructorLectures: 'instructor/lectures',
     instructorCourses: '/instructor/courses',
-    instructorWallet: '/instructor/wallet',
-    instructorFeedback: '/instructor/feedback',
+    instructorWallet: 'instructor/wallet',
+    instructorFeedback: 'instructor/feedback',
+    vnpayResult: 'cart/vnpay/payment-result',
+    paypalResult: 'cart/paypal/payment-result',
+    momoResult: 'cart/momo/payment-result',
 }
 
 export default routes;

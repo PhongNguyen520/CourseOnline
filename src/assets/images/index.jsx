@@ -11,6 +11,10 @@ const images = {
     panelprofile: require('../images/panelprofile.png'),
     defaultAvatar: require('../images/defaultAvatar.png'),
     courseDefault: require('../images/courseDefault.jpg'),
+    momo: require('../images/momo.png'),
+    paypal: require('../images/paypal.png'),
+    vnpay: require('../images/vnpay.jpg'),
+    wallet: require('../images/wallet.jpg'),
 }
 
 export default images;
