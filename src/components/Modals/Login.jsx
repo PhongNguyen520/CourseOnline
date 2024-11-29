@@ -22,7 +22,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-  
+
     const notifySuccess = () => toast.success('Login successful!', {
         className: 'toast-success',
         position: 'top-center',
@@ -47,19 +47,33 @@ function Login() {
             const response = await requests.post(LOGIN_URL, {
                 email: email,
                 password: password,
-            }, { withCredentials: true });
+            }, {
+                withCredentials: true // Ensure the cookie is sent with the request
+            });
 
-            const token = Cookies.get('authToken');
-            if (!token) {
-                throw new Error('Token not found in cookies.');
+            // Check if the token is available in the cookie
+            let token = Cookies.get('authToken');
+
+            // If token is not in cookie, check the response for the token
+            if (!token && response.data.token) {
+                token = response.data.token;
+                // Set the token in the cookie for future requests
+                Cookies.set('authToken', token, { expires: 7, secure: true, sameSite: 'None' });
             }
 
+            if (!token || typeof token !== 'string') {
+                setError('Failed to retrieve token.');
+                notifyError('Login failed. Please try again.');
+                return;
+            }
+
+            // Decode the token
             const decodedToken = jwtDecode(token);
             const roleName = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
             setAuth({
                 token: token,
-                role: decodedToken?.RoleId
+                role: decodedToken?.RoleId,
             });
 
             setUser({
@@ -91,6 +105,7 @@ function Login() {
             setLoading(false);
         }
     };
+
 
 
     const handleGoogleLogin = () => {
