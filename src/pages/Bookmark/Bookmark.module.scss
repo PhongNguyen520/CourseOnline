@@ -55,77 +55,42 @@
       .course-item {
         padding: 20px 0;
         border-bottom: 1px solid #ccc;
-  
+      
+        &.in-cart {
+          border-color: #28a745; 
+          background-color: #e7f5e7; 
+          box-shadow: 0 0 10px rgba(0, 128, 0, 0.1); 
+        }
+        &.enrolled-course {
+          background-color: #f0f0f0; 
+          opacity: 0.7; 
+        }
+      
         .course-item-row {
           display: flex;
           align-items: center;
           text-align: center;
         }
-  
+      
         .course-image {
           width: 180px;
           height: 120px;
           border-radius: 8px;
           object-fit: cover;
         }
-  
+      
         .course-title {
           font-weight: bold;
           font-size: 1.5rem;
         }
-  
-        .course-info {
-          font-size: 1.2rem;
-          color: #555;
-        }
 
-        .author-info {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 5px;
-          margin-top: 5px;
-          flex-direction: column;
-  
-          .author-avatar {
-            width: 10vh;
-            height: 10vh;
-            border-radius: 50%;
-          }
-  
-          .author-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #333;
-          }
-        }
-  
-        .created-date {
-          font-size: 1rem;
-          color: #888;
-          margin-top: 5px;
-        }
-  
-        .original-price {
-          font-size: 1.3rem;
-          color: #666;
-          text-decoration: line-through;
-          display: flex;
-          font-weight: 500;
-        }
-  
-        .discounted-price {
-          font-size: 1.6rem;
-          color: #d9534f;
-          font-weight: bold;
-        }
-  
-        .discount-label {
-          margin-top: 5px;
-          font-size: 1.1rem;
-          color: #d9534f;
-        }
-  
+      .wrap-level{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
         .level {
           background-color: #28a745;
           color: white;
@@ -133,7 +98,52 @@
           border-radius: 5px;
           font-size: 12px;
         }
+
+        .added-to-cart {
+          font-size: 12px; 
+          color: #28a745; 
+          font-weight: bold; 
+          margin-left: 10px; 
+          text-transform: uppercase; 
+          letter-spacing: 1px; 
+        }
+      
+        .enrolled-label {
+          font-size: 12px;  
+          color: #007bff;  
+          font-weight: bold;  
+          margin-left: 10px;  
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .created-date {
+          font-size: 1rem;
+          color: #888;
+          margin-top: 5px;
+        }
+      
+        .original-price {
+          font-size: 1.3rem;
+          color: #666;
+          text-decoration: line-through;
+          display: flex;
+          font-weight: 500;
+        }
+      
+        .discounted-price {
+          font-size: 1.6rem;
+          color: #d9534f;
+          font-weight: bold;
+        }
+      
+        .discount-label {
+          margin-top: 5px;
+          font-size: 1.1rem;
+          color: #d9534f;
+        }
       }
+     
     }
   }
     

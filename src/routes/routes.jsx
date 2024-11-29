@@ -26,6 +26,7 @@ import LecturesInstructor from "../pages/LecturesInstructor/LecturesInstructor";
 import FeedbackInstructor from "../pages/FeedbackInstructor/FeedbackInstructor";
 import WalletInstructor from "../pages/WalletInstructor/WalletInstructor";
 import VnPayResult from "../pages/VnPayResult/VnPayResult";
+import PayPalResult from "../pages/PayPalResult/PayPalResult";
 
 export const publicRoutes = [
   { path: config.routes.home, component: Home, layout: DefaultLayout },
@@ -51,6 +52,7 @@ export const studentRoutes = [
   { path: config.routes.unauthorized, component: Unauthorized, layout:  null },
   { path: config.routes.lectures, component: Lectures },
   { path: config.routes.vnpayResult, component: VnPayResult, layout: null },
+  { path: config.routes.paypalResult, component: PayPalResult, layout: null },
 ];
 
 export const instructorRoutes = [

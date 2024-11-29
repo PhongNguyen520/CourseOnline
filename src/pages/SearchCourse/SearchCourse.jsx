@@ -24,7 +24,7 @@ export default function SearchCourse() {
 
   const searchCourses = async (term = "") => {
     try {
-      const params = term ? { CategoryName: term } : {};
+      const params = term ? { CourseTitle: term } : {};
       const response = await requests.get(COURSE_URL, { params });
       setResultCourses(response.data.items || []);
     } catch (error) {
@@ -142,7 +142,7 @@ export default function SearchCourse() {
         </Row>
 
         <Row className="justify-content-center mt-4">
-          <Col md={3} className={cx("sidebar")}>
+          <Col md={2} className={cx("sidebar")}>
             <h5 className={cx("filter-title")}>Filters</h5>
             <Form.Group controlId="priceFilter">
               <Form.Label>Price Range</Form.Label>
@@ -179,14 +179,14 @@ export default function SearchCourse() {
             <Form.Group controlId="discountFilter">
               <Form.Check
                 type="checkbox"
-                label="Show only discounted courses"
+                label="Only discounted courses"
                 checked={showDiscount}
                 onChange={(e) => setShowDiscount(e.target.checked)}
               />
             </Form.Group>
           </Col>
 
-          <Col md={9}>
+          <Col md={10}>
             <Row className="justify-content-between align-items-center mt-4">
               <Col md={6}>
                 <div className={cx("sort-buttons")}>

@@ -339,6 +339,7 @@
         .instructor-info {
           display: flex;
           align-items: center;
+          justify-content: flex-end;
           margin-top: 10px;
 
           .instructor-avatar {
@@ -409,8 +410,8 @@
 .slide-track {
   display: flex;
   flex-direction: row;
-  width: calc(4 * 220px * 3); // 4 instructors, 3 repetitions, and 220px per card
-  animation: scroll 20s linear infinite;
+  width: calc(18 * 220px * 3); 
+  animation: scroll 30s linear infinite;
 }
 
 .slide-track:hover {

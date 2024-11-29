@@ -9,13 +9,11 @@ import GreatInstructor from "./GreatInstructor/GreatInstructor";
 import {FaSearch, FaBook, FaQrcode, FaGraduationCap, FaCheckCircle} from 'react-icons/fa';
 import requests from '../../utils/requests';
 import {useNavigate} from "react-router-dom";
-import { ModalContext } from "../../components/ModalProvider/ModalProvider";
-import config from "../../config";
 
 
 const CATEGORY_URL = 'Category';
 const COURSES_URL = 'Course/Courses-active'
-const INSTRUCTOR_URL = 'User/Get-all'
+// const INSTRUCTOR_URL = 'User/Get-all'
 
 const cx = classNames.bind(styles);
 
@@ -39,24 +37,25 @@ function HomePage() {
 
         const fetchData = async () => {
             try {
-                const [categoryResponse, coursesResponse, instructorResponse] = await Promise.all([
+                const [categoryResponse, coursesResponse] = await Promise.all([
                     requests.get(CATEGORY_URL),
                     requests.get(COURSES_URL),
-                    requests.get(INSTRUCTOR_URL)
                 ]);
-
+        
                 const categoryData = categoryResponse.data || [];
                 const categories = categoryData.map(cat => cat.categoryName).filter(Boolean);
-                const instructorsData = instructorResponse.data.items || [];
-                const instructors = instructorsData.filter(user => user.roleId.roleName === 'Instructor');
                 setCategoryNames(categories);
-                setCourses(coursesResponse.data.items || []);
+                const courses = coursesResponse.data.items || [];
+                setCourses(courses);
+                const instructors = courses.map(course => course.user);  
                 setInstructors(instructors);
+                console.log(courses);
+                
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
-
+        
         fetchData();
     }, []);
 
@@ -171,11 +170,11 @@ function HomePage() {
                                 <Col lg="6" className={cx('container__tutors')}>
                                     <div className={cx('slide-track')}>
                                         {instructors && instructors.length > 0 ? (
-                                            [...Array(3)].map((_, repetitionIndex) =>
+                                            // [...Array(3)].map((_, repetitionIndex) =>
                                                 instructors.map((instructor, index) => {
                                                     return (
                                                         <GreatInstructor
-                                                            key={`${index}-${repetitionIndex}`} 
+                                                            key={`${index}`} 
                                                             avatar={instructor.avatar || images.defaultAvatar}
                                                             fullName={instructor.fullName}
                                                             address={instructor.address}
@@ -184,7 +183,7 @@ function HomePage() {
                                                         />
                                                     );
                                                 })
-                                            )
+                                            // )
                                         ) : (
                                             <p>Loading instructors...</p>
                                         )}
@@ -249,12 +248,12 @@ function HomePage() {
                                 courses.slice(0, 6).map((course, index) => (  
                                     <Col lg='3' key={index} className={cx('course-item')}>
                                         <div className={cx('course-image')}>
-                                            <img src={course.images || images.courseDefault}
+                                            <img src={course.image || images.courseDefault}
                                                  alt={course.courseTitle}/>
                                         </div>
                                         <div className={cx('course-body')}>
                                             <h3>{course.courseTitle}</h3>
-                                            <p>{course.shortDescription}</p>
+                                            <p>{course.description}</p>
                                             <div className={cx('course-info')}>
                                                 <span>Rating: {course.averageStarRating} ⭐</span>
                                                 <span>Price: ${course.price}</span>

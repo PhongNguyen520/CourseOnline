@@ -10,9 +10,10 @@ import {
   Modal,
   Spinner,
 } from "react-bootstrap";
-import { FaSearch, FaTrash } from "react-icons/fa";
+import { FaArrowLeft, FaSearch, FaShoppingCart, FaTrash } from "react-icons/fa";
 import images from "../../assets/images";
 import requests from "../../utils/requests";
+import { Link, useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 const WALLET_URL = "Wallet/getwalletbyusername";
@@ -24,13 +25,13 @@ const REMOVE_COURSE_URL = "Cart/remove";
 
 export default function Cart() {
   const [showModal, setShowModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
-
+  const navigate = useNavigate();
   const fetchCartItems = () => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+
     return savedCart.map((item) => ({
       ...item,
       selected: false,
@@ -45,7 +46,8 @@ export default function Cart() {
     try {
       const response = await requests.get(WALLET_URL);
       if (response.data) {
-        setWalletBalance(response.data[0].balance);
+        // setWalletBalance(response.data[0].balance);
+        setWalletBalance(100);
       }
     } catch (error) {
       console.error("Error fetching wallet:", error);
@@ -58,7 +60,7 @@ export default function Cart() {
     getWallet();
   }, [walletBalance]);
 
-  const totalPrice = selectedCourses.reduce((sum, item) => {
+  const totalPrice = cartItems.reduce((sum, item) => {
     const discountedPrice =
       item.course.discount > 0
         ? item.course.price - (item.course.price * item.course.discount) / 100
@@ -66,60 +68,12 @@ export default function Cart() {
     return sum + discountedPrice;
   }, 0);
 
-  const filteredItems = cartItems.filter((item) =>
-    item.course.courseTitle.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-  };
-
-  const handleSelectAllChange = () => {
-    const newSelectAll = !selectAll;
-    setSelectAll(newSelectAll);
-
-    const updatedCartItems = cartItems.map((item) => ({
-      ...item,
-      selected: newSelectAll,
-    }));
-    setCartItems(updatedCartItems);
-
-    setSelectedCourses(newSelectAll ? [...filteredItems] : []);
-  };
-
-  const handleSelectCourseChange = (item) => {
-    const isSelected = selectedCourses.some(
-      (course) => course.course.courseId === item.course.courseId
-    );
-
-    const updatedSelection = isSelected
-      ? selectedCourses.filter(
-          (course) => course.course.courseId !== item.course.courseId
-        )
-      : [...selectedCourses, item];
-    setSelectedCourses(updatedSelection);
-
-    setCartItems(
-      cartItems.map((cartItem) =>
-        cartItem.course.courseId === item.course.courseId
-          ? { ...cartItem, selected: !isSelected }
-          : cartItem
-      )
-    );
-
-    setSelectAll(
-      updatedSelection.length === filteredItems.length &&
-        updatedSelection.length > 0
-    );
-  };
-
   const deleteCourse = async (id) => {
     try {
       handleDelete(id);
       await requests.delete(`${REMOVE_COURSE_URL}/${id}`);
     } catch (error) {
       console.error("Error deleting course:", error);
-      alert("Failed to delete course. Please try again.");
     }
   };
 
@@ -152,15 +106,17 @@ export default function Cart() {
           CART_CHECKOUT_URL,
           checkoutParams
         );
-  
-        if (checkoutResponse.status === 200) {
+        console.log(checkoutResponse);
+        
+        // if (checkoutResponse.status === 200) {
           getWallet();
           localStorage.removeItem("cart");
+          setCartItems([]);
           setIsProcessingPayment(false);
-        } else {
-          alert("Checkout failed. Please try again.");
-          setIsProcessingPayment(false);
-        }
+        // } else {
+        //   alert("Checkout failed. Please try again.");
+        //   setIsProcessingPayment(false);
+        // }
       } catch (error) {
         console.error("Payment error:", error);
         alert("An error occurred during payment. Please try again.");
@@ -191,8 +147,8 @@ export default function Cart() {
         const orderId = checkoutResponse.data.orderId;
 
         if (selectedPaymentMethod === "Wallet") {
-          getWallet();
           localStorage.removeItem("cart");
+          getWallet();
           setIsProcessingPayment(false);
           return;
         }
@@ -415,133 +371,154 @@ export default function Cart() {
     </Modal>
   );
 
-  return (
-    <div className={cx("wrapper")}>
-      <div className={cx("search-course-container")}>
-        <Row className="justify-content-end mt-4">
-          <Col md={8}>
-            <Form onSubmit={handleSearchSubmit} className={cx("search-form")}>
-              <div className={cx("search-bar-container")}>
-                <Form.Control
-                  type="text"
-                  placeholder="Search for items..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className={cx("search-input")}
-                />
-                <Button type="submit" className={cx("search-button")}>
-                  <FaSearch />
-                </Button>
-              </div>
-            </Form>
-          </Col>
-        </Row>
+  const handleContinueShopping = () => {
+    navigate("/searchCourses");
+  };
+
+  const renderEmptyCart = () => (
+    <div className={cx("empty-cart")}>
+      <div className={cx("empty-cart-content")}>
+        <FaShoppingCart className={cx("cart-icon")} />
+        <h2>Your cart is empty!</h2>
+        <p>Looks like you haven't added any courses to your cart yet.</p>
+        <Button 
+          onClick={handleContinueShopping} 
+          className={cx("continue-shopping-btn")}
+        >
+          <FaArrowLeft className="me-2" /> Back to course page
+        </Button>
       </div>
+    </div>
+  );
 
-      <Container className={cx("cart-page")}>
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <div className={cx("cart-container", "mt-4")}>
-              {filteredItems.length > 0 ? (
-                filteredItems.map((item) => (
-                  <div key={item.course.courseId} className={cx("cart-item")}>
-                    <Row className={cx("cart-item-row")}>
-                      <Col xs={1}>
-                        <Form.Check
-                          type="checkbox"
-                          checked={item.selected || false}
-                          onChange={() => handleSelectCourseChange(item)}
-                        />
-                      </Col>
-                      <Col xs={3}>
-                        <img
-                          src={item.course.image || images.courseDefault}
-                          alt={item.course.courseTitle}
-                          className={cx("product-image")}
-                        />
-                      </Col>
-                      <Col>
-                        <h5 className={cx("course-title")}>
-                          {item.course.courseTitle}
-                        </h5>
-                      </Col>
-                      <Col>
-                        {item.course.discount > 0 ? (
-                          <div>
-                            <p className={cx("original-price")}>
-                              <del>${item.course.price}</del>
-                            </p>
-                            <p className={cx("discounted-price")}>
-                              $
-                              {(
-                                item.course.price -
-                                (item.course.price * item.course.discount) / 100
-                              ).toFixed(2)}
-                            </p>
-                            <p className={cx("discount-label")}>
-                              Discount {item.course.discount}%
-                            </p>
-                          </div>
-                        ) : (
-                          <p className={cx("course-price")}>
-                            ${item.course.price}
-                          </p>
-                        )}
-                      </Col>
-                      <Col xs={1} className="text-end">
-                        <Button
-                          variant="danger"
-                          className={cx("delete-btn")}
-                          onClick={() => deleteCourse(item.course.courseId)}
-                        >
-                          <div style={{ justifyContent: "center" }}>
-                            <FaTrash /> Delete
-                          </div>
-                        </Button>
-                      </Col>
-                    </Row>
-                  </div>
-                ))
-              ) : (
-                <span>No course in this cart!!</span>
-              )}
-            </div>
-          </Col>
-
-          <Col md={3}>
-            <div className={cx("checkout-container")}>
-              <h5 className={cx("checkout-title")}>Order Summary</h5>
-              <div className={cx("checkout-summary")}>
-                <Form.Check
-                  type="checkbox"
-                  label="Select All"
-                  checked={selectAll}
-                  onChange={handleSelectAllChange}
-                />
-                <div className={cx("total-quantity")}>
-                  <strong>Total Quantity: </strong>
-                  {selectedCourses.length}
-                </div>
-                <div className={cx("total-price")}>
-                  <strong>Total Price: </strong>${totalPrice}
-                </div>
-                <div className={cx("wallet-balance")}>
-                  <strong>Wallet Balance: </strong>${walletBalance}
-                </div>
-                <div className={cx("btnCheckout")}>
+  const renderCartWithItems = () => (
+    <Container className={cx("cart-page")}>
+  <Row className="justify-content-center">
+    <Col md={8}>
+      <div className={cx("cart-container", "mt-4")}>
+        {cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <div key={item.course.courseId} className={cx("cart-item")}>
+              <Row className={cx("cart-item-row")}>
+                <Col xs={3}>
+                  <img
+                    src={item.course.image || images.courseDefault}
+                    alt={item.course.courseTitle}
+                    className={cx("product-image")}
+                  />
+                </Col>
+                <Col>
+                  <h5 className={cx("course-title")}>
+                    {item.course.courseTitle}
+                  </h5>
+                </Col>
+                <Col>
+                  {item.course.discount > 0 ? (
+                    <div>
+                      <p className={cx("original-price")}>
+                        <del>${item.course.price}</del>
+                      </p>
+                      <p className={cx("discounted-price")}>
+                        $
+                        {(
+                          item.course.price -
+                          (item.course.price * item.course.discount) / 100
+                        ).toFixed(2)}
+                      </p>
+                      <p className={cx("discount-label")}>
+                        Giảm {item.course.discount}%
+                      </p>
+                    </div>
+                  ) : (
+                    <p className={cx("course-price")}>
+                      ${item.course.price}
+                    </p>
+                  )}
+                </Col>
+                <Col xs={1} className="text-end">
                   <Button
-                    className={cx("checkout-button")}
-                    disabled={selectedCourses.length === 0}
-                    onClick={handleCheckout}
+                    variant="danger"
+                    className={cx("delete-btn")}
+                    onClick={() => deleteCourse(item.course.courseId)}
                   >
-                    Checkout
+                    <FaTrash />
                   </Button>
-                </div>
-              </div>
+                </Col>
+              </Row>
             </div>
-          </Col>
-        </Row>
-      </Container>
+          ))
+        ) : (
+          <div className="text-center">
+            <h4>There are no courses in your cart!</h4>
+            <Button 
+              variant="outline-primary" 
+              onClick={handleContinueShopping}
+              className="mt-3"
+            >
+              Go Shopping
+            </Button>
+          </div>
+        )}
+      </div>
+    </Col>
+
+    <Col md={3}>
+      <div className={cx("checkout-container")}>
+        <div className={cx("checkout-summary")}>
+          <div className={cx('order-header')}>
+              <h3>Order Summary</h3>
+          </div>
+          <div className={cx("total-quantity")}>
+            <strong>Total Courses:</strong>
+            {cartItems.length}
+          </div>
+          <div className={cx("total-price")}>
+            <strong>Total Price:</strong>${totalPrice.toFixed(2)}
+          </div>
+          <div className={cx("wallet-balance")}>
+            <strong>Amount in wallet:</strong>${walletBalance.toFixed(2)}
+          </div>
+
+          <div className={cx("remaining-balance")}>
+            {totalPrice > walletBalance ? (
+              <>
+                <strong>Additional payment required:</strong>
+                ${Math.max(0, totalPrice - walletBalance).toFixed(2)}
+              </>
+            ) : (
+              <p className={cx("payment-status")}>
+                <strong>Full payment from wallet !</strong>
+              </p>
+            )}
+          </div>
+
+          <div className={cx("btnCheckout")}>
+            <button
+              className={cx("checkout-button")}
+              onClick={handleCheckout}
+              disabled={cartItems.length === 0}
+            >
+              Checkout
+            </button>
+            <Link
+              onClick={handleContinueShopping}
+              className={cx('Link')}
+            >
+              Go Shopping
+            </Link>
+          </div>
+        </div>
+      </div>
+    </Col>
+  </Row>
+</Container>
+
+  );
+  return (
+    <div className={cx("cart-page")}>
+    <div className={cx("wrapper")}>
+      {cartItems.length === 0 ? renderEmptyCart() : renderCartWithItems()}
+    </div>
 
       {isProcessingPayment ? (
         <div

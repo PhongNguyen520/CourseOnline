@@ -1,5 +1,5 @@
 // DashboardView.jsx
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FaUsers,
   FaDollarSign,
@@ -23,41 +23,17 @@ import Cookies from "js-cookie";
 import { ModalContext } from "../../../../components/ModalProvider/ModalProvider";
 import config from "../../../../config";
 import { useNavigate } from "react-router-dom";
+import requests from "../../../../utils/requests";
+import images from "../../../../assets/images";
 
 const cx = classNames.bind(styles);
-
+const API_TOTAL_COURSE = "Dashboard/total-courses";
+const API_TOTAL_REVENUE = "Dashboard/revenue-overview?period=total";
+const API_TOTAL_REVENUE_DAY = "Dashboard/revenue-overview?period=day";
+const API_TOTAL_USER = "User/Get-all";
+const API_GET_PROFILE = "User/GetUserProfile";
+const API_GET_Wallet = "Wallet/getwalletbyusername";
 const DashboardView = () => {
-  const summaryData = [
-    {
-      title: "Total Students",
-      value: "1,200",
-      icon: <FaUsers className={cx("cardIcon")} />,
-      change: "+3.5%",
-      trend: "positive",
-    },
-    {
-      title: "Total Instructors",
-      value: "150",
-      icon: <FaChalkboardTeacher className={cx("cardIcon")} />,
-      change: "+1.2%",
-      trend: "positive",
-    },
-    {
-      title: "Revenue",
-      value: "$5,400",
-      icon: <FaDollarSign className={cx("cardIcon")} />,
-      change: "-2.1%",
-      trend: "negative",
-    },
-    {
-      title: "Profit",
-      value: "$3,958",
-      icon: <FaChartPie className={cx("cardIcon")} />,
-      change: "+4.5%",
-      trend: "positive",
-    },
-  ];
-
   const lineChartData = [
     { month: "Jan", students: 400, revenue: 2400, profit: 2400 },
     { month: "Feb", students: 450, revenue: 2600, profit: 2100 },
@@ -65,11 +41,7 @@ const DashboardView = () => {
     { month: "Apr", students: 600, revenue: 3000, profit: 2700 },
   ];
 
-  const pieData = [
-    { name: "Total Students", value: 1200 },
-    { name: "Active Students", value: 900 },
-    { name: "Inactive Students", value: 300 },
-  ];
+  
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
@@ -91,8 +63,52 @@ const DashboardView = () => {
   ];
 
   const { setAuth, setUser } = useContext(ModalContext);
-
+  const [totalCourses, setTotalCourses] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
+  const [revenueOverview, setRevenueOverview] = useState(0);
   const navigate = useNavigate();
+  const [fetchUserProfile, setFetchUserProfile] = useState();
+  const [revenueOverviewDay, setRevenueOverviewDay] = useState(0);
+  const [dataUserActive, setDataUserActive] = useState();
+  const [dataUserInActive, setDataUserInActive] = useState();
+  const [wallet, setWallet] = useState();
+
+  const summaryData = [
+    {
+      title: "Total Users",
+      value: totalUser,
+      icon: <FaUsers className={cx("cardIcon")} />,
+      change: "+3.5%",
+      trend: "positive",
+    },
+    {
+      title: "Total Courses",
+      value: totalCourses,
+      icon: <FaChalkboardTeacher className={cx("cardIcon")} />,
+      change: "+1.2%",
+      trend: "positive",
+    },
+    {
+      title: "Revenue",
+      value: revenueOverview,
+      icon: <FaDollarSign className={cx("cardIcon")} />,
+      change: "-2.1%",
+      trend: "negative",
+    },
+    {
+      title: "Revenue Day",
+      value: revenueOverviewDay,
+      icon: <FaChartPie className={cx("cardIcon")} />,
+      change: "+4.5%",
+      trend: "positive",
+    },
+  ];
+
+  const pieData = [
+    { name: "Total Students", value: totalUser },
+    { name: "Active Students", value: dataUserActive },
+    { name: "Inactive Students", value: dataUserInActive },
+  ];
 
   const signOut = () => {
     Cookies.remove("authToken");
@@ -100,6 +116,75 @@ const DashboardView = () => {
     setUser(null);
     navigate(config.routes.home);
   };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await requests.get(API_GET_PROFILE);
+      if (response.data) {
+        setFetchUserProfile(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchCourses = async () => {
+    try {
+      const response = await requests.get(API_TOTAL_COURSE);
+      setTotalCourses(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchWallet = async () => {
+    try {
+      const response = await requests.get(API_GET_Wallet);
+      console.log(response.data[0].transactions);
+      setWallet(response.data[0].transactions)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchRevenue = async () => {
+    try {
+      const response = await requests.get(API_TOTAL_REVENUE);
+      setRevenueOverview(response.data.totalRevenue);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchRevenueDay = async () => {
+    try {
+      const response = await requests.get(API_TOTAL_REVENUE_DAY);
+      setRevenueOverviewDay(response.data.totalRevenue);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchUser = async () => {
+    try {
+      const response = await requests.get(API_TOTAL_USER);
+      const users = response.data.items;
+      const activeUsersCount = users.filter(user => user.status === "Active").length;
+    const inActiveUsersCount = users.filter(user => user.status === "Inactive").length;
+      setDataUserActive(activeUsersCount);
+      setDataUserInActive(inActiveUsersCount);
+      setTotalUser(response.data.totalCount);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+    fetchRevenue();
+    fetchUser();
+    fetchUsers();
+    fetchRevenueDay();
+    fetchWallet();
+  }, []);
 
   return (
     <div className={cx("dashboardView")}>
@@ -112,11 +197,14 @@ const DashboardView = () => {
         <div className={cx("userProfile")}>
           <div>
             <img
-              src="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/461184877_1080201167130354_934555959225370992_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeF1OYvztxyUATf6-j1khSRlN4WJTXKIg_s3hYlNcoiD-1-BUvSvFlmcpDo5SPWbJmXWkiNpaIFZ26YJ567WS7HU&_nc_ohc=mix8r9CqT9AQ7kNvgGmOH6c&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=Ake5ZOJc-z6iue2PwxkN0aO&oh=00_AYBNO8YKaxldThk2Ns5T-kfEatTyQGrby0p_Jnge4uigkg&oe=673C05B0"
+              src={fetchUserProfile?.avatar || images.defaultAvatar}
               alt="User"
               className={cx("userAvatar")}
             />
-            <span className={cx("userName")}>Phong Nguyen</span>
+
+            <span className={cx("userName")}>
+              {fetchUserProfile ? fetchUserProfile.fullName : "Loading..."}
+            </span>
           </div>
           <div className={cx("logout-button")}>
             <i class="bi bi-box-arrow-right" onClick={signOut}></i>
@@ -177,33 +265,40 @@ const DashboardView = () => {
       <div className={cx("activityTable")}>
         <h4 className={cx("tableTitle")}>Recent Activity</h4>
         <table className={cx("activityTable")}>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Student</th>
-              <th>Course</th>
-              <th>Status</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentActivity.map((row) => (
-              <tr key={row.id}>
-                <td>{row.id}</td>
-                <td>{row.student}</td>
-                <td>{row.course}</td>
-                <td
-                  className={cx(
-                    row.status === "Completed" ? "completed" : "pending"
-                  )}
-                >
-                  {row.status}
-                </td>
-                <td>{row.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Create Day</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {wallet && wallet.map((transaction, index) => (
+      <tr key={index}>
+        <td>{transaction.orderCode}</td>
+
+        <td>
+          {new Date(transaction.createdDate).toLocaleDateString("en-GB")}
+        </td>
+
+        <td>{transaction.description || "Unknown"}</td>
+
+        <td>{transaction.amount.toFixed(2)}</td>
+
+        <td
+          className={cx(
+            transaction.status === "Success" ? "completed" : "pending"
+          )}
+        >
+          {transaction.status}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
       </div>
     </div>
   );
