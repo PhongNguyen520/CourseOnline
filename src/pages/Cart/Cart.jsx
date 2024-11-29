@@ -46,8 +46,7 @@ export default function Cart() {
     try {
       const response = await requests.get(WALLET_URL);
       if (response.data) {
-        // setWalletBalance(response.data[0].balance);
-        setWalletBalance(100);
+         setWalletBalance(response.data[0].balance);
       }
     } catch (error) {
       console.error("Error fetching wallet:", error);
@@ -107,7 +106,7 @@ export default function Cart() {
           checkoutParams
         );
         console.log(checkoutResponse);
-        
+
         // if (checkoutResponse.status === 200) {
           getWallet();
           localStorage.removeItem("cart");
@@ -381,8 +380,8 @@ export default function Cart() {
         <FaShoppingCart className={cx("cart-icon")} />
         <h2>Your cart is empty!</h2>
         <p>Looks like you haven't added any courses to your cart yet.</p>
-        <Button 
-          onClick={handleContinueShopping} 
+        <Button
+          onClick={handleContinueShopping}
           className={cx("continue-shopping-btn")}
         >
           <FaArrowLeft className="me-2" /> Back to course page
@@ -450,8 +449,8 @@ export default function Cart() {
         ) : (
           <div className="text-center">
             <h4>There are no courses in your cart!</h4>
-            <Button 
-              variant="outline-primary" 
+            <Button
+              variant="outline-primary"
               onClick={handleContinueShopping}
               className="mt-3"
             >
