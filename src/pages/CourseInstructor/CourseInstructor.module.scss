@@ -115,12 +115,13 @@
     
     h3 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: #111827;
+      font-weight: 700;
     }
     
     .course-code {
-      font-size: 0.875rem;
+      font-size: 1rem;
       color: #6b7280;
     }
   }
@@ -136,7 +137,7 @@
       align-items: center;
       gap: 6px;
       color: #4b5563;
-      font-size: 0.875rem;
+      font-size: 1rem;
       
       svg {
         color: #6b7280;
@@ -149,13 +150,13 @@
       gap: 4px;
       font-weight: 600;
       color: #111827;
-      
+      font-size: 2rem;
       .discount {
         background: #fee2e2;
         color: #ef4444;
         padding: 2px 6px;
         border-radius: 4px;
-        font-size: 0.75rem;
+        font-size: 1rem;
       }
     }
   }
@@ -173,7 +174,6 @@
     font-size: 0.875rem;
     font-weight: 500;
     margin-bottom: 12px;
-    
     &.active {
       background: #dcfce7;
       color: #22c55e;

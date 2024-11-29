@@ -106,7 +106,7 @@
   .course-items {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
 
     .course-item {
       background: #fff;
@@ -116,8 +116,8 @@
       padding: 10px;
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
-      flex: 1 1 30%;
-      max-width: 30%;
+      flex: 1 1 40%;
+      max-width: 31%;
       flex-grow: 0;
       flex-shrink: 0;
 
@@ -139,7 +139,8 @@
         img {
           border-radius: 10px;
           width: 100%;
-          height: auto;
+          height: 250px;
+          object-fit: cover;
         }
 
         .discount-badge {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import {
   LineChart,
@@ -22,6 +22,10 @@ import {
 } from "lucide-react";
 import styles from "./DashBoardInstructor.module.scss";
 import classNames from "classnames/bind";
+import requests from "../../utils/requests";
+import { FaDollarSign } from "react-icons/fa";
+
+const API_GET_COURSE = "Course/revenue-courses";
 
 const cx = classNames.bind(styles);
 
@@ -40,13 +44,6 @@ const InstructorDashboard = () => {
     { name: "Advanced JS", rating: 4.6, reviews: 98 },
     { name: "Web Design", rating: 4.7, reviews: 156 },
     { name: "Node.js", rating: 4.5, reviews: 87 },
-  ];
-
-  const revenueByCoursePieData = [
-    { name: "React Basics", value: 35000 },
-    { name: "Advanced JS", value: 28000 },
-    { name: "Web Design", value: 22000 },
-    { name: "Node.js", value: 15000 },
   ];
 
   const COLORS = ["#8b5cf6", "#3b82f6", "#22c55e", "#f97316"];
@@ -81,6 +78,51 @@ const InstructorDashboard = () => {
     },
   ];
 
+  const [courses, setCourses] = useState([]);
+
+  const fetchCourse = async () => {
+    try {
+      const response = await requests.get(API_GET_COURSE);
+      console.log(response.data);
+
+      if (response.data) {
+        setCourses(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const revenueByCoursePieData = courses.map((course) => ({
+    name: course.courseTitle,
+    value: course.revenue,
+  }));
+
+  const totalStudents = courses.reduce(
+    (total, course) => total + course.totalEnrollment,
+    0
+  );
+
+  const discount = courses.reduce((total, course) => {
+    if (course.discount > 0) {
+      total += 1;
+    }
+    return total;
+  }, 0);
+
+  const revenue = courses.reduce((total, course) => total + course.revenue, 0);
+
+  const discountCourses = courses.reduce((result, currentCourse) => {
+    if (currentCourse.discount > 0) {
+      result.push(currentCourse);
+    }
+    return result;
+  }, []);
+
+  useEffect(() => {
+    fetchCourse();
+  }, []);
+
   return (
     <div className={cx("dashboardContainer")}>
       <div className={cx("btnContainer")}>
@@ -98,7 +140,7 @@ const InstructorDashboard = () => {
                 <p>Total Students</p>
               </div>
             </div>
-            <h3 className={cx("statValue")}>1,245</h3>
+            <h3 className={cx("statValue")}>{totalStudents}</h3>
           </Card.Body>
         </Card>
 
@@ -110,7 +152,7 @@ const InstructorDashboard = () => {
                 <p>Total Revenue</p>
               </div>
             </div>
-            <h3 className={cx("statValue")}>$24,500</h3>
+            <h3 className={cx("statValue")}>${revenue}</h3>
           </Card.Body>
         </Card>
 
@@ -122,7 +164,7 @@ const InstructorDashboard = () => {
                 <p>Average Rating</p>
               </div>
             </div>
-            <h3 className={cx("statValue")}>4.7</h3>
+            <h3 className={cx("statValue")}>4.8</h3>
           </Card.Body>
         </Card>
 
@@ -134,7 +176,7 @@ const InstructorDashboard = () => {
                 <p>Active Discounts</p>
               </div>
             </div>
-            <h3 className={cx("statValue")}>15%</h3>
+            <h3 className={cx("statValue")}>{discount}</h3>
           </Card.Body>
         </Card>
       </div>
@@ -175,7 +217,7 @@ const InstructorDashboard = () => {
         <Card className={cx("chartCard")}>
           <Card.Body>
             <div className={cx("chartHeader")}>
-              <h3 className={cx("titleStatistic")}>Course Performance</h3>
+              <h3 className={cx("titleStatistic")}>Course Revenue</h3>
               <select className={cx("btn", "btnSecondary")}>
                 <option>All Time</option>
                 <option>Last 3 months</option>
@@ -188,8 +230,8 @@ const InstructorDashboard = () => {
                     data={revenueByCoursePieData}
                     cx={120}
                     cy={150}
-                    innerRadius={60}
-                    outerRadius={80}
+                    innerRadius={70}
+                    outerRadius={90}
                     fill="#8884d8"
                     paddingAngle={5}
                     dataKey="value"
@@ -202,30 +244,33 @@ const InstructorDashboard = () => {
                     ))}
                   </Pie>
                   <Tooltip />
-                  <Legend />
                 </PieChart>
               </div>
               <div className={cx("chartDetails")}>
-                {courseRatingData.map((course, index) => (
-                  <div key={course.name} className={cx("courseItem")}>
-                    <div className={cx("courseTitle")}>{course.name}</div>
+                {courses.map((course, index) => (
+                  <div key={course.courseCode} className={cx("courseItem")}>
+                    <div className={cx("courseTitle")}>
+                      {course.courseTitle}
+                    </div>
                     <div className={cx("ratingInfo")}>
-                      <span className={cx("rating")}>⭐ {course.rating}</span>
                       <span className={cx("rating")}>
-                        {course.rating * 20}%
+                        <FaDollarSign /> {course.revenue}
+                      </span>
+                      <span className={cx("rating")}>
+                        {((course.revenue / revenue) * 100).toFixed(2)}%
                       </span>
                     </div>
                     <div className={cx("progressBarContainer")}>
                       <div
                         className={cx("progressBar")}
                         style={{
-                          width: `${(course.rating / 5) * 100}%`,
+                          width: `${(course.revenue / revenue) * 100}%`,
                           backgroundColor: COLORS[index],
                         }}
                       />
                     </div>
                     <small className={cx("reviewCount")}>
-                      {course.reviews} reviews
+                      {course.reviews} Revenue
                     </small>
                   </div>
                 ))}
@@ -252,30 +297,40 @@ const InstructorDashboard = () => {
                 <th>Course</th>
                 <th>Code</th>
                 <th>Discount</th>
-                <th>Valid Until</th>
-                <th>Uses</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Revenue</th>
+                <th>Enrollments</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {discountsData.map((discount) => (
-                <tr key={discount.id}>
-                  <td>{discount.course}</td>
-                  <td>{discount.code}</td>
-                  <td>{discount.percentage}%</td>
-                  <td>{discount.validUntil}</td>
-                  <td>{discount.uses}</td>
-                  <td
-                    className={cx(
-                      discount.status === "Active"
-                        ? "statusActive"
-                        : "statusInactive"
-                    )}
-                  >
-                    {discount.status}
-                  </td>
+              {discountCourses.length > 0 ? (
+                discountCourses.map((course) => (
+                  <tr key={course.courseCode}>
+                    <td>{course.courseTitle}</td>
+                    <td>{course.courseCode}</td>
+                    <td>{course.discount}%</td>
+                    <td>{course.category.categoryName}</td>
+                    <td>${course.price}</td> 
+                    <td>${course.revenue}</td> 
+                    <td>{course.totalEnrollment}</td>
+                    <td
+                      className={cx(
+                        course.status === "Active"
+                          ? "statusActive"
+                          : "statusInactive"
+                      )}
+                    >
+                     <span>{course.status}</span> 
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="11">No active discounts available</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </Card.Body>

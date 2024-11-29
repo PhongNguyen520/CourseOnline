@@ -203,7 +203,9 @@
       gap: 16px;
       color: #666;
       font-size: 14px;
-      
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       span {
         display: flex;
         align-items: center;
@@ -318,3 +320,100 @@
     }
   }
   
+
+  .course-price-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+  }
+  
+  .course-discount-label {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .course-price {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .course-level {
+    font-size: 14px;
+    font-style: italic;
+    color: rgb(53, 53, 53);
+    border: 1px solid gray;
+    padding: 4px;
+    border-radius: 10px;
+  }
+  
+  .certifications-section {
+  border-radius: 8px;
+}
+
+.certifications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.certification-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.certification-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.certification-info {
+  flex: 1;
+}
+
+.certification-info h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.certification-info p {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.certification-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.empty-certification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.empty-certification svg {
+  margin-bottom: 10px;
+}
+
+.empty-certification p {
+  color: #888;
+  font-size: 1.5rem;
+}

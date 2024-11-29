@@ -28,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 const cx = classNames.bind(styles);
 const API_GET_PROFILE = "User/GetUserProfile";
 const API_UPDATE_PROFILE = "User/Update-Profile";
+const API_GET_COURSE = "Course/revenue-courses";
 
 const mockInstructor = {
   userName: "johnsmith",
@@ -93,13 +94,13 @@ function ProfileInstructor() {
   const [editedUser, setEditedUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [openEditModal, setOpenEditModal] = useState(false);
+  const [certificationFile, setCertificationFile] = useState(null);
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
   };
-
-
 
   const fetchUserData = async () => {
     try {
@@ -116,8 +117,27 @@ function ProfileInstructor() {
     }
   };
 
+  const fetchCourse = async () => {
+    try {
+      const response = await requests.get(API_GET_COURSE);
+      console.log(response.data);
+
+      if (response.data) {
+        setCourses(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const totalStudents = courses.reduce(
+    (total, course) => total + course.totalEnrollment,
+    0
+  );
+
   useEffect(() => {
     fetchUserData();
+    fetchCourse();
   }, []);
 
   const handleInputChange = (e) => {
@@ -151,34 +171,30 @@ function ProfileInstructor() {
     }
 
     const formData = new FormData();
-    formData.append("fullName", editedUser.fullName);
-    formData.append("email", editedUser.email);
-    formData.append("address", editedUser.address);
-    formData.append("dob", editedUser.dob);
-    if (avatarFile) formData.append("avatar", avatarFile);
+    formData.append("FullName", editedUser.fullName);
+    formData.append("Email", editedUser.email);
+    formData.append("Address", editedUser.address);
+    formData.append("DOB", editedUser.dob);
+    if (avatarFile) formData.append("Avatar", avatarFile);
+
     try {
       setLoading(true);
-      const response = await requests.put(
-        `${API_UPDATE_PROFILE}/${user.userName}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await requests.put(`${API_UPDATE_PROFILE}`, formData);
 
       if (response.status === 200) {
         fetchUserData();
         handleCloseEditModal();
-        setLoading(false);
       } else {
-        console.error("Failed to update profile:", response);
+        console.error("Failed to update profile:", response.data);
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error updating profile:", error.response || error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  
 
   const handleOpenEditModal = () => {
     setEditedUser(fetchUser);
@@ -202,12 +218,42 @@ function ProfileInstructor() {
 
   const handlePhotoCapture = (file) => {
     setAvatarFile(file);
+    
     const previewUrl = URL.createObjectURL(file);
     setEditedUser((prev) => ({
       ...prev,
-      avatar: previewUrl,
+      avatar: previewUrl, 
     }));
+  
+    const formData = new FormData();
+    formData.append("Avatar", file);
+  
+    formData.append("FullName", editedUser.fullName);
+    formData.append("Email", editedUser.email);
+    formData.append("Address", editedUser.address);
+    formData.append("DOB", editedUser.dob);
+  
+    updateProfile(formData);
   };
+  
+  const updateProfile = async (formData) => {
+    try {
+      setLoading(true);
+      const response = await requests.put(API_UPDATE_PROFILE, formData);
+  
+      if (response.status === 200) {
+        fetchUserData();
+        handleCloseEditModal(); 
+      } else {
+        console.error("Failed to update profile:", response.data);
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error.response || error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 
   return (
     <div className={cx("wrapper")}>
@@ -230,7 +276,7 @@ function ProfileInstructor() {
               <div className={cx("avatar-section")}>
                 <div className={cx("avatar-container")}>
                   <img
-                    src={user?.avatar || images.defaultAvatar}
+                    src={fetchUser?.avatar || images.defaultAvatar}
                     alt="Profile"
                     className={cx("avatar")}
                   />
@@ -238,7 +284,7 @@ function ProfileInstructor() {
                     className={cx("camera-button")}
                     onClick={handleCameraClick}
                   >
-                    <Camera size={20} /> 
+                    <Camera size={20} />
                   </button>
 
                   <CameraModal
@@ -293,7 +339,7 @@ function ProfileInstructor() {
                 <Users size={24} />
                 <div className={cx("stat-content")}>
                   <h3>Total Students</h3>
-                  <p>{profile.stats.totalStudents.toLocaleString()}</p>
+                  <p>{totalStudents}</p>
                 </div>
               </div>
               <div className={cx("stat-card")}>
@@ -307,14 +353,14 @@ function ProfileInstructor() {
                 <Book size={24} />
                 <div className={cx("stat-content")}>
                   <h3>Courses</h3>
-                  <p>{profile.stats.totalCourses}</p>
+                  <p>{courses.length}</p>
                 </div>
               </div>
               <div className={cx("stat-card")}>
                 <CheckCircle size={24} />
                 <div className={cx("stat-content")}>
                   <h3>Reviews</h3>
-                  <p>{profile.stats.totalReviews}</p>
+                  <p>{0}</p>
                 </div>
               </div>
             </div>
@@ -323,45 +369,79 @@ function ProfileInstructor() {
               <div className={cx("certifications-section")}>
                 <h2>Certifications</h2>
                 <div className={cx("certifications-list")}>
-                  {profile.certifications.map((cert) => (
-                    <div key={cert.id} className={cx("certification-card")}>
-                      <Award size={24} />
-                      <div className={cx("certification-info")}>
-                        <h3>{cert.name}</h3>
-                        <p>
-                          {cert.issuer} • {cert.date}
-                        </p>
+                  {courses.certification ? (
+                    courses.certification.map((cert) => (
+                      <div key={cert.id} className={cx("certification-card")}>
+                        <Award size={24} />
+                        <div className={cx("certification-info")}>
+                          <h3>{cert.name}</h3>
+                          <p>
+                            {cert.issuer} • {cert.date}
+                          </p>
+                          <img
+                            src={
+                              cert.imageUrl || images.defaultCertificationImage
+                            }
+                            alt={cert.name}
+                            className={cx("certification-image")}
+                          />
+                        </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className={cx("empty-certification")}>
+                      <Award size={24} />
+                      <Typography variant="body2" color="textSecondary">
+                        No certifications found. Please add your certifications!
+                      </Typography>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
 
               <div className={cx("courses-section")}>
                 <h2>My Courses</h2>
                 <div className={cx("courses-list")}>
-                  {profile.courses.map((course) => (
-                    <div key={course.id} className={cx("course-card")}>
+                  {courses.map((course) => (
+                    <div key={course.courseCode} className={cx("course-card")}>
                       <img
-                        src={course.img}
-                        alt={course.title}
+                        src={course.image}
+                        alt={course.courseTitle}
                         className={cx("course-image")}
                       />
                       <div className={cx("course-info")}>
-                        <h3>{course.title}</h3>
+                        <h3>{course.courseTitle}</h3>
                         <div className={cx("course-stats")}>
                           <span>
                             <Users size={16} />
-                            {course.students} students
+                            {course.totalEnrollment} students
                           </span>
-                          <span>
-                            <Star size={16} />
-                            {course.rating}
-                          </span>
-                          <span>
-                            <CheckCircle size={16} />
-                            {course.reviews} reviews
-                          </span>
+
+                          <div className={cx("course-level")}>
+                            <span>
+                              {course.level === 1
+                                ? "Beginner"
+                                : course.level === 2
+                                ? "Intermediate"
+                                : "Advanced"}
+                            </span>
+                          </div>
+
+                          <div className={cx("course-price-info")}>
+                            {course.discount > 0 && (
+                              <span className={cx("course-discount-label")}>
+                                -{course.discount}% OFF
+                              </span>
+                            )}
+                            <span className={cx("course-price")}>
+                              {course.discount > 0
+                                ? `$${(
+                                    course.price *
+                                    (1 - course.discount / 100)
+                                  ).toFixed(2)}`
+                                : `$${course.price.toFixed(2)}`}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -543,7 +623,7 @@ const CameraModal = ({ open, handleClose, onCapture }) => {
           const file = new File([blob], "camera-photo.jpg", {
             type: "image/jpeg",
           });
-          onCapture(file);
+          onCapture(file); // Capture and pass the file to parent component
           handleClose();
         }
       }, "image/jpeg");

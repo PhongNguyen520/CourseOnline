@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 function PayPalResult() {
   return (
     <div className={cx('wrapper')}>
-      {/* Left Side - Receipt */}
       <div className={cx('receipt')}>
         <div className={cx('header')}>
           <h1>Farm Fresh</h1>
@@ -45,7 +44,6 @@ function PayPalResult() {
         </div>
       </div>
 
-      {/* Right Side - Failure Notice */}
       <div className={cx('failureNotice')}>
         <img 
           src="/api/placeholder/120/120"

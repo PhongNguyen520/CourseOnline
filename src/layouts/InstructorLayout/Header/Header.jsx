@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import config from '../../../config'
 import classNames from 'classnames/bind'
@@ -7,28 +7,45 @@ import Cookies from 'js-cookie';
 import { LogOut } from 'lucide-react'
 import { ModalContext } from '../../../components/ModalProvider/ModalProvider'
 import images from '../../../assets/images'
+import requests from '../../../utils/requests'
 
 const cx = classNames.bind(styles)
+const API_GET_PROFILE = "User/GetUserProfile";
 
 function Header() {
     const { user } = useContext(ModalContext);
   const {setAuth, setUser} = useContext(ModalContext);
   const navigate = useNavigate();
+  const [fetchUser, setFetchUser] = useState(null);
 
+  const fetchUserData = async () => {
+    try {
+      const response = await requests.get(API_GET_PROFILE);
+      if (response.data) {
+        setFetchUser(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
   const signOut = () => {
     Cookies.remove('authToken');
     setAuth(null);
     setUser(null);
     navigate(config.routes.home);
 };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
   return (
     <div className={cx("dashboardHeader")}>
         <div className={cx("avatar")}>
           <img
-            src={user.avatar ? user.avatar : images.defaultAvatar}
+            src={fetchUser?.avatar || images.defaultAvatar}
             alt="avatar"
           />
-          <strong>{user.fullName}</strong>
+          <strong>{fetchUser?.fullName || user.fullName}</strong>
         </div>
         <div className={cx("headerActions")}>
           <ul className={cx("navbar")}>

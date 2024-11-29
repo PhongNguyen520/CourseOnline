@@ -43,6 +43,8 @@ function CourseInstructor() {
   const fetchCourses = async () => {
     try {
       const response = await requests.get(COURSES_URL);
+      console.log(response.data);
+      
       setCourses(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -164,7 +166,7 @@ function CourseInstructor() {
 
               <div className={cx("course-header")}>
                 <h3>{course.courseTitle}</h3>
-                <span className={cx("course-code")}>{course.courseCode}</span>
+                <span className={cx("course-code")}>{course.description}</span>
               </div>
 
               <div className={cx("course-info")}>
@@ -202,12 +204,8 @@ function CourseInstructor() {
                 </div>
               </div>
 
-              <p className={cx("course-description")}>
-                {course.shortDescription}
-              </p>
-
               <div className={cx("course-status", course.status.toLowerCase())}>
-                {course.status}
+                <span> {course.status}</span>
               </div>
 
               <div className={cx("actions")}>

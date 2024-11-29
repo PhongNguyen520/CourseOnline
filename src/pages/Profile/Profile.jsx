@@ -30,6 +30,8 @@ export default function Profile() {
         try {
             setLoading(true); 
             const response = await requests.get(API_GET_PROFILE);
+            console.log(response);
+            
             if (response.data) {
                 setFetchUser(response.data);
                 setEditedUser(response.data);
@@ -64,38 +66,36 @@ export default function Profile() {
 
     const handleSaveChanges = async (e) => {
         e.preventDefault();
-
+      
         if (!user) {
-            console.error("User is not available.");
-            return;
+          console.error("User is not available.");
+          return;
         }
-
+      
         const formData = new FormData();
-        formData.append('fullName', editedUser.fullName);
-        formData.append('email', editedUser.email);
-        formData.append('address', editedUser.address);
-        formData.append('dob', editedUser.dob);
-        if (avatarFile) formData.append('avatar', avatarFile);
-        if (certificationFile) formData.append('certification', certificationFile);
+        formData.append("FullName", editedUser.fullName);
+        formData.append("Email", editedUser.email);
+        formData.append("Address", editedUser.address);
+        formData.append("DOB", editedUser.dob);
+        if (avatarFile) formData.append("Avatar", avatarFile);
+      
         try {
-            setLoading(true); 
-            const response = await requests.put(`${API_UPDATE_PROFILE}/${user.userName}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            
-            if (response.status === 200) {
-                fetchUserData();
+          setLoading(true);
+          const response = await requests.put(`${API_UPDATE_PROFILE}`, formData);
+      
+          if (response.status === 200) {
+            fetchUserData();
                 handleClose();
                 setLoading(false);
-            } else {
-                console.error("Failed to update profile:", response);
-            }
+          } else {
+            console.error("Failed to update profile:", response.data);
+          }
         } catch (error) {
-            console.error("Error updating profile:", error);
+          console.error("Error updating profile:", error.response || error);
+        } finally {
+          setLoading(false);
         }
-    };
+      };
 
     return (
         <div className={cx("wrapper")} >

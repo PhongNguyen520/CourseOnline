@@ -128,11 +128,25 @@
         .form-check-label {
           font-size: 1rem;
         }
+
+        .order-header{
+          width: 100%;
+          font-size: 12px; 
+          color: #28a745; 
+          font-weight: bold; 
+          margin-left: 10px; 
+          text-transform: uppercase; 
+          letter-spacing: 2px;
+          text-align: center;
+        }
       }
 
     .btnCheckout{
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
       .checkout-button {
         width: 50%;
@@ -150,6 +164,14 @@
         &:disabled {
           background-color: #ddd;
           cursor: not-allowed;
+        }
+      }
+
+      .Link{
+        color: #D9534F;
+        font-weight: 500;
+        &:hover {
+          color: #218838;
         }
       }
     }
@@ -186,4 +208,66 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background-color: #e7e7e7;
+  padding: 20px;
+
+  .empty-cart {
+    text-align: center;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .cart-icon {
+        font-size: 200px;
+        color: #919395;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+      }
+
+      p {
+        color: #7f8c8d;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+
+      .continue-shopping-btn {
+        display: flex;
+        align-items: center;
+        background-color: #3498db;
+        border: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #2980b9;
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
+}
+
+.payment-status{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
 }
